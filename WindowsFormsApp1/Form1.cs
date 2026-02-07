@@ -10,125 +10,34 @@ namespace AppInterno
     {
         private HardwareService hardwareService;
         private List<HardwareComponent> allComponents;
-        private ListView hardwareListView;
-        private Button refreshButton;
 
         public Form1()
         {
-            InitializeComponent(); // Este método já existe do Designer
+            InitializeComponent(); // Agora o Designer cria todos os controles
             hardwareService = new HardwareService();
-            SetupInterface(); // Novo nome
+
+            // Configurar eventos e lógica
+            ConfigureEvents();
             LoadHardwareInfo();
         }
 
-        private void SetupInterface()
+        private void ConfigureEvents()
         {
-            // Configurar a janela
-            this.Text = "Meu Computador - Guia Fácil";
-            this.Size = new Size(1000, 700);
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.BackColor = Color.FromArgb(240, 240, 240);
-
-            // Título
-            Label titleLabel = new Label
-            {
-                Text = "🖥️ Componentes do Seu Computador",
-                Font = new Font("Segoe UI", 18, FontStyle.Bold),
-                ForeColor = Color.FromArgb(40, 40, 40),
-                AutoSize = true,
-                Location = new Point(20, 20)
-            };
-            this.Controls.Add(titleLabel);
-
-            // Subtítulo
-            Label subtitleLabel = new Label
-            {
-                Text = "Veja todas as peças e componentes que seu computador possui",
-                Font = new Font("Segoe UI", 10),
-                ForeColor = Color.FromArgb(100, 100, 100),
-                AutoSize = true,
-                Location = new Point(20, 55)
-            };
-            this.Controls.Add(subtitleLabel);
-
-            // BOTÃO ANALISAR DRIVERS - ADICIONE AQUI
-            Button driversButton = new Button
-            {
-                Text = "🔧 Analisar Drivers",
-                Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                Size = new Size(180, 40),
-                Location = new Point(this.ClientSize.Width - 420, 20),
-                BackColor = Color.FromArgb(40, 167, 69),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat,
-                Cursor = Cursors.Hand,
-                Anchor = AnchorStyles.Top | AnchorStyles.Right
-            };
-            driversButton.FlatAppearance.BorderSize = 0;
+            // Configurar eventos dos botões
             driversButton.Click += (s, e) =>
             {
                 FormDrivers formDrivers = new FormDrivers();
                 formDrivers.ShowDialog(this);
             };
-            this.Controls.Add(driversButton);  // ADICIONAR DIRETO NO FORM
 
-            // Botão atualizar
-            refreshButton = new Button
-            {
-                Text = "🔄 Atualizar Informações",
-                Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                Size = new Size(200, 40),
-                Location = new Point(this.ClientSize.Width - 220, 20),
-                BackColor = Color.FromArgb(0, 120, 215),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat,
-                Cursor = Cursors.Hand,
-                Anchor = AnchorStyles.Top | AnchorStyles.Right
-            };
-            refreshButton.FlatAppearance.BorderSize = 0;
             refreshButton.Click += RefreshButton_Click;
-            this.Controls.Add(refreshButton);
-
-            // ListView para mostrar componentes
-            hardwareListView = new ListView
-            {
-                Location = new Point(20, 90),
-                Size = new Size(this.ClientSize.Width - 40, this.ClientSize.Height - 120),
-                View = View.Details,
-                FullRowSelect = true,
-                GridLines = true,
-                Font = new Font("Segoe UI", 9),
-                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right
-            };
-
-            hardwareListView.Columns.Add("Categoria", 180);
-            hardwareListView.Columns.Add("Nome/Modelo", 250);
-            hardwareListView.Columns.Add("Fabricante", 150);
-            hardwareListView.Columns.Add("Detalhes", 300);
-            hardwareListView.Columns.Add("Status", 100);
-
-            hardwareListView.DoubleClick += ListView_DoubleClick;
-            this.Controls.Add(hardwareListView);
-            Button discoveryButton = new Button
-            {
-                Text = "🎓 Central de Descobertas",
-                Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                Size = new Size(200, 40),
-                Location = new Point(this.ClientSize.Width - 640, 20),
-                BackColor = Color.FromArgb(156, 39, 176),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat,
-                Cursor = Cursors.Hand,
-                Anchor = AnchorStyles.Top | AnchorStyles.Right
-            };
-            discoveryButton.FlatAppearance.BorderSize = 0;
             discoveryButton.Click += (s, e) =>
             {
                 FormDiscovery formDiscovery = new FormDiscovery();
                 formDiscovery.ShowDialog(this);
             };
-            this.Controls.Add(discoveryButton);
 
+            hardwareListView.DoubleClick += ListView_DoubleClick;
         }
 
         private void RefreshButton_Click(object sender, EventArgs e)
@@ -146,8 +55,7 @@ namespace AppInterno
             hardwareListView.Items.Add(loadingItem);
 
             // Desabilitar botão durante carregamento
-            if (refreshButton != null)
-                refreshButton.Enabled = false;
+            refreshButton.Enabled = false;
 
             // Usar Task para não travar a interface
             System.Threading.Tasks.Task.Run(() =>
@@ -179,8 +87,7 @@ namespace AppInterno
                             hardwareListView.Items.Add(item);
                         }
 
-                        if (refreshButton != null)
-                            refreshButton.Enabled = true;
+                        refreshButton.Enabled = true;
                     });
                 }
                 catch (Exception ex)
@@ -190,8 +97,7 @@ namespace AppInterno
                         MessageBox.Show($"Erro ao carregar informações: {ex.Message}",
                             "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                        if (refreshButton != null)
-                            refreshButton.Enabled = true;
+                        refreshButton.Enabled = true;
                     });
                 }
             });

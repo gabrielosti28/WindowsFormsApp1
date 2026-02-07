@@ -9,337 +9,47 @@ namespace AppInterno
     public partial class FormDiscovery : Form
     {
         private DiscoveryService discoveryService;
-        private TabControl mainTabControl;
-        private TextBox searchBox;
         private List<KeyboardShortcut> allShortcuts;
         private List<WindowsApp> allApps;
         private List<WindowsTip> allTips;
 
         public FormDiscovery()
         {
-            InitializeComponent();
+            InitializeComponent(); // Agora o Designer cria todos os controles
             discoveryService = new DiscoveryService();
-            SetupInterface();
+
+            // Configurar eventos e lógica
+            ConfigureEvents();
             LoadData();
         }
 
-        private void SetupInterface()
+        private void ConfigureEvents()
         {
-            this.Text = "Central de Descobertas - Domine seu Windows";
-            this.Size = new Size(1300, 850);
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.BackColor = Color.FromArgb(240, 240, 240);
-
-            // ====== CABEÇALHO ======
-            Panel headerPanel = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 120,
-                BackColor = Color.FromArgb(25, 118, 210)
-            };
-            this.Controls.Add(headerPanel);
-
-            Label titleLabel = new Label
-            {
-                Text = "🎓 Central de Descobertas",
-                Font = new Font("Segoe UI", 24, FontStyle.Bold),
-                ForeColor = Color.White,
-                AutoSize = true,
-                Location = new Point(30, 20)
-            };
-            headerPanel.Controls.Add(titleLabel);
-
-            Label subtitleLabel = new Label
-            {
-                Text = "Aprenda tudo que seu Windows pode fazer! Atalhos, aplicativos escondidos e dicas incríveis.",
-                Font = new Font("Segoe UI", 11),
-                ForeColor = Color.FromArgb(220, 230, 255),
-                AutoSize = true,
-                Location = new Point(30, 65)
-            };
-            headerPanel.Controls.Add(subtitleLabel);
-
-            // ====== BARRA DE BUSCA ======
-            Panel searchPanel = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 70,
-                BackColor = Color.White
-            };
-            this.Controls.Add(searchPanel);
-
-            Label searchIcon = new Label
-            {
-                Text = "🔍",
-                Font = new Font("Segoe UI", 18),
-                AutoSize = true,
-                Location = new Point(30, 20)
-            };
-            searchPanel.Controls.Add(searchIcon);
-
-            searchBox = new TextBox
-            {
-                Font = new Font("Segoe UI", 12),
-                Size = new Size(500, 35),
-                Location = new Point(70, 20),
-                PlaceholderText = "Buscar atalhos, aplicativos ou dicas... (Ex: captura de tela, copiar, etc)"
-            };
+            // Configurar eventos da busca
             searchBox.TextChanged += SearchBox_TextChanged;
-            searchPanel.Controls.Add(searchBox);
-
-            Button clearSearchButton = new Button
-            {
-                Text = "✖ Limpar",
-                Font = new Font("Segoe UI", 10),
-                Size = new Size(100, 35),
-                Location = new Point(590, 20),
-                BackColor = Color.FromArgb(108, 117, 125),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat,
-                Cursor = Cursors.Hand
-            };
-            clearSearchButton.FlatAppearance.BorderSize = 0;
             clearSearchButton.Click += (s, e) =>
             {
                 searchBox.Clear();
                 LoadData();
             };
-            searchPanel.Controls.Add(clearSearchButton);
 
-            // ====== ABAS PRINCIPAIS ======
-            mainTabControl = new TabControl
-            {
-                Dock = DockStyle.Fill,
-                Font = new Font("Segoe UI", 11, FontStyle.Bold),
-                Padding = new Point(20, 5)
-            };
-            this.Controls.Add(mainTabControl);
+            // Configurar eventos dos filtros
+            categoryFilterShortcuts.SelectedIndexChanged += (s, e) =>
+                FilterShortcutsByCategory(categoryFilterShortcuts.SelectedItem?.ToString() ?? "Todas as Categorias");
 
-            // Criar as abas
-            mainTabControl.TabPages.Add(CreateShortcutsTab());
-            mainTabControl.TabPages.Add(CreateAppsTab());
-            mainTabControl.TabPages.Add(CreateTipsTab());
-        }
+            categoryFilterApps.SelectedIndexChanged += (s, e) =>
+                FilterAppsByCategory(categoryFilterApps.SelectedItem?.ToString() ?? "Todas as Categorias");
 
-        private TabPage CreateShortcutsTab()
-        {
-            TabPage tab = new TabPage("⌨️ Atalhos de Teclado");
-            tab.BackColor = Color.FromArgb(250, 250, 250);
+            categoryFilterTips.SelectedIndexChanged += (s, e) =>
+                FilterTipsByCategory(categoryFilterTips.SelectedItem?.ToString() ?? "Todas as Categorias");
 
-            Panel infoPanel = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 60,
-                BackColor = Color.FromArgb(232, 245, 233),
-                Padding = new Padding(15)
-            };
-            tab.Controls.Add(infoPanel);
+            preInstalledCheck.CheckedChanged += (s, e) =>
+                FilterAppsByPreInstalled(preInstalledCheck.Checked);
 
-            Label infoLabel = new Label
-            {
-                Text = "💡 Dica: Clique duas vezes em qualquer atalho para ver detalhes completos e saber quando usar!",
-                Font = new Font("Segoe UI", 10),
-                Dock = DockStyle.Fill,
-                ForeColor = Color.FromArgb(46, 125, 50)
-            };
-            infoPanel.Controls.Add(infoLabel);
-
-            // ComboBox de filtro de categoria
-            ComboBox categoryFilter = new ComboBox
-            {
-                Font = new Font("Segoe UI", 10),
-                Size = new Size(250, 30),
-                Location = new Point(20, 75),
-                DropDownStyle = ComboBoxStyle.DropDownList
-            };
-            categoryFilter.Items.AddRange(new object[] {
-                "Todas as Categorias",
-                "Gerais",
-                "Sistema Windows",
-                "Navegação",
-                "Produtividade"
-            });
-            categoryFilter.SelectedIndex = 0;
-            categoryFilter.SelectedIndexChanged += (s, e) => FilterShortcutsByCategory(categoryFilter.SelectedItem.ToString());
-            tab.Controls.Add(categoryFilter);
-
-            // ListView para atalhos
-            ListView shortcutsListView = new ListView
-            {
-                Name = "shortcutsListView",
-                Location = new Point(20, 115),
-                Size = new Size(1230, 620),
-                View = View.Details,
-                FullRowSelect = true,
-                GridLines = true,
-                Font = new Font("Segoe UI", 10),
-                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right
-            };
-
-            shortcutsListView.Columns.Add("⭐", 50);
-            shortcutsListView.Columns.Add("Atalho", 200);
-            shortcutsListView.Columns.Add("O que faz", 450);
-            shortcutsListView.Columns.Add("Categoria", 150);
-            shortcutsListView.Columns.Add("Teclas", 180);
-            shortcutsListView.Columns.Add("Quando usar", 200);
-
+            // Configurar eventos dos ListViews
             shortcutsListView.DoubleClick += ShortcutsListView_DoubleClick;
-            tab.Controls.Add(shortcutsListView);
-
-            return tab;
-        }
-
-        private TabPage CreateAppsTab()
-        {
-            TabPage tab = new TabPage("📱 Aplicativos Nativos");
-            tab.BackColor = Color.FromArgb(250, 250, 250);
-
-            Panel infoPanel = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 80,
-                BackColor = Color.FromArgb(227, 242, 253),
-                Padding = new Padding(15)
-            };
-            tab.Controls.Add(infoPanel);
-
-            Label infoLabel = new Label
-            {
-                Text = "🎯 IMPORTANTE: Os aplicativos são mostrados primeiro pelo QUE FAZEM, não pelo nome!\n" +
-                       "Leia a descrição, e se interessar, clique duas vezes para descobrir qual aplicativo é e como abrir.",
-                Font = new Font("Segoe UI", 10),
-                Dock = DockStyle.Fill,
-                ForeColor = Color.FromArgb(1, 87, 155)
-            };
-            infoPanel.Controls.Add(infoLabel);
-
-            // ComboBox de filtro de categoria
-            ComboBox categoryFilter = new ComboBox
-            {
-                Font = new Font("Segoe UI", 10),
-                Size = new Size(250, 30),
-                Location = new Point(20, 95),
-                DropDownStyle = ComboBoxStyle.DropDownList
-            };
-            categoryFilter.Items.AddRange(new object[] {
-                "Todas as Categorias",
-                "Produtividade",
-                "Criatividade",
-                "Utilitários",
-                "Sistema",
-                "Acessibilidade",
-                "Informação",
-                "Educação"
-            });
-            categoryFilter.SelectedIndex = 0;
-            categoryFilter.SelectedIndexChanged += (s, e) => FilterAppsByCategory(categoryFilter.SelectedItem.ToString());
-            tab.Controls.Add(categoryFilter);
-
-            // Checkbox para mostrar apenas pré-instalados
-            CheckBox preInstalledCheck = new CheckBox
-            {
-                Text = "Apenas apps já instalados",
-                Font = new Font("Segoe UI", 10),
-                AutoSize = true,
-                Location = new Point(290, 98),
-                Checked = false
-            };
-            preInstalledCheck.CheckedChanged += (s, e) => FilterAppsByPreInstalled(preInstalledCheck.Checked);
-            tab.Controls.Add(preInstalledCheck);
-
-            // ListView para apps
-            ListView appsListView = new ListView
-            {
-                Name = "appsListView",
-                Location = new Point(20, 135),
-                Size = new Size(1230, 600),
-                View = View.Details,
-                FullRowSelect = true,
-                GridLines = true,
-                Font = new Font("Segoe UI", 10),
-                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right
-            };
-
-            appsListView.Columns.Add("", 50);
-            appsListView.Columns.Add("O QUE FAZ (clique 2x para ver o nome)", 650);
-            appsListView.Columns.Add("Categoria", 180);
-            appsListView.Columns.Add("Já instalado?", 120);
-            appsListView.Columns.Add("Dica", 230);
-
             appsListView.DoubleClick += AppsListView_DoubleClick;
-            tab.Controls.Add(appsListView);
-
-            return tab;
-        }
-
-        private TabPage CreateTipsTab()
-        {
-            TabPage tab = new TabPage("💡 Dicas e Truques");
-            tab.BackColor = Color.FromArgb(250, 250, 250);
-
-            Panel infoPanel = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 60,
-                BackColor = Color.FromArgb(255, 243, 224),
-                Padding = new Padding(15)
-            };
-            tab.Controls.Add(infoPanel);
-
-            Label infoLabel = new Label
-            {
-                Text = "🔥 Funcionalidades escondidas que fazem MUITA diferença! Clique duas vezes para ver o passo a passo.",
-                Font = new Font("Segoe UI", 10),
-                Dock = DockStyle.Fill,
-                ForeColor = Color.FromArgb(191, 97, 0)
-            };
-            infoPanel.Controls.Add(infoLabel);
-
-            // ComboBox de filtro de categoria
-            ComboBox categoryFilter = new ComboBox
-            {
-                Font = new Font("Segoe UI", 10),
-                Size = new Size(250, 30),
-                Location = new Point(20, 75),
-                DropDownStyle = ComboBoxStyle.DropDownList
-            };
-            categoryFilter.Items.AddRange(new object[] {
-                "Todas as Categorias",
-                "Desempenho",
-                "Produtividade",
-                "Segurança",
-                "Personalização",
-                "Bem-Estar",
-                "Energia",
-                "Manutenção",
-                "Suporte"
-            });
-            categoryFilter.SelectedIndex = 0;
-            categoryFilter.SelectedIndexChanged += (s, e) => FilterTipsByCategory(categoryFilter.SelectedItem.ToString());
-            tab.Controls.Add(categoryFilter);
-
-            // ListView para dicas
-            ListView tipsListView = new ListView
-            {
-                Name = "tipsListView",
-                Location = new Point(20, 115),
-                Size = new Size(1230, 620),
-                View = View.Details,
-                FullRowSelect = true,
-                GridLines = true,
-                Font = new Font("Segoe UI", 10),
-                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right
-            };
-
-            tipsListView.Columns.Add("", 50);
-            tipsListView.Columns.Add("Dica", 400);
-            tipsListView.Columns.Add("O que faz", 550);
-            tipsListView.Columns.Add("Categoria", 180);
-
             tipsListView.DoubleClick += TipsListView_DoubleClick;
-            tab.Controls.Add(tipsListView);
-
-            return tab;
         }
 
         private void LoadData()
@@ -355,8 +65,7 @@ namespace AppInterno
 
         private void DisplayShortcuts(List<KeyboardShortcut> shortcuts)
         {
-            ListView listView = mainTabControl.TabPages[0].Controls.Find("shortcutsListView", false)[0] as ListView;
-            listView.Items.Clear();
+            shortcutsListView.Items.Clear();
 
             foreach (var shortcut in shortcuts.OrderByDescending(s => s.PopularityScore))
             {
@@ -377,14 +86,13 @@ namespace AppInterno
                 else if (shortcut.PopularityScore >= 4)
                     item.BackColor = Color.FromArgb(255, 253, 231);
 
-                listView.Items.Add(item);
+                shortcutsListView.Items.Add(item);
             }
         }
 
         private void DisplayApps(List<WindowsApp> apps)
         {
-            ListView listView = mainTabControl.TabPages[1].Controls.Find("appsListView", false)[0] as ListView;
-            listView.Items.Clear();
+            appsListView.Items.Clear();
 
             foreach (var app in apps)
             {
@@ -398,14 +106,13 @@ namespace AppInterno
                 if (app.IsPreInstalled)
                     item.BackColor = Color.FromArgb(232, 245, 233);
 
-                listView.Items.Add(item);
+                appsListView.Items.Add(item);
             }
         }
 
         private void DisplayTips(List<WindowsTip> tips)
         {
-            ListView listView = mainTabControl.TabPages[2].Controls.Find("tipsListView", false)[0] as ListView;
-            listView.Items.Clear();
+            tipsListView.Items.Clear();
 
             foreach (var tip in tips)
             {
@@ -415,7 +122,7 @@ namespace AppInterno
                 item.SubItems.Add(tip.Category);
                 item.Tag = tip;
 
-                listView.Items.Add(item);
+                tipsListView.Items.Add(item);
             }
         }
 
@@ -472,10 +179,9 @@ namespace AppInterno
 
         private void ShortcutsListView_DoubleClick(object sender, EventArgs e)
         {
-            ListView listView = sender as ListView;
-            if (listView.SelectedItems.Count > 0)
+            if (shortcutsListView.SelectedItems.Count > 0)
             {
-                KeyboardShortcut shortcut = listView.SelectedItems[0].Tag as KeyboardShortcut;
+                KeyboardShortcut shortcut = shortcutsListView.SelectedItems[0].Tag as KeyboardShortcut;
                 if (shortcut != null)
                 {
                     ShowShortcutDetails(shortcut);
@@ -485,10 +191,9 @@ namespace AppInterno
 
         private void AppsListView_DoubleClick(object sender, EventArgs e)
         {
-            ListView listView = sender as ListView;
-            if (listView.SelectedItems.Count > 0)
+            if (appsListView.SelectedItems.Count > 0)
             {
-                WindowsApp app = listView.SelectedItems[0].Tag as WindowsApp;
+                WindowsApp app = appsListView.SelectedItems[0].Tag as WindowsApp;
                 if (app != null)
                 {
                     ShowAppDetails(app);
@@ -498,10 +203,9 @@ namespace AppInterno
 
         private void TipsListView_DoubleClick(object sender, EventArgs e)
         {
-            ListView listView = sender as ListView;
-            if (listView.SelectedItems.Count > 0)
+            if (tipsListView.SelectedItems.Count > 0)
             {
-                WindowsTip tip = listView.SelectedItems[0].Tag as WindowsTip;
+                WindowsTip tip = tipsListView.SelectedItems[0].Tag as WindowsTip;
                 if (tip != null)
                 {
                     ShowTipDetails(tip);

@@ -12,155 +12,28 @@ namespace AppInterno
         private DriverService driverService;
         private List<DriverInfo> allDrivers;
         private DriverAnalysisResult analysisResult;
-        private ListView driversListView;
-        private Panel summaryPanel;
-        private ComboBox filterComboBox;
 
         public FormDrivers()
         {
-            InitializeComponent();
+            InitializeComponent(); // Agora o Designer cria todos os controles
             driverService = new DriverService();
-            SetupInterface();
+
+            // Configurar eventos e lógica
+            ConfigureEvents();
             LoadDrivers();
         }
 
-        private void SetupInterface()
+        private void ConfigureEvents()
         {
-            this.Text = "Análise de Drivers - Guia Fácil";
-            this.Size = new Size(1200, 800);
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.BackColor = Color.FromArgb(240, 240, 240);
-
-            // ====== CABEÇALHO ======
-            Panel headerPanel = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 180,
-                BackColor = Color.White
-            };
-            this.Controls.Add(headerPanel);
-
-            Label titleLabel = new Label
-            {
-                Text = "🔍 Análise de Drivers do Sistema",
-                Font = new Font("Segoe UI", 20, FontStyle.Bold),
-                ForeColor = Color.FromArgb(40, 40, 40),
-                AutoSize = true,
-                Location = new Point(30, 20)
-            };
-            headerPanel.Controls.Add(titleLabel);
-
-            Label subtitleLabel = new Label
-            {
-                Text = "Verifique se todos os drivers estão atualizados e funcionando corretamente",
-                Font = new Font("Segoe UI", 11),
-                ForeColor = Color.FromArgb(100, 100, 100),
-                AutoSize = true,
-                Location = new Point(30, 55)
-            };
-            headerPanel.Controls.Add(subtitleLabel);
-
-            // Painel de resumo (será preenchido após análise)
-            summaryPanel = new Panel
-            {
-                Location = new Point(30, 90),
-                Size = new Size(1120, 70),
-                BackColor = Color.FromArgb(240, 240, 240),
-                BorderStyle = BorderStyle.None
-            };
-            headerPanel.Controls.Add(summaryPanel);
-
-            // ====== BARRA DE FERRAMENTAS ======
-            Panel toolbarPanel = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 60,
-                BackColor = Color.FromArgb(250, 250, 250)
-            };
-            this.Controls.Add(toolbarPanel);
-
-            Button refreshButton = new Button
-            {
-                Text = "🔄 Recarregar Análise",
-                Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                Size = new Size(180, 38),
-                Location = new Point(30, 11),
-                BackColor = Color.FromArgb(0, 120, 215),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat,
-                Cursor = Cursors.Hand
-            };
-            refreshButton.FlatAppearance.BorderSize = 0;
+            // Configurar eventos dos botões
             refreshButton.Click += (s, e) => LoadDrivers();
-            toolbarPanel.Controls.Add(refreshButton);
-
-            Label filterLabel = new Label
-            {
-                Text = "Filtrar por:",
-                Font = new Font("Segoe UI", 10),
-                AutoSize = true,
-                Location = new Point(230, 20)
-            };
-            toolbarPanel.Controls.Add(filterLabel);
-
-            filterComboBox = new ComboBox
-            {
-                Font = new Font("Segoe UI", 10),
-                Size = new Size(200, 30),
-                Location = new Point(310, 15),
-                DropDownStyle = ComboBoxStyle.DropDownList
-            };
-            filterComboBox.Items.AddRange(new object[] {
-    "Todos os Drivers",
-    "Apenas Problemas",      
-    "Apenas Desatualizados",
-    "Apenas OK",
-    "Placa de Vídeo",
-    "Rede",
-    "Áudio"
-});
-            filterComboBox.SelectedIndex = 0;
-            filterComboBox.SelectedIndexChanged += FilterComboBox_SelectedIndexChanged;
-            toolbarPanel.Controls.Add(filterComboBox);
-
-            Button helpButton = new Button
-            {
-                Text = "❓ Ajuda",
-                Font = new Font("Segoe UI", 10),
-                Size = new Size(100, 38),
-                Location = new Point(1050, 11),
-                BackColor = Color.FromArgb(108, 117, 125),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat,
-                Cursor = Cursors.Hand
-            };
-            helpButton.FlatAppearance.BorderSize = 0;
             helpButton.Click += HelpButton_Click;
-            toolbarPanel.Controls.Add(helpButton);
 
-            // ====== LISTA DE DRIVERS ======
-            driversListView = new ListView
-            {
-                Location = new Point(30, 250),
-                Size = new Size(1120, 480),
-                View = View.Details,
-                FullRowSelect = true,
-                GridLines = true,
-                Font = new Font("Segoe UI", 9),
-                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right
-            };
+            // Configurar eventos dos filtros
+            filterComboBox.SelectedIndexChanged += FilterComboBox_SelectedIndexChanged;
 
-            driversListView.Columns.Add("Status", 80);
-            driversListView.Columns.Add("Categoria", 150);
-            driversListView.Columns.Add("Dispositivo", 280);
-            driversListView.Columns.Add("Versão", 120);
-            driversListView.Columns.Add("Data", 100);
-            driversListView.Columns.Add("Fornecedor", 150);
-            driversListView.Columns.Add("Idade", 80);
-            driversListView.Columns.Add("Prioridade", 100);
-
+            // Configurar evento do ListView
             driversListView.DoubleClick += DriversListView_DoubleClick;
-            this.Controls.Add(driversListView);
         }
 
         private void LoadDrivers()
