@@ -472,7 +472,7 @@ namespace AppInterno
                     AppName = "Lupa",
                     Category = "Acessibilidade",
                     HowToOpen = "Win + '+' (mais) ou busque 'Lupa' no Menu Iniciar",
-                    DetailedExplanation = "Além de ampliar a tela, tem recursos incríveis como leitura de texto em voz alta e leitura de QR codes!",
+                    ///         DetailedExplanation = "Além de ampliar a tela, tem recursos incríveis como leitura de texto em voz alta e leitura de QR codes!",
                     KeyFeatures = new List<string>
                     {
                         "Ampliar qualquer parte da tela",

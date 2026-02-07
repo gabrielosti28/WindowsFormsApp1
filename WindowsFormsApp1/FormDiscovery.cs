@@ -475,11 +475,10 @@ namespace AppInterno
                 {
                     Text = $"{i + 1}. {tip.Steps[i]}",
                     Font = new Font("Segoe UI", 10),
-                    AutoSize = false,
+                    AutoSize = true,
                     Size = new Size(600, 0),
                     Location = new Point(10, stepY),
                     MaximumSize = new Size(600, 0),
-                    AutoSize = true
                 };
                 stepsPanel.Controls.Add(stepLabel);
                 stepY += stepLabel.Height + 10;
