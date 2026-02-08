@@ -70,6 +70,18 @@
     <Compile Include="FormDrivers.Designer.cs">
       <DependentUpon>FormDrivers.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormHardware.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormHardware.Designer.cs">
+      <DependentUpon>FormHardware.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMenuPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMenuPrincipal.Designer.cs">
+      <DependentUpon>FormMenuPrincipal.cs</DependentUpon>
+    </Compile>
     <Compile Include="HardwareInfo.cs" />
     <Compile Include="HardwareService.cs" />
     <Compile Include="Program.cs" />
