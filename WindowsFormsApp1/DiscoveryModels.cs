@@ -51,4 +51,18 @@ namespace AppInterno
         public string Instruction { get; set; }
         public string Tip { get; set; }
     }
+
+    public class ExcelShortcut
+    {
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string Keys { get; set; }
+        public string MouseAction { get; set; } // Para ações com mouse
+        public string Category { get; set; }
+        public string DetailedExplanation { get; set; }
+        public string WhenToUse { get; set; }
+        public string PracticalExample { get; set; }
+        public int PopularityScore { get; set; } // 1-5
+        public bool RequiresMouse { get; set; } // Se precisa de mouse além do teclado
+    }
 }

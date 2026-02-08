@@ -12,6 +12,7 @@ namespace AppInterno
         private List<KeyboardShortcut> allShortcuts;
         private List<WindowsApp> allApps;
         private List<WindowsTip> allTips;
+        private List<ExcelShortcut> allExcelShortcuts;
 
         public FormDiscovery()
         {
@@ -57,7 +58,8 @@ namespace AppInterno
             allShortcuts = discoveryService.GetKeyboardShortcuts();
             allApps = discoveryService.GetWindowsApps();
             allTips = discoveryService.GetWindowsTips();
-
+            allExcelShortcuts = discoveryService.GetExcelShortcuts();
+           
             DisplayShortcuts(allShortcuts);
             DisplayApps(allApps);
             DisplayTips(allTips);
