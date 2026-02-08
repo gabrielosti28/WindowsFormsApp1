@@ -44,6 +44,9 @@ namespace AppInterno
             categoryFilterTips.SelectedIndexChanged += (s, e) =>
                 FilterTipsByCategory(categoryFilterTips.SelectedItem?.ToString() ?? "Todas as Categorias");
 
+            categoryFilterExcel.SelectedIndexChanged += (s, e) =>
+                FilterExcelShortcutsByCategory(categoryFilterExcel.SelectedItem?.ToString() ?? "Todas as Categorias");
+
             preInstalledCheck.CheckedChanged += (s, e) =>
                 FilterAppsByPreInstalled(preInstalledCheck.Checked);
 
@@ -51,6 +54,7 @@ namespace AppInterno
             shortcutsListView.DoubleClick += ShortcutsListView_DoubleClick;
             appsListView.DoubleClick += AppsListView_DoubleClick;
             tipsListView.DoubleClick += TipsListView_DoubleClick;
+            excelShortcutsListView.DoubleClick += ExcelShortcutsListView_DoubleClick;
         }
 
         private void LoadData()
@@ -59,10 +63,11 @@ namespace AppInterno
             allApps = discoveryService.GetWindowsApps();
             allTips = discoveryService.GetWindowsTips();
             allExcelShortcuts = discoveryService.GetExcelShortcuts();
-           
+
             DisplayShortcuts(allShortcuts);
             DisplayApps(allApps);
             DisplayTips(allTips);
+            DisplayExcelShortcuts(allExcelShortcuts);
         }
 
         private void DisplayShortcuts(List<KeyboardShortcut> shortcuts)
@@ -128,6 +133,40 @@ namespace AppInterno
             }
         }
 
+        private void DisplayExcelShortcuts(List<ExcelShortcut> shortcuts)
+        {
+            excelShortcutsListView.Items.Clear();
+
+            foreach (var shortcut in shortcuts.OrderByDescending(s => s.PopularityScore))
+            {
+                string stars = new string('⭐', shortcut.PopularityScore);
+                string mouseInfo = shortcut.RequiresMouse ?
+                    (shortcut.MouseAction ?? "Usa mouse") : "-";
+
+                ListViewItem item = new ListViewItem(stars);
+                item.SubItems.Add(shortcut.Title);
+                item.SubItems.Add(shortcut.Description);
+                item.SubItems.Add(shortcut.Category);
+                item.SubItems.Add(shortcut.Keys);
+                item.SubItems.Add(mouseInfo);
+                item.SubItems.Add(shortcut.PracticalExample.Length > 40 ?
+                    shortcut.PracticalExample.Substring(0, 37) + "..." : shortcut.PracticalExample);
+                item.Tag = shortcut;
+
+                // Colorir por popularidade
+                if (shortcut.PopularityScore == 5)
+                    item.BackColor = Color.FromArgb(255, 249, 196);
+                else if (shortcut.PopularityScore >= 4)
+                    item.BackColor = Color.FromArgb(255, 253, 231);
+
+                // Marcar atalhos que usam mouse
+                if (shortcut.RequiresMouse)
+                    item.ForeColor = Color.FromArgb(0, 100, 200);
+
+                excelShortcutsListView.Items.Add(item);
+            }
+        }
+
         private void SearchBox_TextChanged(object sender, EventArgs e)
         {
             string query = searchBox.Text.Trim();
@@ -141,10 +180,12 @@ namespace AppInterno
             var filteredShortcuts = discoveryService.SearchShortcuts(query);
             var filteredApps = discoveryService.SearchApps(query);
             var filteredTips = discoveryService.SearchTips(query);
+            var filteredExcelShortcuts = discoveryService.SearchExcelShortcuts(query); // NOVO
 
             DisplayShortcuts(filteredShortcuts);
             DisplayApps(filteredApps);
             DisplayTips(filteredTips);
+            DisplayExcelShortcuts(filteredExcelShortcuts); // NOVO
         }
 
         private void FilterShortcutsByCategory(string category)
@@ -179,6 +220,14 @@ namespace AppInterno
                 DisplayTips(allTips.Where(t => t.Category == category).ToList());
         }
 
+        private void FilterExcelShortcutsByCategory(string category)
+        {
+            if (category == "Todas as Categorias")
+                DisplayExcelShortcuts(allExcelShortcuts);
+            else
+                DisplayExcelShortcuts(allExcelShortcuts.Where(s => s.Category == category).ToList());
+        }
+
         private void ShortcutsListView_DoubleClick(object sender, EventArgs e)
         {
             if (shortcutsListView.SelectedItems.Count > 0)
@@ -211,6 +260,18 @@ namespace AppInterno
                 if (tip != null)
                 {
                     ShowTipDetails(tip);
+                }
+            }
+        }
+
+        private void ExcelShortcutsListView_DoubleClick(object sender, EventArgs e)
+        {
+            if (excelShortcutsListView.SelectedItems.Count > 0)
+            {
+                ExcelShortcut shortcut = excelShortcutsListView.SelectedItems[0].Tag as ExcelShortcut;
+                if (shortcut != null)
+                {
+                    ShowExcelShortcutDetails(shortcut);
                 }
             }
         }
@@ -508,6 +569,128 @@ namespace AppInterno
                 Text = "Fechar",
                 Size = new Size(120, 40),
                 Location = new Point(550, 570),
+                BackColor = Color.FromArgb(108, 117, 125),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Cursor = Cursors.Hand,
+                Font = new Font("Segoe UI", 11)
+            };
+            closeButton.FlatAppearance.BorderSize = 0;
+            closeButton.Click += (s, e) => detailForm.Close();
+            detailForm.Controls.Add(closeButton);
+
+            detailForm.ShowDialog(this);
+        }
+
+        private void ShowExcelShortcutDetails(ExcelShortcut shortcut)
+        {
+            Form detailForm = new Form
+            {
+                Text = $"Atalho do Excel: {shortcut.Title}",
+                Size = new Size(700, 650),
+                StartPosition = FormStartPosition.CenterParent,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false,
+                MinimizeBox = false,
+                BackColor = Color.White
+            };
+
+            int yPos = 30;
+
+            // Título e estrelas
+            string stars = new string('⭐', shortcut.PopularityScore);
+            Label titleLabel = new Label
+            {
+                Text = $"📊 {shortcut.Title} {stars}",
+                Font = new Font("Segoe UI", 20, FontStyle.Bold),
+                AutoSize = true,
+                ForeColor = Color.FromArgb(0, 120, 0),
+                Location = new Point(30, yPos)
+            };
+            detailForm.Controls.Add(titleLabel);
+            yPos += 50;
+
+            // Teclas em destaque
+            Panel keysPanel = new Panel
+            {
+                Size = new Size(640, 70),
+                Location = new Point(30, yPos),
+                BackColor = Color.FromArgb(34, 139, 34),
+                BorderStyle = BorderStyle.FixedSingle
+            };
+            detailForm.Controls.Add(keysPanel);
+
+            Label keysLabel = new Label
+            {
+                Text = shortcut.Keys,
+                Font = new Font("Consolas", 24, FontStyle.Bold),
+                ForeColor = Color.White,
+                AutoSize = false,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Size = new Size(640, 70)
+            };
+            keysPanel.Controls.Add(keysLabel);
+            yPos += 80;
+
+            // Ação com mouse (se houver)
+            if (shortcut.RequiresMouse && !string.IsNullOrEmpty(shortcut.MouseAction))
+            {
+                AddSectionTitle(detailForm, "🖱️ Ação com Mouse:", ref yPos);
+                AddTextBox(detailForm, shortcut.MouseAction, ref yPos, 60, Color.FromArgb(227, 242, 253));
+            }
+
+            // Descrição
+            AddSectionTitle(detailForm, "O que faz:", ref yPos);
+            AddTextBox(detailForm, shortcut.Description, ref yPos, 60, Color.FromArgb(232, 245, 233));
+
+            // Explicação detalhada
+            AddSectionTitle(detailForm, "Explicação completa:", ref yPos);
+            AddTextBox(detailForm, shortcut.DetailedExplanation, ref yPos, 80, Color.FromArgb(255, 243, 224));
+
+            // Quando usar
+            AddSectionTitle(detailForm, "💡 Quando usar:", ref yPos);
+            AddTextBox(detailForm, shortcut.WhenToUse, ref yPos, 70, Color.FromArgb(227, 242, 253));
+
+            // Exemplo prático
+            AddSectionTitle(detailForm, "📝 Exemplo Prático:", ref yPos);
+            Panel examplePanel = new Panel
+            {
+                Size = new Size(640, 80),
+                Location = new Point(30, yPos),
+                BackColor = Color.FromArgb(255, 249, 196),
+                BorderStyle = BorderStyle.FixedSingle
+            };
+            detailForm.Controls.Add(examplePanel);
+
+            Label exampleLabel = new Label
+            {
+                Text = shortcut.PracticalExample,
+                Font = new Font("Segoe UI", 10, FontStyle.Bold),
+                AutoSize = false,
+                Size = new Size(620, 70),
+                Location = new Point(10, 5),
+                TextAlign = ContentAlignment.MiddleLeft
+            };
+            examplePanel.Controls.Add(exampleLabel);
+            yPos += 90;
+
+            // Categoria
+            Label categoryLabel = new Label
+            {
+                Text = $"Categoria: {shortcut.Category}",
+                Font = new Font("Segoe UI", 10, FontStyle.Italic),
+                ForeColor = Color.Gray,
+                AutoSize = true,
+                Location = new Point(30, yPos)
+            };
+            detailForm.Controls.Add(categoryLabel);
+
+            // Botão fechar
+            Button closeButton = new Button
+            {
+                Text = "Fechar",
+                Size = new Size(120, 40),
+                Location = new Point(550, 580),
                 BackColor = Color.FromArgb(108, 117, 125),
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,

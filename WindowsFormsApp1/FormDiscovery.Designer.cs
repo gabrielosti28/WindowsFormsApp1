@@ -60,6 +60,18 @@
             this.categoryFilterTips = new System.Windows.Forms.ComboBox();
             this.infoPanelTips = new System.Windows.Forms.Panel();
             this.infoLabelTips = new System.Windows.Forms.Label();
+            this.tabPageExcel = new System.Windows.Forms.TabPage();
+            this.excelShortcutsListView = new System.Windows.Forms.ListView();
+            this.colStarsExcel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colAtalhoExcel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colDescricaoExcel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colCategoriaExcel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colTeclasExcel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colMouseExcel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colExemploExcel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.categoryFilterExcel = new System.Windows.Forms.ComboBox();
+            this.infoPanelExcel = new System.Windows.Forms.Panel();
+            this.infoLabelExcel = new System.Windows.Forms.Label();
             this.headerPanel = new System.Windows.Forms.Panel();
             this.titleLabel = new System.Windows.Forms.Label();
             this.subtitleLabel = new System.Windows.Forms.Label();
@@ -74,136 +86,18 @@
             this.infoPanelApps.SuspendLayout();
             this.tabPageTips.SuspendLayout();
             this.infoPanelTips.SuspendLayout();
+            this.tabPageExcel.SuspendLayout();
+            this.infoPanelExcel.SuspendLayout();
             this.headerPanel.SuspendLayout();
             this.searchPanel.SuspendLayout();
             this.SuspendLayout();
-            //
-            //
-            // Dentro do InitializeComponent(), após criar tabPageTips:
-
-            this.tabPageExcel = new System.Windows.Forms.TabPage();
-            this.excelShortcutsListView = new System.Windows.Forms.ListView();
-            this.colStarsExcel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colAtalhoExcel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colDescricaoExcel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colCategoriaExcel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colTeclasExcel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colMouseExcel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colExemploExcel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.categoryFilterExcel = new System.Windows.Forms.ComboBox();
-            this.infoPanelExcel = new System.Windows.Forms.Panel();
-            this.infoLabelExcel = new System.Windows.Forms.Label();
-
-            // Adicionar a nova tab ao TabControl
-            this.mainTabControl.Controls.Add(this.tabPageExcel);
-
-            // Configurar tabPageExcel
-            this.tabPageExcel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.tabPageExcel.Controls.Add(this.excelShortcutsListView);
-            this.tabPageExcel.Controls.Add(this.categoryFilterExcel);
-            this.tabPageExcel.Controls.Add(this.infoPanelExcel);
-            this.tabPageExcel.Location = new System.Drawing.Point(4, 33);
-            this.tabPageExcel.Name = "tabPageExcel";
-            this.tabPageExcel.Size = new System.Drawing.Size(1492, 705);
-            this.tabPageExcel.TabIndex = 3;
-            this.tabPageExcel.Text = "📊 Atalhos do Excel";
-
-            // Configurar ListView
-            this.excelShortcutsListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                | System.Windows.Forms.AnchorStyles.Left)
-                | System.Windows.Forms.AnchorStyles.Right)));
-            this.excelShortcutsListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-    this.colStarsExcel,
-    this.colAtalhoExcel,
-    this.colDescricaoExcel,
-    this.colCategoriaExcel,
-    this.colTeclasExcel,
-    this.colMouseExcel,
-    this.colExemploExcel});
-            this.excelShortcutsListView.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.excelShortcutsListView.FullRowSelect = true;
-            this.excelShortcutsListView.GridLines = true;
-            this.excelShortcutsListView.HideSelection = false;
-            this.excelShortcutsListView.Location = new System.Drawing.Point(20, 120);
-            this.excelShortcutsListView.Name = "excelShortcutsListView";
-            this.excelShortcutsListView.Size = new System.Drawing.Size(1452, 572);
-            this.excelShortcutsListView.TabIndex = 2;
-            this.excelShortcutsListView.UseCompatibleStateImageBehavior = false;
-            this.excelShortcutsListView.View = System.Windows.Forms.View.Details;
-
-            // Configurar colunas
-            this.colStarsExcel.Text = "⭐";
-            this.colStarsExcel.Width = 50;
-
-            this.colAtalhoExcel.Text = "Atalho";
-            this.colAtalhoExcel.Width = 200;
-
-            this.colDescricaoExcel.Text = "O que faz";
-            this.colDescricaoExcel.Width = 350;
-
-            this.colCategoriaExcel.Text = "Categoria";
-            this.colCategoriaExcel.Width = 150;
-
-            this.colTeclasExcel.Text = "Teclas";
-            this.colTeclasExcel.Width = 200;
-
-            this.colMouseExcel.Text = "Mouse (se necessário)";
-            this.colMouseExcel.Width = 250;
-
-            this.colExemploExcel.Text = "Exemplo Prático";
-            this.colExemploExcel.Width = 250;
-
-            // Configurar ComboBox de filtro
-            this.categoryFilterExcel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.categoryFilterExcel.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.categoryFilterExcel.FormattingEnabled = true;
-            this.categoryFilterExcel.Items.AddRange(new object[] {
-    "Todas as Categorias",
-    "Navegação Básica",
-    "Navegação Rápida",
-    "Seleção",
-    "Edição",
-    "Formatação",
-    "Fórmulas",
-    "Linhas e Colunas",
-    "Planilhas",
-    "Busca e Filtros",
-    "Arquivo",
-    "Produtividade",
-    "Gráficos",
-    "Preenchimento",
-    "Revisão"});
-            this.categoryFilterExcel.Location = new System.Drawing.Point(22, 89);
-            this.categoryFilterExcel.Name = "categoryFilterExcel";
-            this.categoryFilterExcel.Size = new System.Drawing.Size(250, 25);
-            this.categoryFilterExcel.TabIndex = 1;
-
-            // Configurar painel de informação
-            this.infoPanelExcel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(245)))), ((int)(((byte)(233)))));
-            this.infoPanelExcel.Controls.Add(this.infoLabelExcel);
-            this.infoPanelExcel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.infoPanelExcel.Location = new System.Drawing.Point(3, 3);
-            this.infoPanelExcel.Name = "infoPanelExcel";
-            this.infoPanelExcel.Padding = new System.Windows.Forms.Padding(15);
-            this.infoPanelExcel.Size = new System.Drawing.Size(1486, 60);
-            this.infoPanelExcel.TabIndex = 0;
-
-            // Configurar label de informação
-            this.infoLabelExcel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.infoLabelExcel.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.infoLabelExcel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(125)))), ((int)(((byte)(50)))));
-            this.infoLabelExcel.Location = new System.Drawing.Point(15, 15);
-            this.infoLabelExcel.Name = "infoLabelExcel";
-            this.infoLabelExcel.Size = new System.Drawing.Size(1456, 30);
-            this.infoLabelExcel.TabIndex = 0;
-            this.infoLabelExcel.Text = "📊 Domine o Excel! Clique duas vezes em qualquer atalho para ver explicação completa e exemplo prático!";
-
             // 
             // mainTabControl
             // 
             this.mainTabControl.Controls.Add(this.tabPageShortcuts);
             this.mainTabControl.Controls.Add(this.tabPageApps);
             this.mainTabControl.Controls.Add(this.tabPageTips);
+            this.mainTabControl.Controls.Add(this.tabPageExcel);
             this.mainTabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainTabControl.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
             this.mainTabControl.Location = new System.Drawing.Point(0, 165);
@@ -228,8 +122,8 @@
             // 
             // shortcutsListView
             // 
-            this.shortcutsListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.shortcutsListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.shortcutsListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colStars,
@@ -334,8 +228,8 @@
             // 
             // appsListView
             // 
-            this.appsListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.appsListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.appsListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colIconApp,
@@ -445,12 +339,11 @@
             this.tabPageTips.Size = new System.Drawing.Size(1492, 705);
             this.tabPageTips.TabIndex = 2;
             this.tabPageTips.Text = "💡 Dicas e Truques";
-            
             // 
             // tipsListView
             // 
-            this.tipsListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.tipsListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tipsListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colIconTip,
@@ -530,6 +423,125 @@
             this.infoLabelTips.TabIndex = 0;
             this.infoLabelTips.Text = "🔥 Funcionalidades escondidas que fazem MUITA diferença! Clique duas vezes para v" +
     "er o passo a passo.";
+            // 
+            // tabPageExcel
+            // 
+            this.tabPageExcel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.tabPageExcel.Controls.Add(this.excelShortcutsListView);
+            this.tabPageExcel.Controls.Add(this.categoryFilterExcel);
+            this.tabPageExcel.Controls.Add(this.infoPanelExcel);
+            this.tabPageExcel.Location = new System.Drawing.Point(4, 33);
+            this.tabPageExcel.Name = "tabPageExcel";
+            this.tabPageExcel.Size = new System.Drawing.Size(1492, 705);
+            this.tabPageExcel.TabIndex = 3;
+            this.tabPageExcel.Text = "📊 Atalhos do Excel";
+            // 
+            // excelShortcutsListView
+            // 
+            this.excelShortcutsListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.excelShortcutsListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colStarsExcel,
+            this.colAtalhoExcel,
+            this.colDescricaoExcel,
+            this.colCategoriaExcel,
+            this.colTeclasExcel,
+            this.colMouseExcel,
+            this.colExemploExcel});
+            this.excelShortcutsListView.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.excelShortcutsListView.FullRowSelect = true;
+            this.excelShortcutsListView.GridLines = true;
+            this.excelShortcutsListView.HideSelection = false;
+            this.excelShortcutsListView.Location = new System.Drawing.Point(20, 120);
+            this.excelShortcutsListView.Name = "excelShortcutsListView";
+            this.excelShortcutsListView.Size = new System.Drawing.Size(1452, 572);
+            this.excelShortcutsListView.TabIndex = 2;
+            this.excelShortcutsListView.UseCompatibleStateImageBehavior = false;
+            this.excelShortcutsListView.View = System.Windows.Forms.View.Details;
+            // 
+            // colStarsExcel
+            // 
+            this.colStarsExcel.Text = "⭐";
+            this.colStarsExcel.Width = 50;
+            // 
+            // colAtalhoExcel
+            // 
+            this.colAtalhoExcel.Text = "Atalho";
+            this.colAtalhoExcel.Width = 200;
+            // 
+            // colDescricaoExcel
+            // 
+            this.colDescricaoExcel.Text = "O que faz";
+            this.colDescricaoExcel.Width = 350;
+            // 
+            // colCategoriaExcel
+            // 
+            this.colCategoriaExcel.Text = "Categoria";
+            this.colCategoriaExcel.Width = 150;
+            // 
+            // colTeclasExcel
+            // 
+            this.colTeclasExcel.Text = "Teclas";
+            this.colTeclasExcel.Width = 200;
+            // 
+            // colMouseExcel
+            // 
+            this.colMouseExcel.Text = "Mouse (se necessário)";
+            this.colMouseExcel.Width = 250;
+            // 
+            // colExemploExcel
+            // 
+            this.colExemploExcel.Text = "Exemplo Prático";
+            this.colExemploExcel.Width = 250;
+            // 
+            // categoryFilterExcel
+            // 
+            this.categoryFilterExcel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.categoryFilterExcel.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.categoryFilterExcel.FormattingEnabled = true;
+            this.categoryFilterExcel.Items.AddRange(new object[] {
+            "Todas as Categorias",
+            "Navegação Básica",
+            "Navegação Rápida",
+            "Seleção",
+            "Edição",
+            "Formatação",
+            "Fórmulas",
+            "Linhas e Colunas",
+            "Planilhas",
+            "Busca e Filtros",
+            "Arquivo",
+            "Produtividade",
+            "Gráficos",
+            "Preenchimento",
+            "Revisão"});
+            this.categoryFilterExcel.Location = new System.Drawing.Point(22, 89);
+            this.categoryFilterExcel.Name = "categoryFilterExcel";
+            this.categoryFilterExcel.Size = new System.Drawing.Size(250, 25);
+            this.categoryFilterExcel.TabIndex = 1;
+            // 
+            // infoPanelExcel
+            // 
+            this.infoPanelExcel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(245)))), ((int)(((byte)(233)))));
+            this.infoPanelExcel.Controls.Add(this.infoLabelExcel);
+            this.infoPanelExcel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.infoPanelExcel.Location = new System.Drawing.Point(3, 3);
+            this.infoPanelExcel.Name = "infoPanelExcel";
+            this.infoPanelExcel.Padding = new System.Windows.Forms.Padding(15);
+            this.infoPanelExcel.Size = new System.Drawing.Size(1486, 60);
+            this.infoPanelExcel.TabIndex = 0;
+            // 
+            // infoLabelExcel
+            // 
+            this.infoLabelExcel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.infoLabelExcel.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.infoLabelExcel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(125)))), ((int)(((byte)(50)))));
+            this.infoLabelExcel.Location = new System.Drawing.Point(15, 15);
+            this.infoLabelExcel.Name = "infoLabelExcel";
+            this.infoLabelExcel.Size = new System.Drawing.Size(1456, 30);
+            this.infoLabelExcel.TabIndex = 0;
+            this.infoLabelExcel.Text = "📊 Domine o Excel! Clique duas vezes em qualquer atalho para ver explicação completa e exemplo prático!";
             // 
             // headerPanel
             // 
@@ -629,6 +641,8 @@
             this.infoPanelApps.ResumeLayout(false);
             this.tabPageTips.ResumeLayout(false);
             this.infoPanelTips.ResumeLayout(false);
+            this.tabPageExcel.ResumeLayout(false);
+            this.infoPanelExcel.ResumeLayout(false);
             this.headerPanel.ResumeLayout(false);
             this.headerPanel.PerformLayout();
             this.searchPanel.ResumeLayout(false);
@@ -639,32 +653,9 @@
 
         #endregion
 
-        private System.Windows.Forms.TabPage tabPageExcel;
-        private System.Windows.Forms.ListView excelShortcutsListView;
-        private System.Windows.Forms.ComboBox categoryFilterExcel;
-        private System.Windows.Forms.Panel infoPanelExcel;
-        private System.Windows.Forms.Label infoLabelExcel;
-        private System.Windows.Forms.ColumnHeader colStarsExcel;
-        private System.Windows.Forms.ColumnHeader colAtalhoExcel;
-        private System.Windows.Forms.ColumnHeader colDescricaoExcel;
-        private System.Windows.Forms.ColumnHeader colCategoriaExcel;
-        private System.Windows.Forms.ColumnHeader colTeclasExcel;
-        private System.Windows.Forms.ColumnHeader colMouseExcel;
-        private System.Windows.Forms.ColumnHeader colExemploExcel;
         private System.Windows.Forms.TabControl mainTabControl;
         private System.Windows.Forms.TabPage tabPageShortcuts;
-        private System.Windows.Forms.TabPage tabPageApps;
-        private System.Windows.Forms.TabPage tabPageTips;
-        private System.Windows.Forms.Panel headerPanel;
-        private System.Windows.Forms.Label titleLabel;
-        private System.Windows.Forms.Label subtitleLabel;
-        private System.Windows.Forms.Panel searchPanel;
-        private System.Windows.Forms.Button clearSearchButton;
-        private System.Windows.Forms.TextBox searchBox;
-        private System.Windows.Forms.Label searchIcon;
         private System.Windows.Forms.ListView shortcutsListView;
-        private System.Windows.Forms.Panel infoPanelShortcuts;
-        private System.Windows.Forms.Label infoLabelShortcuts;
         private System.Windows.Forms.ColumnHeader colStars;
         private System.Windows.Forms.ColumnHeader colAtalho;
         private System.Windows.Forms.ColumnHeader colDescricao;
@@ -672,23 +663,46 @@
         private System.Windows.Forms.ColumnHeader colTeclas;
         private System.Windows.Forms.ColumnHeader colQuandoUsar;
         private System.Windows.Forms.ComboBox categoryFilterShortcuts;
+        private System.Windows.Forms.Panel infoPanelShortcuts;
+        private System.Windows.Forms.Label infoLabelShortcuts;
+        private System.Windows.Forms.TabPage tabPageApps;
         private System.Windows.Forms.ListView appsListView;
-        private System.Windows.Forms.CheckBox preInstalledCheck;
-        private System.Windows.Forms.ComboBox categoryFilterApps;
-        private System.Windows.Forms.Panel infoPanelApps;
-        private System.Windows.Forms.Label infoLabelApps;
         private System.Windows.Forms.ColumnHeader colIconApp;
         private System.Windows.Forms.ColumnHeader colOQueFaz;
         private System.Windows.Forms.ColumnHeader colCategoriaApp;
         private System.Windows.Forms.ColumnHeader colInstalado;
         private System.Windows.Forms.ColumnHeader colDica;
+        private System.Windows.Forms.CheckBox preInstalledCheck;
+        private System.Windows.Forms.ComboBox categoryFilterApps;
+        private System.Windows.Forms.Panel infoPanelApps;
+        private System.Windows.Forms.Label infoLabelApps;
+        private System.Windows.Forms.TabPage tabPageTips;
         private System.Windows.Forms.ListView tipsListView;
-        private System.Windows.Forms.ComboBox categoryFilterTips;
-        private System.Windows.Forms.Panel infoPanelTips;
-        private System.Windows.Forms.Label infoLabelTips;
         private System.Windows.Forms.ColumnHeader colIconTip;
         private System.Windows.Forms.ColumnHeader colDicaTitulo;
         private System.Windows.Forms.ColumnHeader colDicaDescricao;
         private System.Windows.Forms.ColumnHeader colCategoriaTip;
+        private System.Windows.Forms.ComboBox categoryFilterTips;
+        private System.Windows.Forms.Panel infoPanelTips;
+        private System.Windows.Forms.Label infoLabelTips;
+        private System.Windows.Forms.Panel headerPanel;
+        private System.Windows.Forms.Label titleLabel;
+        private System.Windows.Forms.Label subtitleLabel;
+        private System.Windows.Forms.Panel searchPanel;
+        private System.Windows.Forms.Button clearSearchButton;
+        private System.Windows.Forms.TextBox searchBox;
+        private System.Windows.Forms.Label searchIcon;
+        private System.Windows.Forms.TabPage tabPageExcel;
+        private System.Windows.Forms.ListView excelShortcutsListView;
+        private System.Windows.Forms.ColumnHeader colStarsExcel;
+        private System.Windows.Forms.ColumnHeader colAtalhoExcel;
+        private System.Windows.Forms.ColumnHeader colDescricaoExcel;
+        private System.Windows.Forms.ColumnHeader colCategoriaExcel;
+        private System.Windows.Forms.ColumnHeader colTeclasExcel;
+        private System.Windows.Forms.ColumnHeader colMouseExcel;
+        private System.Windows.Forms.ColumnHeader colExemploExcel;
+        private System.Windows.Forms.ComboBox categoryFilterExcel;
+        private System.Windows.Forms.Panel infoPanelExcel;
+        private System.Windows.Forms.Label infoLabelExcel;
     }
 }
