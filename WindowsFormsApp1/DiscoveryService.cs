@@ -6,7 +6,7 @@ namespace AppInterno
 {
     public class DiscoveryService
     {
-        // Método existente para atalhos do Windows
+        // Método para atalhos do Windows
         public List<KeyboardShortcut> GetKeyboardShortcuts()
         {
             return new List<KeyboardShortcut>
@@ -41,12 +41,277 @@ namespace AppInterno
                     DetailedExplanation = "Salva suas alterações no arquivo que você está editando. Use sempre para não perder seu trabalho!",
                     WhenToUse = "SEMPRE! Aperte Ctrl+S frequentemente enquanto trabalha.",
                     PopularityScore = 5
+                },
+                new KeyboardShortcut
+                {
+                    Title = "Recortar",
+                    Description = "Move o item selecionado (apaga do local original)",
+                    Keys = "Ctrl + X",
+                    Category = "Gerais",
+                    DetailedExplanation = "Diferente do copiar, o recortar REMOVE o item do lugar original. Útil para mover coisas.",
+                    WhenToUse = "Quando quer mover algo para outro lugar, não apenas copiar.",
+                    PopularityScore = 4
+                },
+                new KeyboardShortcut
+                {
+                    Title = "Desfazer",
+                    Description = "Desfaz a última ação",
+                    Keys = "Ctrl + Z",
+                    Category = "Gerais",
+                    DetailedExplanation = "Volta atrás no que você acabou de fazer. Funciona várias vezes seguidas!",
+                    WhenToUse = "Quando errar ou se arrepender de algo que fez.",
+                    PopularityScore = 5
+                },
+                new KeyboardShortcut
+                {
+                    Title = "Refazer",
+                    Description = "Refaz o que você desfez",
+                    Keys = "Ctrl + Y",
+                    Category = "Gerais",
+                    DetailedExplanation = "Se você desfez demais e quer voltar.",
+                    WhenToUse = "Quando desfez algo mas mudou de ideia.",
+                    PopularityScore = 4
+                },
+                new KeyboardShortcut
+                {
+                    Title = "Selecionar Tudo",
+                    Description = "Seleciona todo o conteúdo",
+                    Keys = "Ctrl + A",
+                    Category = "Gerais",
+                    DetailedExplanation = "Seleciona tudo no documento ou pasta atual.",
+                    WhenToUse = "Para copiar ou mover tudo de uma vez.",
+                    PopularityScore = 5
+                },
+                new KeyboardShortcut
+                {
+                    Title = "Imprimir",
+                    Description = "Abre a janela de impressão",
+                    Keys = "Ctrl + P",
+                    Category = "Gerais",
+                    DetailedExplanation = "Abre as opções de impressão do documento ou página atual.",
+                    WhenToUse = "Quando quiser imprimir algo.",
+                    PopularityScore = 4
+                },
+
+                // ===== SISTEMA WINDOWS =====
+                new KeyboardShortcut
+                {
+                    Title = "Alternar entre janelas",
+                    Description = "Troca entre programas abertos",
+                    Keys = "Alt + Tab",
+                    Category = "Sistema Windows",
+                    DetailedExplanation = "Mostra miniatura de todos os programas abertos. Mantenha Alt pressionado e aperte Tab para escolher.",
+                    WhenToUse = "Para trocar rapidamente entre programas sem usar o mouse.",
+                    PopularityScore = 5
+                },
+                new KeyboardShortcut
+                {
+                    Title = "Mostrar Área de Trabalho",
+                    Description = "Minimiza tudo e mostra a área de trabalho",
+                    Keys = "Win + D",
+                    Category = "Sistema Windows",
+                    DetailedExplanation = "Esconde todas as janelas instantaneamente. Aperte novamente para trazê-las de volta.",
+                    WhenToUse = "Quando precisa acessar algo na área de trabalho rapidamente.",
+                    PopularityScore = 5
+                },
+                new KeyboardShortcut
+                {
+                    Title = "Gerenciador de Tarefas",
+                    Description = "Abre o gerenciador de tarefas",
+                    Keys = "Ctrl + Shift + Esc",
+                    Category = "Sistema Windows",
+                    DetailedExplanation = "Abre direto o gerenciador de tarefas para ver o que está rodando ou fechar programas travados.",
+                    WhenToUse = "Quando um programa travar ou quiser ver o que está consumindo recursos.",
+                    PopularityScore = 4
+                },
+                new KeyboardShortcut
+                {
+                    Title = "Explorador de Arquivos",
+                    Description = "Abre o explorador de arquivos",
+                    Keys = "Win + E",
+                    Category = "Sistema Windows",
+                    DetailedExplanation = "Abre o explorador de arquivos diretamente, sem precisar clicar no ícone.",
+                    WhenToUse = "Para navegar pelas pastas e arquivos rapidamente.",
+                    PopularityScore = 5
+                },
+                new KeyboardShortcut
+                {
+                    Title = "Pesquisar",
+                    Description = "Abre a pesquisa do Windows",
+                    Keys = "Win + S",
+                    Category = "Sistema Windows",
+                    DetailedExplanation = "Abre a barra de pesquisa para procurar arquivos, programas ou configurações.",
+                    WhenToUse = "Para encontrar rapidamente qualquer coisa no computador.",
+                    PopularityScore = 5
+                },
+                new KeyboardShortcut
+                {
+                    Title = "Configurações",
+                    Description = "Abre as Configurações do Windows",
+                    Keys = "Win + I",
+                    Category = "Sistema Windows",
+                    DetailedExplanation = "Abre o painel de configurações do Windows 10/11.",
+                    WhenToUse = "Para mudar configurações do sistema.",
+                    PopularityScore = 4
+                },
+                new KeyboardShortcut
+                {
+                    Title = "Menu Iniciar",
+                    Description = "Abre o Menu Iniciar",
+                    Keys = "Win",
+                    Category = "Sistema Windows",
+                    DetailedExplanation = "Abre o menu iniciar. Você pode começar a digitar imediatamente para buscar.",
+                    WhenToUse = "Para abrir programas rapidamente.",
+                    PopularityScore = 5
+                },
+
+                // ===== NAVEGAÇÃO =====
+                new KeyboardShortcut
+                {
+                    Title = "Fechar Janela",
+                    Description = "Fecha a janela atual",
+                    Keys = "Alt + F4",
+                    Category = "Navegação",
+                    DetailedExplanation = "Fecha o programa que está em foco. Se estiver na área de trabalho, desliga o PC.",
+                    WhenToUse = "Para fechar programas rapidamente.",
+                    PopularityScore = 4
+                },
+                new KeyboardShortcut
+                {
+                    Title = "Maximizar Janela",
+                    Description = "Maximiza a janela atual",
+                    Keys = "Win + Seta Cima",
+                    Category = "Navegação",
+                    DetailedExplanation = "Faz a janela ocupar a tela inteira.",
+                    WhenToUse = "Para trabalhar com a janela em tela cheia.",
+                    PopularityScore = 4
+                },
+                new KeyboardShortcut
+                {
+                    Title = "Minimizar Janela",
+                    Description = "Minimiza a janela atual",
+                    Keys = "Win + Seta Baixo",
+                    Category = "Navegação",
+                    DetailedExplanation = "Envia a janela para a barra de tarefas.",
+                    WhenToUse = "Para esconder temporariamente sem fechar.",
+                    PopularityScore = 4
+                },
+                new KeyboardShortcut
+                {
+                    Title = "Janela à Esquerda",
+                    Description = "Posiciona janela ocupando metade esquerda da tela",
+                    Keys = "Win + Seta Esquerda",
+                    Category = "Navegação",
+                    DetailedExplanation = "Coloca a janela ocupando exatamente metade da tela no lado esquerdo.",
+                    WhenToUse = "Para trabalhar com dois programas lado a lado.",
+                    PopularityScore = 5
+                },
+                new KeyboardShortcut
+                {
+                    Title = "Janela à Direita",
+                    Description = "Posiciona janela ocupando metade direita da tela",
+                    Keys = "Win + Seta Direita",
+                    Category = "Navegação",
+                    DetailedExplanation = "Coloca a janela ocupando exatamente metade da tela no lado direito.",
+                    WhenToUse = "Para trabalhar com dois programas lado a lado.",
+                    PopularityScore = 5
+                },
+                new KeyboardShortcut
+                {
+                    Title = "Nova Aba",
+                    Description = "Abre nova aba (navegadores/explorador)",
+                    Keys = "Ctrl + T",
+                    Category = "Navegação",
+                    DetailedExplanation = "Abre uma nova aba no navegador ou explorador de arquivos.",
+                    WhenToUse = "Para abrir múltiplas páginas ou pastas.",
+                    PopularityScore = 5
+                },
+                new KeyboardShortcut
+                {
+                    Title = "Fechar Aba",
+                    Description = "Fecha a aba atual",
+                    Keys = "Ctrl + W",
+                    Category = "Navegação",
+                    DetailedExplanation = "Fecha a aba atual do navegador ou explorador.",
+                    WhenToUse = "Para fechar abas rapidamente.",
+                    PopularityScore = 5
+                },
+
+                // ===== PRODUTIVIDADE =====
+                new KeyboardShortcut
+                {
+                    Title = "Captura de Tela",
+                    Description = "Ferramenta de captura de tela",
+                    Keys = "Win + Shift + S",
+                    Category = "Produtividade",
+                    DetailedExplanation = "Abre ferramenta para tirar print de uma área específica da tela.",
+                    WhenToUse = "Para capturar partes da tela e compartilhar ou salvar.",
+                    PopularityScore = 5
+                },
+                new KeyboardShortcut
+                {
+                    Title = "Bloquear PC",
+                    Description = "Bloqueia o computador",
+                    Keys = "Win + L",
+                    Category = "Produtividade",
+                    DetailedExplanation = "Bloqueia instantaneamente o computador, pedindo senha para desbloquear.",
+                    WhenToUse = "Quando sair e quiser proteger seus dados.",
+                    PopularityScore = 5
+                },
+                new KeyboardShortcut
+                {
+                    Title = "Histórico da Área de Transferência",
+                    Description = "Mostra histórico de itens copiados",
+                    Keys = "Win + V",
+                    Category = "Produtividade",
+                    DetailedExplanation = "Mostra os últimos 25 itens que você copiou. Você pode colar qualquer um deles!",
+                    WhenToUse = "Quando precisar colar algo que copiou há alguns passos atrás.",
+                    PopularityScore = 4
+                },
+                new KeyboardShortcut
+                {
+                    Title = "Painel de Emojis",
+                    Description = "Abre painel de emojis e símbolos",
+                    Keys = "Win + . (ponto)",
+                    Category = "Produtividade",
+                    DetailedExplanation = "Abre um painel com emojis, kaomojis e símbolos especiais para inserir no texto.",
+                    WhenToUse = "Para adicionar emojis em mensagens ou documentos.",
+                    PopularityScore = 3
+                },
+                new KeyboardShortcut
+                {
+                    Title = "Renomear Arquivo",
+                    Description = "Renomeia o arquivo selecionado",
+                    Keys = "F2",
+                    Category = "Produtividade",
+                    DetailedExplanation = "Com um arquivo selecionado, aperte F2 para editar o nome diretamente.",
+                    WhenToUse = "Para renomear arquivos rapidamente no explorador.",
+                    PopularityScore = 4
+                },
+                new KeyboardShortcut
+                {
+                    Title = "Deletar Arquivo",
+                    Description = "Move arquivo para lixeira",
+                    Keys = "Delete",
+                    Category = "Produtividade",
+                    DetailedExplanation = "Deleta o arquivo selecionado enviando para a lixeira.",
+                    WhenToUse = "Para remover arquivos que não precisa mais.",
+                    PopularityScore = 5
+                },
+                new KeyboardShortcut
+                {
+                    Title = "Deletar Permanentemente",
+                    Description = "Deleta sem enviar para lixeira",
+                    Keys = "Shift + Delete",
+                    Category = "Produtividade",
+                    DetailedExplanation = "Deleta o arquivo PERMANENTEMENTE, sem passar pela lixeira. Cuidado!",
+                    WhenToUse = "Apenas quando tiver certeza absoluta que não precisa do arquivo.",
+                    PopularityScore = 3
                 }
-                // ... (outros atalhos do Windows continuam aqui)
             };
         }
 
-        // NOVO MÉTODO: Atalhos do Excel
+        // ATALHOS DO EXCEL - COMPLETO
         public List<ExcelShortcut> GetExcelShortcuts()
         {
             return new List<ExcelShortcut>
@@ -820,19 +1085,447 @@ namespace AppInterno
             };
         }
 
-        // Métodos existentes (sem alteração)
+        // Apps Nativos do Windows
         public List<WindowsApp> GetWindowsApps()
         {
-            // ... código existente ...
-            return new List<WindowsApp>(); // Placeholder
+            return new List<WindowsApp>
+            {
+                // ===== PRODUTIVIDADE =====
+                new WindowsApp
+                {
+                    WhatItDoes = "Gerencia suas tarefas e lista de afazeres",
+                    AppName = "Microsoft To Do",
+                    Category = "Produtividade",
+                    HowToOpen = "Procure por 'To Do' no Menu Iniciar ou Microsoft Store",
+                    DetailedDescription = "Aplicativo para criar listas de tarefas, definir lembretes e organizar seu dia. Sincroniza entre seus dispositivos.",
+                    KeyFeatures = new List<string>
+                    {
+                        "Crie listas de tarefas organizadas",
+                        "Defina lembretes e prazos",
+                        "Organize por categorias (Meu Dia, Importante, Planejado)",
+                        "Sincroniza com sua conta Microsoft",
+                        "Compartilhe listas com outras pessoas"
+                    },
+                    IconEmoji = "✅",
+                    IsPreInstalled = false
+                },
+                new WindowsApp
+                {
+                    WhatItDoes = "Bloco de notas simples para textos",
+                    AppName = "Bloco de Notas (Notepad)",
+                    Category = "Produtividade",
+                    HowToOpen = "Procure por 'Bloco de Notas' ou 'Notepad' no Menu Iniciar",
+                    DetailedDescription = "Editor de texto mais simples do Windows. Ótimo para anotações rápidas e edição de arquivos de texto puro (.txt).",
+                    KeyFeatures = new List<string>
+                    {
+                        "Extremamente leve e rápido",
+                        "Abre instantaneamente",
+                        "Ideal para código e arquivos de configuração",
+                        "Não adiciona formatação ao texto"
+                    },
+                    IconEmoji = "📝",
+                    IsPreInstalled = true
+                },
+                new WindowsApp
+                {
+                    WhatItDoes = "Calculadora com múltiplos modos",
+                    AppName = "Calculadora",
+                    Category = "Produtividade",
+                    HowToOpen = "Procure por 'Calculadora' no Menu Iniciar",
+                    DetailedDescription = "Calculadora completa com modo padrão, científico, programador e conversor de unidades.",
+                    KeyFeatures = new List<string>
+                    {
+                        "Modo padrão para cálculos simples",
+                        "Modo científico para matemática avançada",
+                        "Conversor de unidades (comprimento, peso, temperatura, etc)",
+                        "Calculadora de datas",
+                        "Histórico de cálculos"
+                    },
+                    IconEmoji = "🔢",
+                    IsPreInstalled = true
+                },
+
+                // ===== MULTIMÍDIA =====
+                new WindowsApp
+                {
+                    WhatItDoes = "Toca músicas e vídeos",
+                    AppName = "Groove Música / Filmes e TV",
+                    Category = "Multimídia",
+                    HowToOpen = "Procure por 'Groove' ou 'Filmes e TV' no Menu Iniciar",
+                    DetailedDescription = "Player de mídia nativo do Windows para reproduzir músicas e vídeos.",
+                    KeyFeatures = new List<string>
+                    {
+                        "Reproduz MP3, MP4, MKV e outros formatos",
+                        "Cria playlists de música",
+                        "Interface limpa e moderna",
+                        "Suporta legendas"
+                    },
+                    IconEmoji = "🎵",
+                    IsPreInstalled = true
+                },
+                new WindowsApp
+                {
+                    WhatItDoes = "Visualiza e edita fotos",
+                    AppName = "Fotos",
+                    Category = "Multimídia",
+                    HowToOpen = "Clique com botão direito em uma imagem → Abrir com → Fotos",
+                    DetailedDescription = "Aplicativo para ver, organizar e fazer edições básicas em fotos.",
+                    KeyFeatures = new List<string>
+                    {
+                        "Visualize fotos em alta qualidade",
+                        "Edições básicas (cortar, girar, filtros)",
+                        "Crie álbuns e apresentações",
+                        "Organize por data e local",
+                        "Faça pequenos vídeos com suas fotos"
+                    },
+                    IconEmoji = "📷",
+                    IsPreInstalled = true
+                },
+                new WindowsApp
+                {
+                    WhatItDoes = "Editor de vídeo simples",
+                    AppName = "Editor de Vídeo (Video Editor)",
+                    Category = "Multimídia",
+                    HowToOpen = "Abra o app 'Fotos' → Menu → Editor de Vídeo",
+                    DetailedDescription = "Ferramenta gratuita para editar vídeos de forma simples, cortar clipes, adicionar música e texto.",
+                    KeyFeatures = new List<string>
+                    {
+                        "Corte e una vídeos",
+                        "Adicione música de fundo",
+                        "Insira texto e títulos",
+                        "Aplique efeitos 3D",
+                        "Controle velocidade (câmera lenta/rápida)"
+                    },
+                    IconEmoji = "🎬",
+                    IsPreInstalled = true
+                },
+
+                // ===== UTILITÁRIOS =====
+                new WindowsApp
+                {
+                    WhatItDoes = "Abre e lê arquivos PDF",
+                    AppName = "Microsoft Edge (leitor PDF)",
+                    Category = "Utilitários",
+                    HowToOpen = "Clique duas vezes em um PDF ou abra pelo Edge",
+                    DetailedDescription = "O Edge funciona como leitor de PDF nativo, sem precisar instalar nada extra.",
+                    KeyFeatures = new List<string>
+                    {
+                        "Abre PDFs instantaneamente",
+                        "Faça anotações e marcações",
+                        "Preencha formulários PDF",
+                        "Modo de leitura confortável",
+                        "Salve páginas como PDF"
+                    },
+                    IconEmoji = "📄",
+                    IsPreInstalled = true
+                },
+                new WindowsApp
+                {
+                    WhatItDoes = "Captura trechos da tela",
+                    AppName = "Ferramenta de Captura",
+                    Category = "Utilitários",
+                    HowToOpen = "Win + Shift + S ou procure 'Snipping Tool'",
+                    DetailedDescription = "Tire prints de áreas específicas da tela e salve ou compartilhe.",
+                    KeyFeatures = new List<string>
+                    {
+                        "Capture área retangular",
+                        "Capture janela específica",
+                        "Capture tela inteira",
+                        "Desenhe sobre a captura",
+                        "Compartilhe diretamente"
+                    },
+                    IconEmoji = "✂️",
+                    IsPreInstalled = true
+                },
+                new WindowsApp
+                {
+                    WhatItDoes = "Compacta e descompacta arquivos ZIP",
+                    AppName = "Compactador de Arquivos Nativo",
+                    Category = "Utilitários",
+                    HowToOpen = "Clique direito em arquivo/pasta → Enviar para → Pasta compactada",
+                    DetailedDescription = "O Windows tem suporte nativo para arquivos ZIP sem precisar instalar WinRAR ou outros.",
+                    KeyFeatures = new List<string>
+                    {
+                        "Comprima arquivos para economizar espaço",
+                        "Envie vários arquivos em um só",
+                        "Abra arquivos ZIP sem programas extras",
+                        "Proteja com senha"
+                    },
+                    IconEmoji = "🗜️",
+                    IsPreInstalled = true
+                },
+
+                // ===== SEGURANÇA =====
+                new WindowsApp
+                {
+                    WhatItDoes = "Protege contra vírus e ameaças",
+                    AppName = "Windows Security (Defender)",
+                    Category = "Segurança",
+                    HowToOpen = "Procure por 'Windows Security' ou 'Segurança do Windows' no Menu Iniciar",
+                    DetailedDescription = "Antivírus gratuito e integrado do Windows. Protege contra vírus, malware e outras ameaças.",
+                    KeyFeatures = new List<string>
+                    {
+                        "Proteção em tempo real",
+                        "Verificações agendadas",
+                        "Firewall integrado",
+                        "Proteção contra ransomware",
+                        "Atualizações automáticas"
+                    },
+                    IconEmoji = "🛡️",
+                    IsPreInstalled = true
+                },
+
+                // ===== ACESSIBILIDADE =====
+                new WindowsApp
+                {
+                    WhatItDoes = "Lê o texto da tela em voz alta",
+                    AppName = "Narrator (Narrador)",
+                    Category = "Acessibilidade",
+                    HowToOpen = "Win + Ctrl + Enter ou procure 'Narrador' no Menu Iniciar",
+                    DetailedDescription = "Leitor de tela que lê em voz alta o que aparece na tela. Útil para pessoas com deficiência visual.",
+                    KeyFeatures = new List<string>
+                    {
+                        "Lê textos, botões e menus",
+                        "Navega por aplicativos",
+                        "Ajustável (velocidade, voz)",
+                        "Funciona em português"
+                    },
+                    IconEmoji = "🔊",
+                    IsPreInstalled = true
+                },
+                new WindowsApp
+                {
+                    WhatItDoes = "Aumenta partes da tela como uma lupa",
+                    AppName = "Lupa (Magnifier)",
+                    Category = "Acessibilidade",
+                    HowToOpen = "Win + + (mais) ou procure 'Lupa' no Menu Iniciar",
+                    DetailedDescription = "Amplia partes da tela para facilitar a leitura. Útil para pessoas com baixa visão.",
+                    KeyFeatures = new List<string>
+                    {
+                        "Aumenta até 1600%",
+                        "Três modos de visualização",
+                        "Segue o cursor do mouse",
+                        "Atalhos rápidos (Win + mais/menos)"
+                    },
+                    IconEmoji = "🔍",
+                    IsPreInstalled = true
+                }
+            };
         }
 
+        // Dicas e Truques do Windows
         public List<WindowsTip> GetWindowsTips()
         {
-            // ... código existente ...
-            return new List<WindowsTip>(); // Placeholder
+            return new List<WindowsTip>
+            {
+                // ===== PRODUTIVIDADE =====
+                new WindowsTip
+                {
+                    Title = "Área de Trabalho Virtual",
+                    ShortDescription = "Use múltiplas áreas de trabalho para organizar suas janelas",
+                    Category = "Produtividade",
+                    Steps = new List<string>
+                    {
+                        "Aperte Win + Tab",
+                        "Clique em 'Nova Área de Trabalho' no topo",
+                        "Alterne entre elas com Ctrl + Win + Seta Esquerda/Direita",
+                        "Arraste janelas entre as áreas de trabalho"
+                    },
+                    WhyUseful = "Perfeito para separar trabalho de lazer, ou diferentes projetos. Por exemplo: uma área para estudos, outra para entretenimento.",
+                    IconEmoji = "🖥️"
+                },
+                new WindowsTip
+                {
+                    Title = "Modo Noturno (Night Light)",
+                    ShortDescription = "Reduza luz azul à noite para dormir melhor",
+                    Category = "Personalização",
+                    Steps = new List<string>
+                    {
+                        "Vá em Configurações (Win + I)",
+                        "Sistema → Tela",
+                        "Ative 'Luz Noturna'",
+                        "Clique em 'Configurações de luz noturna'",
+                        "Agende para ativar automaticamente ao anoitecer"
+                    },
+                    WhyUseful = "A luz azul da tela atrapalha o sono. Este modo deixa a tela mais amarelada à noite, ajudando você a dormir melhor.",
+                    IconEmoji = "🌙"
+                },
+                new WindowsTip
+                {
+                    Title = "Clipboard com Histórico",
+                    ShortDescription = "Acesse múltiplos itens copiados recentemente",
+                    Category = "Produtividade",
+                    Steps = new List<string>
+                    {
+                        "Vá em Configurações → Sistema → Área de Transferência",
+                        "Ative 'Histórico da área de transferência'",
+                        "Agora aperte Win + V para ver tudo que você copiou",
+                        "Clique em qualquer item para colar"
+                    },
+                    WhyUseful = "Não perca mais o que copiou antes! O Windows guarda até 25 itens copiados. Muito útil quando está copiando várias coisas.",
+                    IconEmoji = "📋"
+                },
+                new WindowsTip
+                {
+                    Title = "Desfragmentar o Disco",
+                    ShortDescription = "Otimize o HD para melhor desempenho",
+                    Category = "Manutenção",
+                    Steps = new List<string>
+                    {
+                        "Procure 'Desfragmentar' no Menu Iniciar",
+                        "Selecione o disco (normalmente C:)",
+                        "Clique em 'Otimizar'",
+                        "Configure para otimizar automaticamente"
+                    },
+                    WhyUseful = "HDs (não SSDs) ficam fragmentados com o tempo, deixando o PC lento. Desfragmentar reorganiza os arquivos e melhora a velocidade. OBS: NÃO faça em SSDs!",
+                    IconEmoji = "🔧"
+                },
+                new WindowsTip
+                {
+                    Title = "Limpeza de Disco",
+                    ShortDescription = "Libere espaço deletando arquivos temporários",
+                    Category = "Manutenção",
+                    Steps = new List<string>
+                    {
+                        "Procure 'Limpeza de Disco' no Menu Iniciar",
+                        "Selecione o disco C:",
+                        "Marque 'Arquivos temporários', 'Lixeira', 'Downloads'",
+                        "Clique em 'Limpar arquivos do sistema' para mais opções",
+                        "Clique OK"
+                    },
+                    WhyUseful = "O Windows acumula arquivos temporários que ocupam gigabytes. Esta ferramenta remove tudo isso com segurança, liberando espaço.",
+                    IconEmoji = "🗑️"
+                },
+
+                // ===== PERSONALIZAÇÃO =====
+                new WindowsTip
+                {
+                    Title = "Modo Escuro (Dark Mode)",
+                    ShortDescription = "Deixe o Windows com tema escuro",
+                    Category = "Personalização",
+                    Steps = new List<string>
+                    {
+                        "Configurações (Win + I)",
+                        "Personalização → Cores",
+                        "Em 'Escolher seu modo', selecione 'Escuro'",
+                        "Ou escolha 'Personalizado' para ter modo escuro nos apps e claro no Windows"
+                    },
+                    WhyUseful = "Cansa menos a vista, economiza bateria em telas OLED, e muita gente acha mais bonito!",
+                    IconEmoji = "🌑"
+                },
+                new WindowsTip
+                {
+                    Title = "Mostrar Extensão de Arquivos",
+                    ShortDescription = "Veja o tipo real dos arquivos (.jpg, .exe, .txt)",
+                    Category = "Personalização",
+                    Steps = new List<string>
+                    {
+                        "Abra o Explorador de Arquivos",
+                        "Clique na aba 'Exibir'",
+                        "Marque 'Extensões de nomes de arquivos'"
+                    },
+                    WhyUseful = "SEGURANÇA! Vírus podem se disfarçar mudando ícones. Ver a extensão te protege de clicar em 'foto.jpg' que na verdade é 'foto.jpg.exe' (vírus).",
+                    IconEmoji = "👁️"
+                },
+                new WindowsTip
+                {
+                    Title = "Desativar Apps de Inicialização",
+                    ShortDescription = "Faça o PC ligar mais rápido",
+                    Category = "Manutenção",
+                    Steps = new List<string>
+                    {
+                        "Ctrl + Shift + Esc (Gerenciador de Tarefas)",
+                        "Vá na aba 'Inicializar'",
+                        "Clique direito nos apps que não precisa → 'Desabilitar'",
+                        "NÃO desabilite Windows Security ou drivers"
+                    },
+                    WhyUseful = "Muitos programas se configuram para abrir sozinhos ao ligar o PC. Isso deixa a inicialização MUITO lenta. Desabilite o que não usa!",
+                    IconEmoji = "⚡"
+                },
+
+                // ===== SEGURANÇA =====
+                new WindowsTip
+                {
+                    Title = "Criar Ponto de Restauração",
+                    ShortDescription = "Crie backup para voltar se algo der errado",
+                    Category = "Segurança",
+                    Steps = new List<string>
+                    {
+                        "Procure 'Criar ponto de restauração'",
+                        "Clique em 'Criar'",
+                        "Dê um nome (ex: 'Antes de instalar programa X')",
+                        "Aguarde criar"
+                    },
+                    WhyUseful = "Se instalar algo que bagunce o PC, você pode voltar no tempo para quando estava funcionando!",
+                    IconEmoji = "💾"
+                },
+                new WindowsTip
+                {
+                    Title = "Windows Update",
+                    ShortDescription = "Mantenha o Windows sempre atualizado",
+                    Category = "Segurança",
+                    Steps = new List<string>
+                    {
+                        "Configurações → Windows Update",
+                        "Clique em 'Verificar atualizações'",
+                        "Instale tudo que aparecer",
+                        "Reinicie se pedir"
+                    },
+                    WhyUseful = "Atualizações corrigem falhas de segurança e bugs. Um Windows desatualizado pode ser invadido facilmente!",
+                    IconEmoji = "🔄"
+                },
+
+                // ===== ORGANIZAÇÃO =====
+                new WindowsTip
+                {
+                    Title = "Fixar Pastas no Acesso Rápido",
+                    ShortDescription = "Acesse suas pastas favoritas rapidamente",
+                    Category = "Organização",
+                    Steps = new List<string>
+                    {
+                        "Abra o Explorador de Arquivos",
+                        "Navegue até uma pasta que usa muito",
+                        "Clique direito nela",
+                        "Escolha 'Fixar no Acesso Rápido'",
+                        "Ela aparecerá sempre na barra lateral"
+                    },
+                    WhyUseful = "Pare de navegar 10 pastas para chegar onde precisa. Fixe e clique direto!",
+                    IconEmoji = "📌"
+                },
+                new WindowsTip
+                {
+                    Title = "Atalhos para Programas na Barra de Tarefas",
+                    ShortDescription = "Abra programas com Win + Número",
+                    Category = "Produtividade",
+                    Steps = new List<string>
+                    {
+                        "Fixe seus programas favoritos na barra de tarefas",
+                        "O primeiro programa é Win + 1",
+                        "O segundo é Win + 2",
+                        "E assim por diante até Win + 9"
+                    },
+                    WhyUseful = "Abra programas instantaneamente sem procurar! Organize os mais usados nos primeiros números.",
+                    IconEmoji = "⌨️"
+                },
+                new WindowsTip
+                {
+                    Title = "Pesquisa Rápida de Arquivos",
+                    ShortDescription = "Encontre qualquer arquivo em segundos",
+                    Category = "Produtividade",
+                    Steps = new List<string>
+                    {
+                        "Aperte Win + S",
+                        "Digite parte do nome do arquivo",
+                        "Use filtros (tipo, data, tamanho) se precisar",
+                        "Clique no arquivo para abrir ou clique direito para mais opções"
+                    },
+                    WhyUseful = "Não perca tempo procurando manualmente. A pesquisa do Windows é muito rápida se você souber usar!",
+                    IconEmoji = "🔍"
+                }
+            };
         }
 
+        // Métodos de busca
         public List<KeyboardShortcut> SearchShortcuts(string query)
         {
             var allShortcuts = GetKeyboardShortcuts();
