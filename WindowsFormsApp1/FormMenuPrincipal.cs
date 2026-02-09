@@ -40,7 +40,8 @@ namespace AppInterno
 
         private void btnAtalhosWindows_Click(object sender, EventArgs e)
         {
-            using (FormDiscovery form = new FormDiscovery())
+            // ATUALIZADO: Agora abre a tela de seleção de atalhos
+            using (FormSelecaoAtalhos form = new FormSelecaoAtalhos())
             {
                 form.ShowDialog();
             }

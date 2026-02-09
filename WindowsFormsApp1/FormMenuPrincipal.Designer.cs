@@ -139,7 +139,6 @@
             this.btnAtalhosWindows.Text = "⌨️  Atalhos e Dicas do Windows\r\n       Aprenda truques e atalhos úteis";
             this.btnAtalhosWindows.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAtalhosWindows.UseVisualStyleBackColor = false;
-            this.btnAtalhosWindows.Click += new System.EventHandler(this.btnAtalhosWindows_Click);
             // 
             // btnDrivers
             // 
