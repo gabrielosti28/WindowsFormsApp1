@@ -14,12 +14,19 @@ namespace AppInterno
 
         private void CustomizeForm()
         {
-            this.Text = "Guia do Computador - Menu Principal";
-            this.Size = new Size(900, 650);
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.BackColor = Color.FromArgb(245, 245, 250);
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
+            // Adicionar efeitos hover nos botões
+            AddHoverEffect(btnPecasComputador, Color.FromArgb(76, 175, 80), Color.FromArgb(56, 142, 60));
+            AddHoverEffect(btnDesempenho, Color.FromArgb(255, 152, 0), Color.FromArgb(245, 124, 0));
+            AddHoverEffect(btnDrivers, Color.FromArgb(233, 30, 99), Color.FromArgb(194, 24, 91));
+            AddHoverEffect(btnAtalhosWindows, Color.FromArgb(0, 120, 215), Color.FromArgb(0, 100, 190));
+            AddHoverEffect(btnAppsNativos, Color.FromArgb(103, 58, 183), Color.FromArgb(81, 45, 168));
+            AddHoverEffect(btnDicasTruques, Color.FromArgb(156, 39, 176), Color.FromArgb(123, 31, 162));
+        }
+
+        private void AddHoverEffect(Button btn, Color normalColor, Color hoverColor)
+        {
+            btn.MouseEnter += (s, e) => btn.BackColor = hoverColor;
+            btn.MouseLeave += (s, e) => btn.BackColor = normalColor;
         }
 
         private void btnPecasComputador_Click(object sender, EventArgs e)
@@ -38,18 +45,33 @@ namespace AppInterno
             }
         }
 
+        private void btnDrivers_Click(object sender, EventArgs e)
+        {
+            using (FormDrivers form = new FormDrivers())
+            {
+                form.ShowDialog();
+            }
+        }
+
         private void btnAtalhosWindows_Click(object sender, EventArgs e)
         {
-            // ATUALIZADO: Agora abre a tela de seleção de atalhos
             using (FormSelecaoAtalhos form = new FormSelecaoAtalhos())
             {
                 form.ShowDialog();
             }
         }
 
-        private void btnDrivers_Click(object sender, EventArgs e)
+        private void btnAppsNativos_Click(object sender, EventArgs e)
         {
-            using (FormDrivers form = new FormDrivers())
+            using (FormAppsNativos form = new FormAppsNativos())
+            {
+                form.ShowDialog();
+            }
+        }
+
+        private void btnDicasTruques_Click(object sender, EventArgs e)
+        {
+            using (FormDicasTruques form = new FormDicasTruques())
             {
                 form.ShowDialog();
             }

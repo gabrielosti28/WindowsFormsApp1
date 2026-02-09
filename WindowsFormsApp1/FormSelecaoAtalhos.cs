@@ -22,32 +22,20 @@ namespace AppInterno
 
         private void AddHoverEffect(Button btn, Color normalColor, Color hoverColor)
         {
-            btn.MouseEnter += (s, e) =>
-            {
-                btn.BackColor = hoverColor;
-                btn.Font = new Font(btn.Font.FontFamily, btn.Font.Size, FontStyle.Bold);
-            };
-
-            btn.MouseLeave += (s, e) =>
-            {
-                btn.BackColor = normalColor;
-            };
+            btn.MouseEnter += (s, e) => btn.BackColor = hoverColor;
+            btn.MouseLeave += (s, e) => btn.BackColor = normalColor;
         }
 
         private void btnWindows_Click(object sender, EventArgs e)
         {
-            // Abre o FormDiscovery na aba de Atalhos do Windows
-            using (FormDiscovery form = new FormDiscovery())
+            using (FormDiscoveryWindows form = new FormDiscoveryWindows())
             {
-                // O FormDiscovery já tem a aba de atalhos do Windows
-                // Vamos garantir que ela seja a primeira aba selecionada
                 form.ShowDialog();
             }
         }
 
         private void btnExcel_Click(object sender, EventArgs e)
         {
-            // Abre o FormDiscovery na aba de Atalhos do Excel
             using (FormDiscoveryExcel form = new FormDiscoveryExcel())
             {
                 form.ShowDialog();
@@ -56,7 +44,6 @@ namespace AppInterno
 
         private void btnWord_Click(object sender, EventArgs e)
         {
-            // Abre o FormDiscovery na aba de Atalhos do Word
             using (FormDiscoveryWord form = new FormDiscoveryWord())
             {
                 form.ShowDialog();
