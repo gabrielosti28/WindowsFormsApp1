@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dataservice.cs" />
     <Compile Include="DiscoveryModels.cs" />
     <Compile Include="DiscoveryService.cs" />
     <Compile Include="DriverInfo.cs" />
