@@ -5,68 +5,79 @@ using AppInterno.Models;
 namespace AppInterno.Services
 {
     /// <summary>
-    /// Serviço responsável por fornecer atalhos do Excel
-    /// VERSÃO REFATORADA: Usa JSON ao invés de código hardcoded
+    /// Serviço de atalhos do Excel - VERSÃO REFATORADA
     /// </summary>
     public class ExcelShortcutsService : IShortcutsService
     {
         private List<ShortcutItem> shortcuts;
+        private const string JSON_FILE = "excel_shortcuts.json";
 
         public ExcelShortcutsService()
         {
-            // Carrega atalhos do arquivo JSON
-            LoadShortcutsFromJson();
+            LoadShortcuts();
         }
 
-        private void LoadShortcutsFromJson()
+        private void LoadShortcuts()
         {
-            try
-            {
-                // Carrega do arquivo JSON embarcado
-                shortcuts = DataService.LoadData<ShortcutItem>("excel_shortcuts.json");
+            shortcuts = DataService.LoadData<ShortcutItem>(JSON_FILE);
 
-                // Se não encontrou nenhum, usa fallback
-                if (shortcuts == null || shortcuts.Count == 0)
-                {
-                    shortcuts = GetFallbackShortcuts();
-                }
-            }
-            catch
+            foreach (var shortcut in shortcuts)
             {
-                // Em caso de erro, usa dados hardcoded como fallback
-                shortcuts = GetFallbackShortcuts();
+                if (string.IsNullOrEmpty(shortcut.Program))
+                {
+                    shortcut.Program = "Excel";
+                }
             }
         }
 
         public List<ShortcutItem> GetAllShortcuts()
         {
-            return shortcuts;
+            return shortcuts ?? new List<ShortcutItem>();
         }
 
         public List<ShortcutItem> SearchShortcuts(string query)
         {
-            query = query.ToLower();
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                return GetAllShortcuts();
+            }
+
+            query = query.ToLower().Trim();
+
             return shortcuts.Where(s =>
-                s.Title.ToLower().Contains(query) ||
-                s.Description.ToLower().Contains(query) ||
-                s.Keys.ToLower().Contains(query) ||
-                s.Category.ToLower().Contains(query)
+                (s.Title?.ToLower().Contains(query) ?? false) ||
+                (s.Description?.ToLower().Contains(query) ?? false) ||
+                (s.Keys?.ToLower().Contains(query) ?? false) ||
+                (s.Category?.ToLower().Contains(query) ?? false) ||
+                (s.PracticalExample?.ToLower().Contains(query) ?? false)
             ).ToList();
         }
 
         public List<ShortcutItem> GetByCategory(string category)
         {
-            return shortcuts.Where(s => s.Category == category).ToList();
+            if (string.IsNullOrWhiteSpace(category))
+            {
+                return GetAllShortcuts();
+            }
+
+            return shortcuts.Where(s =>
+                s.Category?.Equals(category, System.StringComparison.OrdinalIgnoreCase) ?? false
+            ).ToList();
         }
 
         public int GetTotalCount()
         {
-            return shortcuts.Count;
+            return shortcuts?.Count ?? 0;
         }
 
         public List<string> GetCategories()
         {
-            return shortcuts.Select(s => s.Category).Distinct().OrderBy(c => c).ToList();
+            return shortcuts
+                .Where(s => !string.IsNullOrEmpty(s.Category))
+                .Select(s => s.Category)
+                .Distinct()
+                .OrderBy(c => c)
+                .ToList();
         }
 
         public ProgramInfo GetProgramInfo()
@@ -89,48 +100,10 @@ namespace AppInterno.Services
             return "Excel";
         }
 
-        /// <summary>
-        /// Dados de fallback caso o JSON não carregue
-        /// Mantém alguns atalhos essenciais hardcoded
-        /// </summary>
-        private List<ShortcutItem> GetFallbackShortcuts()
+        public void Reload()
         {
-            return new List<ShortcutItem>
-            {
-                new ShortcutItem
-                {
-                    Id = "excel_tab",
-                    Program = "Excel",
-                    Title = "Mover para célula à direita",
-                    Description = "Vai para a próxima célula à direita",
-                    Keys = "Tab",
-                    Category = "Navegação Básica",
-                    PopularityScore = 5,
-                    RequiresMouse = false
-                },
-                new ShortcutItem
-                {
-                    Id = "excel_enter",
-                    Program = "Excel",
-                    Title = "Mover para baixo",
-                    Description = "Vai para a célula abaixo",
-                    Keys = "Enter",
-                    Category = "Navegação Básica",
-                    PopularityScore = 5,
-                    RequiresMouse = false
-                },
-                new ShortcutItem
-                {
-                    Id = "excel_ctrl_c",
-                    Program = "Excel",
-                    Title = "Copiar",
-                    Description = "Copia as células selecionadas",
-                    Keys = "Ctrl + C",
-                    Category = "Edição",
-                    PopularityScore = 5,
-                    RequiresMouse = false
-                }
-            };
+            DataService.ClearCache(JSON_FILE);
+            LoadShortcuts();
         }
     }
 }
