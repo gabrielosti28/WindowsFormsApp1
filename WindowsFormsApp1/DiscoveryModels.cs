@@ -3,6 +3,11 @@ using System.Collections.Generic;
 
 namespace AppInterno
 {
+    /// <summary>
+    /// Modelo para atalhos de teclado do Windows
+    /// NOTA: ShortcutItem.cs é o modelo unificado preferido
+    /// Este é mantido para compatibilidade legacy
+    /// </summary>
     public class KeyboardShortcut
     {
         public string Title { get; set; }
@@ -14,9 +19,12 @@ namespace AppInterno
         public int PopularityScore { get; set; } // 1-5
     }
 
+    /// <summary>
+    /// Modelo para aplicativos nativos do Windows
+    /// </summary>
     public class WindowsApp
     {
-        public string WhatItDoes { get; set; } // DescriBção do que faz (mostrado primeiro)
+        public string WhatItDoes { get; set; } // Descrição do que faz (mostrado primeiro)
         public string AppName { get; set; } // Nome real do app (revelado ao clicar)
         public string Category { get; set; }
         public string HowToOpen { get; set; }
@@ -26,6 +34,9 @@ namespace AppInterno
         public bool IsPreInstalled { get; set; }
     }
 
+    /// <summary>
+    /// Modelo para dicas e truques do Windows
+    /// </summary>
     public class WindowsTip
     {
         public string Title { get; set; }
@@ -36,6 +47,11 @@ namespace AppInterno
         public string IconEmoji { get; set; }
     }
 
+    /// <summary>
+    /// Modelo para atalhos do Excel
+    /// NOTA: ShortcutItem.cs é o modelo unificado preferido
+    /// Este é mantido para compatibilidade legacy
+    /// </summary>
     public class ExcelShortcut
     {
         public string Title { get; set; }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace AppInterno.Services
+namespace AppInterno
 {
     /// <summary>
     /// Serviço de atalhos do Excel - VERSÃO REFATORADA
