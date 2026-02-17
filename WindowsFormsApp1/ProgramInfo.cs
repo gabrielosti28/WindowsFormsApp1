@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AppInterno.Models
+namespace AppInterno
 {
     /// <summary>
     /// Representa informações sobre um programa/aplicativo

@@ -1,4 +1,4 @@
-﻿namespace AppInterno.Models
+﻿namespace AppInterno
 {
     public class ShortcutItem
     {

@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using AppInterno.Models;
 
-namespace AppInterno.Services.Discovery
+namespace AppInterno
 {
     /// <summary>
     /// Serviço especializado para aplicativos nativos do Windows

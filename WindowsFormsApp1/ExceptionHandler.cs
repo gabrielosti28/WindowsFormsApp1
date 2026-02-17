@@ -1,96 +1,109 @@
-﻿using System;
-using System.IO;
-using System.Windows.Forms;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AppInterno.Services;
 
-namespace AppInterno.Helpers
+namespace AppInterno
 {
-    public static class ExceptionHandler
+    /// <summary>
+    /// Serviço de atalhos do Excel - VERSÃO REFATORADA
+    /// </summary>
+    public class ExcelShortcutsService : IShortcutsService
     {
-        private static readonly string LogPath = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-            "GuiaDoComputador",
-            "error_log.txt"
-        );
+        private List<ShortcutItem> shortcuts;
+        private const string JSON_FILE = "excel_shortcuts.json";
 
-        public static void Initialize()
+        public ExcelShortcutsService()
         {
-            // Garantir que pasta existe
-            Directory.CreateDirectory(Path.GetDirectoryName(LogPath));
-
-            // Capturar exceções não tratadas
-            Application.ThreadException += OnThreadException;
-            AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
+            LoadShortcuts();
         }
 
-        private static void OnThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
+        private void LoadShortcuts()
         {
-            HandleException(e.Exception);
-        }
+            shortcuts = DataService.LoadData<ShortcutItem>(JSON_FILE);
 
-        private static void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
-            HandleException(e.ExceptionObject as Exception);
-        }
-
-        public static void HandleException(Exception ex, string context = null)
-        {
-            if (ex == null) return;
-
-            // Log do erro
-            LogError(ex, context);
-
-            // Mostrar mensagem amigável ao usuário
-            string userMessage = GetUserFriendlyMessage(ex);
-
-            MessageBox.Show(
-                userMessage,
-                "Ops! Algo deu errado",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Error
-            );
-        }
-
-        private static void LogError(Exception ex, string context)
-        {
-            try
+            foreach (var shortcut in shortcuts)
             {
-                string logEntry = $@"
-[{DateTime.Now:yyyy-MM-dd HH:mm:ss}]
-Contexto: {context ?? "N/A"}
-Tipo: {ex.GetType().Name}
-Mensagem: {ex.Message}
-Stack Trace:
-{ex.StackTrace}
-------------------------
-";
-                File.AppendAllText(LogPath, logEntry);
-            }
-            catch
-            {
-                // Falhou ao logar - não fazer nada para evitar loop infinito
+                if (string.IsNullOrEmpty(shortcut.Program))
+                {
+                    shortcut.Program = "Excel";
+                }
             }
         }
 
-        private static string GetUserFriendlyMessage(Exception ex)
+        public List<ShortcutItem> GetAllShortcuts()
         {
-            // Mensagens amigáveis baseadas no tipo de erro
-            if (ex is FileNotFoundException || ex is DirectoryNotFoundException)
+            return shortcuts ?? new List<ShortcutItem>();
+        }
+
+        public List<ShortcutItem> SearchShortcuts(string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
             {
-                return "Não conseguimos encontrar um arquivo necessário. Por favor, reinstale o programa.";
+                return GetAllShortcuts();
             }
 
-            if (ex is UnauthorizedAccessException)
+            query = query.ToLower().Trim();
+
+            return shortcuts.Where(s =>
+                (s.Title?.ToLower().Contains(query) ?? false) ||
+                (s.Description?.ToLower().Contains(query) ?? false) ||
+                (s.Keys?.ToLower().Contains(query) ?? false) ||
+                (s.Category?.ToLower().Contains(query) ?? false) ||
+                (s.PracticalExample?.ToLower().Contains(query) ?? false)
+            ).ToList();
+        }
+
+        public List<ShortcutItem> GetByCategory(string category)
+        {
+            if (string.IsNullOrWhiteSpace(category))
             {
-                return "O programa não tem permissão para acessar este recurso. Tente executar como administrador.";
+                return GetAllShortcuts();
             }
 
-            if (ex is System.Net.WebException)
-            {
-                return "Não foi possível conectar à internet. Verifique sua conexão.";
-            }
+            return shortcuts.Where(s =>
+                s.Category?.Equals(category, System.StringComparison.OrdinalIgnoreCase) ?? false
+            ).ToList();
+        }
 
-            // Mensagem genérica
-            return $"Ocorreu um erro inesperado. O erro foi registrado para análise.\n\nDetalhes técnicos: {ex.Message}";
+        public int GetTotalCount()
+        {
+            return shortcuts?.Count ?? 0;
+        }
+
+        public List<string> GetCategories()
+        {
+            return shortcuts
+                .Where(s => !string.IsNullOrEmpty(s.Category))
+                .Select(s => s.Category)
+                .Distinct()
+                .OrderBy(c => c)
+                .ToList();
+        }
+
+        public ProgramInfo GetProgramInfo()
+        {
+            return new ProgramInfo
+            {
+                Id = "excel",
+                DisplayName = "Excel",
+                Description = "Atalhos para planilhas",
+                Icon = "📊",
+                ColorHex = "#217346",
+                TotalShortcuts = GetTotalCount(),
+                IsAvailable = true,
+                DisplayOrder = 2
+            };
+        }
+
+        public string GetProgramName()
+        {
+            return "Excel";
+        }
+
+        public void Reload()
+        {
+            DataService.ClearCache(JSON_FILE);
+            LoadShortcuts();
         }
     }
 }

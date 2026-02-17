@@ -5,7 +5,7 @@ using System.Reflection;
 using Newtonsoft.Json;
 using System.Linq;
 
-namespace AppInterno.Services
+namespace AppInterno
 {
     /// <summary>
     /// Serviço centralizado e robusto para carregar dados JSON

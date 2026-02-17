@@ -1,8 +1,9 @@
-﻿using AppInterno.Models;
+﻿using System;
 using System.Collections.Generic;
-using System;
+using System.Linq;
+using AppInterno.Services;
 
-namespace AppInterno.Services.Discovery
+namespace AppInterno
 {
     /// <summary>
     /// Orquestrador principal - delega para serviços especializados
@@ -12,11 +13,15 @@ namespace AppInterno.Services.Discovery
     {
         private readonly WindowsAppsService appsService;
         private readonly WindowsTipsService tipsService;
+        private readonly WindowsShortcutsService windowsShortcutsService;
+        private readonly ExcelShortcutsService excelShortcutsService;
 
         public DiscoveryService()
         {
             appsService = new WindowsAppsService();
             tipsService = new WindowsTipsService();
+            windowsShortcutsService = new WindowsShortcutsService();
+            excelShortcutsService = new ExcelShortcutsService();
         }
 
         // ===== APPS NATIVOS =====
@@ -27,33 +32,70 @@ namespace AppInterno.Services.Discovery
         public List<WindowsTip> GetWindowsTips() => tipsService.GetAllTips();
         public List<WindowsTip> SearchTips(string query) => tipsService.SearchTips(query);
 
-        // ===== MÉTODOS DE COMPATIBILIDADE (para não quebrar código existente) =====
-        [Obsolete("Use WindowsShortcutsService diretamente")]
+        // ===== ATALHOS DO WINDOWS =====
         public List<KeyboardShortcut> GetKeyboardShortcuts()
         {
-            // Manter por compatibilidade, mas marcar como obsoleto
-            var service = new WindowsShortcutsService();
-            return ConvertToKeyboardShortcuts(service.GetAllShortcuts());
+            var shortcuts = windowsShortcutsService.GetAllShortcuts();
+            return shortcuts.Select(s => new KeyboardShortcut
+            {
+                Title = s.Title,
+                Description = s.Description,
+                Keys = s.Keys,
+                Category = s.Category,
+                DetailedExplanation = s.DetailedExplanation,
+                WhenToUse = s.WhenToUse,
+                PopularityScore = s.PopularityScore
+            }).ToList();
         }
 
-        [Obsolete("Use ExcelShortcutsService diretamente")]
+        public List<KeyboardShortcut> SearchShortcuts(string query)
+        {
+            var shortcuts = windowsShortcutsService.SearchShortcuts(query);
+            return shortcuts.Select(s => new KeyboardShortcut
+            {
+                Title = s.Title,
+                Description = s.Description,
+                Keys = s.Keys,
+                Category = s.Category,
+                DetailedExplanation = s.DetailedExplanation,
+                WhenToUse = s.WhenToUse,
+                PopularityScore = s.PopularityScore
+            }).ToList();
+        }
+
+        // ===== ATALHOS DO EXCEL =====
         public List<ExcelShortcut> GetExcelShortcuts()
         {
-            var service = new ExcelShortcutsService();
-            return ConvertToExcelShortcuts(service.GetAllShortcuts());
+            var shortcuts = excelShortcutsService.GetAllShortcuts();
+            return shortcuts.Select(s => new ExcelShortcut
+            {
+                Title = s.Title,
+                Description = s.Description,
+                Keys = s.Keys,
+                Category = s.Category,
+                DetailedExplanation = s.DetailedExplanation,
+                WhenToUse = s.WhenToUse,
+                PracticalExample = s.PracticalExample,
+                PopularityScore = s.PopularityScore,
+                RequiresMouse = s.RequiresMouse
+            }).ToList();
         }
 
-        // Conversores temporários para manter compatibilidade
-        private List<KeyboardShortcut> ConvertToKeyboardShortcuts(List<ShortcutItem> items)
+        public List<ExcelShortcut> SearchExcelShortcuts(string query)
         {
-            // Implementar conversão se necessário
-            return new List<KeyboardShortcut>();
-        }
-
-        private List<ExcelShortcut> ConvertToExcelShortcuts(List<ShortcutItem> items)
-        {
-            // Implementar conversão se necessário
-            return new List<ExcelShortcut>();
+            var shortcuts = excelShortcutsService.SearchShortcuts(query);
+            return shortcuts.Select(s => new ExcelShortcut
+            {
+                Title = s.Title,
+                Description = s.Description,
+                Keys = s.Keys,
+                Category = s.Category,
+                DetailedExplanation = s.DetailedExplanation,
+                WhenToUse = s.WhenToUse,
+                PracticalExample = s.PracticalExample,
+                PopularityScore = s.PopularityScore,
+                RequiresMouse = s.RequiresMouse
+            }).ToList();
         }
     }
 }

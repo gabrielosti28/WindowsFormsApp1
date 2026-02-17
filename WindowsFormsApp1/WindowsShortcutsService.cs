@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using AppInterno.Models;
+using AppInterno.Services;
 
-namespace AppInterno.Services
+namespace AppInterno
 {
     /// <summary>
     /// Serviço de atalhos do Windows - VERSÃO REFATORADA

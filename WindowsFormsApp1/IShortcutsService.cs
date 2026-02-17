@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using AppInterno.Models;
 
-namespace AppInterno.Services
+namespace AppInterno
 {
     /// <summary>
     /// Interface comum para todos os serviços de atalhos
