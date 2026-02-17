@@ -51,13 +51,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseDiscoveryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Dataservice.cs" />
     <Compile Include="DiscoveryModels.cs" />
     <Compile Include="DiscoveryService.cs" />
     <Compile Include="DriverInfo.cs" />
     <Compile Include="DriverService.cs" />
     <Compile Include="ExcelShortcutsService.cs" />
-    <Compile Include="ExceptionHandler.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

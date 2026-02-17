@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApp1
 {
-    partial class Form1
+    partial class FormDesempenho
     {
         /// <summary>
         /// Variavel de designer necessaria.
@@ -72,8 +72,8 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabMemoria);
             this.tabControl1.Controls.Add(this.tabProcessos);
@@ -284,13 +284,13 @@
             this.labelResumo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204)))));
             this.labelResumo.Location = new System.Drawing.Point(12, 9);
             this.labelResumo.Name = "labelResumo";
-            this.labelResumo.Size = new System.Drawing.Size(380, 26);
+            this.labelResumo.Size = new System.Drawing.Size(389, 26);
             this.labelResumo.TabIndex = 2;
             this.labelResumo.Text = "Resumo do Seu Computador Agora";
             // 
             // panelResumo
             // 
-            this.panelResumo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.panelResumo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelResumo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
             this.panelResumo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -326,7 +326,7 @@
             this.labelDiscoUsado.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.labelDiscoUsado.Location = new System.Drawing.Point(590, 33);
             this.labelDiscoUsado.Name = "labelDiscoUsado";
-            this.labelDiscoUsado.Size = new System.Drawing.Size(122, 15);
+            this.labelDiscoUsado.Size = new System.Drawing.Size(105, 15);
             this.labelDiscoUsado.TabIndex = 3;
             this.labelDiscoUsado.Text = "Usado: 0 GB (0%)";
             // 
@@ -336,7 +336,7 @@
             this.labelDiscoTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelDiscoTotal.Location = new System.Drawing.Point(590, 10);
             this.labelDiscoTotal.Name = "labelDiscoTotal";
-            this.labelDiscoTotal.Size = new System.Drawing.Size(240, 18);
+            this.labelDiscoTotal.Size = new System.Drawing.Size(252, 18);
             this.labelDiscoTotal.TabIndex = 2;
             this.labelDiscoTotal.Text = "Espaco no Disco: 0 GB de 0 GB";
             // 
@@ -347,7 +347,7 @@
             this.labelMemoriaUsada.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.labelMemoriaUsada.Location = new System.Drawing.Point(10, 33);
             this.labelMemoriaUsada.Name = "labelMemoriaUsada";
-            this.labelMemoriaUsada.Size = new System.Drawing.Size(157, 15);
+            this.labelMemoriaUsada.Size = new System.Drawing.Size(146, 15);
             this.labelMemoriaUsada.TabIndex = 1;
             this.labelMemoriaUsada.Text = "Em uso agora: 0 GB (0%)";
             // 
@@ -357,7 +357,7 @@
             this.labelMemoriaTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelMemoriaTotal.Location = new System.Drawing.Point(10, 10);
             this.labelMemoriaTotal.Name = "labelMemoriaTotal";
-            this.labelMemoriaTotal.Size = new System.Drawing.Size(250, 18);
+            this.labelMemoriaTotal.Size = new System.Drawing.Size(272, 18);
             this.labelMemoriaTotal.TabIndex = 0;
             this.labelMemoriaTotal.Text = "Memoria RAM Total: 0 GB de 0 GB";
             // 
@@ -375,11 +375,12 @@
             this.labelDica.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.labelDica.Location = new System.Drawing.Point(14, 660);
             this.labelDica.Name = "labelDica";
-            this.labelDica.Size = new System.Drawing.Size(470, 15);
+            this.labelDica.Size = new System.Drawing.Size(462, 15);
             this.labelDica.TabIndex = 4;
-            this.labelDica.Text = "Dica: Clique em qualquer linha para ver mais detalhes. Atualiza a cada 2 segundos.";
+            this.labelDica.Text = "Dica: Clique em qualquer linha para ver mais detalhes. Atualiza a cada 2 segundos" +
+    ".";
             // 
-            // Form1
+            // FormDesempenho
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -391,7 +392,7 @@
             this.Controls.Add(this.btnAtualizar);
             this.Controls.Add(this.tabControl1);
             this.MinimumSize = new System.Drawing.Size(1200, 740);
-            this.Name = "Form1";
+            this.Name = "FormDesempenho";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Entenda Seu Computador - Simplificador para Leigos";
             this.Load += new System.EventHandler(this.Form1_Load);

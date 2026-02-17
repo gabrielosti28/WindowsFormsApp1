@@ -16,7 +16,7 @@ namespace AppInterno
 
     public class WindowsApp
     {
-        public string WhatItDoes { get; set; } // Descrição do que faz (mostrado primeiro)
+        public string WhatItDoes { get; set; } // DescriBção do que faz (mostrado primeiro)
         public string AppName { get; set; } // Nome real do app (revelado ao clicar)
         public string Category { get; set; }
         public string HowToOpen { get; set; }
@@ -34,22 +34,6 @@ namespace AppInterno
         public List<string> Steps { get; set; }
         public string WhyUseful { get; set; }
         public string IconEmoji { get; set; }
-    }
-
-    public class QuickTutorial
-    {
-        public string Title { get; set; }
-        public string Goal { get; set; }
-        public string Difficulty { get; set; } // Fácil, Médio, Avançado
-        public List<TutorialStep> Steps { get; set; }
-        public string Category { get; set; }
-    }
-
-    public class TutorialStep
-    {
-        public int StepNumber { get; set; }
-        public string Instruction { get; set; }
-        public string Tip { get; set; }
     }
 
     public class ExcelShortcut

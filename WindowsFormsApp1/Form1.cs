@@ -9,12 +9,12 @@ using Microsoft.Win32;
 
 namespace WindowsFormsApp1
 {
-    public partial class Form1 : Form
+    public partial class FormDesempenho : Form
     {
         private PerformanceCounter cpuCounter;
         private Dictionary<string, PerformanceCounter> processCounters = new Dictionary<string, PerformanceCounter>();
 
-        public Form1()
+        public FormDesempenho()
         {
             InitializeComponent();
             cpuCounter = new PerformanceCounter("Processor", "% Processor Time", "_Total");

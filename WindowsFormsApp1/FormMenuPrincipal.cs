@@ -39,7 +39,7 @@ namespace AppInterno
 
         private void btnDesempenho_Click(object sender, EventArgs e)
         {
-            using (WindowsFormsApp1.Form1 form = new WindowsFormsApp1.Form1())
+            using (WindowsFormsApp1.FormDesempenho form = new WindowsFormsApp1.FormDesempenho())
             {
                 form.ShowDialog();
             }
