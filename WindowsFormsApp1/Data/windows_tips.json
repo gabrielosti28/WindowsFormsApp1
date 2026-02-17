@@ -1,0 +1,45 @@
+[
+    {
+        "Id": "tip_virtual_desktop",
+        "Title": "Área de Trabalho Virtual",
+        "ShortDescription": "Use múltiplas áreas de trabalho para organizar suas janelas",
+        "Category": "Produtividade",
+        "Steps": [
+            "Aperte Win + Tab",
+            "Clique em 'Nova Área de Trabalho' no topo",
+            "Alterne entre elas com Ctrl + Win + Seta",
+            "Arraste janelas entre as áreas de trabalho"
+        ],
+        "WhyUseful": "Perfeito para separar trabalho de lazer, ou diferentes projetos.",
+        "IconEmoji": "🖥️"
+    },
+    {
+        "Id": "tip_night_light",
+        "Title": "Modo Noturno (Night Light)",
+        "ShortDescription": "Reduza luz azul à noite para dormir melhor",
+        "Category": "Personalização",
+        "Steps": [
+            "Vá em Configurações (Win + I)",
+            "Sistema → Tela",
+            "Ative 'Luz Noturna'",
+            "Clique em 'Configurações de luz noturna'",
+            "Agende para ativar automaticamente ao anoitecer"
+        ],
+        "WhyUseful": "A luz azul da tela atrapalha o sono. Este modo ajuda você a dormir melhor.",
+        "IconEmoji": "🌙"
+    },
+    {
+        "Id": "tip_clipboard_history",
+        "Title": "Clipboard com Histórico",
+        "ShortDescription": "Acesse múltiplos itens copiados recentemente",
+        "Category": "Produtividade",
+        "Steps": [
+            "Vá em Configurações → Sistema → Área de Transferência",
+            "Ative 'Histórico da área de transferência'",
+            "Agora aperte Win + V para ver tudo que você copiou",
+            "Clique em qualquer item para colar"
+        ],
+        "WhyUseful": "Não perca mais o que copiou antes! O Windows guarda até 25 itens.",
+        "IconEmoji": "📋"
+    }
+]

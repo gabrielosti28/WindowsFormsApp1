@@ -1,0 +1,52 @@
+[
+    {
+        "Id": "app_todo",
+        "WhatItDoes": "Gerencia suas tarefas e lista de afazeres",
+        "AppName": "Microsoft To Do",
+        "Category": "Produtividade",
+        "HowToOpen": "Procure por 'To Do' no Menu Iniciar ou Microsoft Store",
+        "DetailedDescription": "Aplicativo para criar listas de tarefas, definir lembretes e organizar seu dia.",
+        "KeyFeatures": [
+            "Crie listas de tarefas organizadas",
+            "Defina lembretes e prazos",
+            "Organize por categorias",
+            "Sincroniza com sua conta Microsoft",
+            "Compartilhe listas com outras pessoas"
+        ],
+        "IconEmoji": "✅",
+        "IsPreInstalled": false
+    },
+    {
+        "Id": "app_notepad",
+        "WhatItDoes": "Bloco de notas simples para textos",
+        "AppName": "Bloco de Notas (Notepad)",
+        "Category": "Produtividade",
+        "HowToOpen": "Procure por 'Bloco de Notas' ou 'Notepad' no Menu Iniciar",
+        "DetailedDescription": "Editor de texto mais simples do Windows. Ótimo para anotações rápidas.",
+        "KeyFeatures": [
+            "Extremamente leve e rápido",
+            "Abre instantaneamente",
+            "Ideal para código e arquivos de configuração",
+            "Não adiciona formatação ao texto"
+        ],
+        "IconEmoji": "📝",
+        "IsPreInstalled": true
+    },
+    {
+        "Id": "app_calculator",
+        "WhatItDoes": "Calculadora com múltiplos modos",
+        "AppName": "Calculadora",
+        "Category": "Produtividade",
+        "HowToOpen": "Procure por 'Calculadora' no Menu Iniciar",
+        "DetailedDescription": "Calculadora completa com modo padrão, científico e conversor de unidades.",
+        "KeyFeatures": [
+            "Modo padrão para cálculos simples",
+            "Modo científico para matemática avançada",
+            "Conversor de unidades",
+            "Calculadora de datas",
+            "Histórico de cálculos"
+        ],
+        "IconEmoji": "🔢",
+        "IsPreInstalled": true
+    }
+]
