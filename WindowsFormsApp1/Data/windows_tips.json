@@ -41,5 +41,206 @@
         ],
         "WhyUseful": "Não perca mais o que copiou antes! O Windows guarda até 25 itens.",
         "IconEmoji": "📋"
-    }
+    },
+    [
+        {
+            "Id": "tip_snap_windows",
+            "Title": "Organizar Janelas (Snap)",
+            "ShortDescription": "Divida a tela entre vários aplicativos rapidamente",
+            "Category": "Produtividade",
+            "Steps": [
+                "Abra uma janela",
+                "Aperte Win + Seta para a esquerda ou direita",
+                "A janela ocupará metade da tela",
+                "Escolha outra janela para preencher o resto",
+                "Use Win + Seta para cima para maximizar"
+            ],
+            "WhyUseful": "Excelente para trabalhar com dois programas ao mesmo tempo.",
+            "IconEmoji": "🪟"
+        },
+        {
+            "Id": "tip_search_quick",
+            "Title": "Busca Rápida do Windows",
+            "ShortDescription": "Encontre qualquer coisa rapidamente",
+            "Category": "Produtividade",
+            "Steps": [
+                "Aperte a tecla Win",
+                "Comece a digitar o nome do programa ou arquivo",
+                "Clique no resultado desejado",
+                "Use Enter para abrir rapidamente"
+            ],
+            "WhyUseful": "Você não precisa navegar em pastas. Basta digitar e abrir.",
+            "IconEmoji": "🔎"
+        },
+        {
+            "Id": "tip_lock_pc",
+            "Title": "Bloquear o Computador",
+            "ShortDescription": "Bloqueie rapidamente sua sessão",
+            "Category": "Segurança",
+            "Steps": [
+                "Aperte Win + L",
+                "O computador será bloqueado instantaneamente",
+                "Digite sua senha para voltar"
+            ],
+            "WhyUseful": "Protege seus dados quando você se afasta do computador.",
+            "IconEmoji": "🔒"
+        },
+        {
+            "Id": "tip_emoji_panel",
+            "Title": "Painel de Emojis",
+            "ShortDescription": "Insira emojis em qualquer texto",
+            "Category": "Produtividade",
+            "Steps": [
+                "Aperte Win + . (ponto)",
+                "O painel de emojis abrirá",
+                "Clique em um emoji para inserir",
+                "Use a busca para encontrar rapidamente"
+            ],
+            "WhyUseful": "Útil para chats, emails e redes sociais.",
+            "IconEmoji": "😊"
+        },
+        {
+            "Id": "tip_screenshot_full",
+            "Title": "Print da Tela Inteira",
+            "ShortDescription": "Capture a tela inteira rapidamente",
+            "Category": "Produtividade",
+            "Steps": [
+                "Aperte PrtScn para copiar a tela",
+                "Ou Win + PrtScn para salvar automaticamente",
+                "A imagem será salva em Imagens > Capturas de Tela"
+            ],
+            "WhyUseful": "Ótimo para salvar informações e compartilhar rapidamente.",
+            "IconEmoji": "📸"
+        },
+        {
+            "Id": "tip_task_manager",
+            "Title": "Abrir Gerenciador de Tarefas",
+            "ShortDescription": "Veja programas em execução",
+            "Category": "Sistema",
+            "Steps": [
+                "Aperte Ctrl + Shift + Esc",
+                "Veja os aplicativos abertos",
+                "Finalize programas travados se necessário"
+            ],
+            "WhyUseful": "Ajuda quando um programa trava ou fica lento.",
+            "IconEmoji": "📊"
+        },
+        {
+            "Id": "tip_settings_quick",
+            "Title": "Abrir Configurações Rápido",
+            "ShortDescription": "Abra as configurações do Windows rapidamente",
+            "Category": "Sistema",
+            "Steps": [
+                "Aperte Win + I",
+                "Navegue pelas opções do sistema",
+                "Use a busca nas configurações"
+            ],
+            "WhyUseful": "Acesso rápido a qualquer configuração do computador.",
+            "IconEmoji": "⚙️"
+        },
+        {
+            "Id": "tip_file_explorer",
+            "Title": "Abrir Explorador de Arquivos",
+            "ShortDescription": "Abra suas pastas rapidamente",
+            "Category": "Produtividade",
+            "Steps": [
+                "Aperte Win + E",
+                "O Explorador abrirá",
+                "Navegue pelas pastas e arquivos"
+            ],
+            "WhyUseful": "Forma mais rápida de acessar documentos e downloads.",
+            "IconEmoji": "📁"
+        },
+        {
+            "Id": "tip_rename_file",
+            "Title": "Renomear Arquivo Rápido",
+            "ShortDescription": "Renomeie arquivos sem clicar com o mouse",
+            "Category": "Produtividade",
+            "Steps": [
+                "Selecione um arquivo",
+                "Aperte F2",
+                "Digite o novo nome",
+                "Pressione Enter"
+            ],
+            "WhyUseful": "Economiza tempo ao organizar arquivos.",
+            "IconEmoji": "✏️"
+        },
+        {
+            "Id": "tip_show_desktop",
+            "Title": "Mostrar Área de Trabalho",
+            "ShortDescription": "Minimize todas as janelas rapidamente",
+            "Category": "Produtividade",
+            "Steps": [
+                "Aperte Win + D",
+                "Todas as janelas serão minimizadas",
+                "Aperte novamente para restaurar"
+            ],
+            "WhyUseful": "Útil para acessar arquivos na área de trabalho rapidamente.",
+            "IconEmoji": "🏠"
+        },
+        {
+            "Id": "tip_zoom",
+            "Title": "Zoom na Tela",
+            "ShortDescription": "Aumente ou diminua o zoom da tela",
+            "Category": "Acessibilidade",
+            "Steps": [
+                "Aperte Win + + para ampliar",
+                "Use Win + - para diminuir",
+                "Use Win + Esc para fechar a lupa"
+            ],
+            "WhyUseful": "Ajuda a enxergar melhor textos pequenos.",
+            "IconEmoji": "🔍"
+        },
+        {
+            "Id": "tip_switch_apps",
+            "Title": "Alternar Entre Programas",
+            "ShortDescription": "Troque de aplicativo rapidamente",
+            "Category": "Produtividade",
+            "Steps": [
+                "Aperte Alt + Tab",
+                "Segure Alt e pressione Tab",
+                "Solte para escolher o programa"
+            ],
+            "WhyUseful": "Navegue entre apps sem usar o mouse.",
+            "IconEmoji": "🔄"
+        },
+        {
+            "Id": "tip_run_command",
+            "Title": "Janela Executar",
+            "ShortDescription": "Abra comandos rapidamente",
+            "Category": "Sistema",
+            "Steps": [
+                "Aperte Win + R",
+                "Digite o nome do programa",
+                "Pressione Enter"
+            ],
+            "WhyUseful": "Forma rápida de abrir ferramentas avançadas.",
+            "IconEmoji": "⌨️"
+        },
+        {
+            "Id": "tip_minimize_all",
+            "Title": "Minimizar Todas as Janelas",
+            "ShortDescription": "Limpe a tela rapidamente",
+            "Category": "Produtividade",
+            "Steps": [
+                "Aperte Win + M",
+                "Todas as janelas serão minimizadas"
+            ],
+            "WhyUseful": "Ajuda a organizar rapidamente a tela.",
+            "IconEmoji": "🧹"
+        },
+        {
+            "Id": "tip_maximize_window",
+            "Title": "Maximizar Janela",
+            "ShortDescription": "Maximize a janela atual rapidamente",
+            "Category": "Produtividade",
+            "Steps": [
+                "Selecione a janela",
+                "Aperte Win + Seta para cima"
+            ],
+            "WhyUseful": "Trabalhe com foco total em um app.",
+            "IconEmoji": "⬆️"
+        }
+    ]
+
 ]

@@ -48,5 +48,211 @@
         ],
         "IconEmoji": "🔢",
         "IsPreInstalled": true
+    },
+    {
+        "Id": "app_paint",
+        "WhatItDoes": "Desenhar e editar imagens simples",
+        "AppName": "Paint",
+        "Category": "Criatividade",
+        "HowToOpen": "Procure por 'Paint' no Menu Iniciar",
+        "DetailedDescription": "Editor de imagens simples do Windows. Ideal para recortar imagens, desenhar ou fazer anotações visuais.",
+        "KeyFeatures": [
+            "Desenho livre com mouse",
+            "Recorte de imagens",
+            "Adicionar texto em imagens",
+            "Salvar em vários formatos",
+            "Ferramentas básicas de edição"
+        ],
+        "IconEmoji": "🎨",
+        "IsPreInstalled": true
+    },
+    {
+        "Id": "app_snipping",
+        "WhatItDoes": "Captura imagens da tela",
+        "AppName": "Ferramenta de Captura",
+        "Category": "Produtividade",
+        "HowToOpen": "Procure por 'Captura' no Menu Iniciar",
+        "DetailedDescription": "Permite tirar print de toda a tela ou apenas de uma parte específica.",
+        "KeyFeatures": [
+            "Captura de área da tela",
+            "Captura de janela",
+            "Anotações na imagem",
+            "Salvar ou copiar rapidamente",
+            "Atraso para capturas"
+        ],
+        "IconEmoji": "📸",
+        "IsPreInstalled": true
+    },
+    {
+        "Id": "app_photos",
+        "WhatItDoes": "Visualizar fotos e vídeos",
+        "AppName": "Fotos",
+        "Category": "Multimídia",
+        "HowToOpen": "Abra qualquer imagem ou procure por 'Fotos'",
+        "DetailedDescription": "Aplicativo padrão para visualizar, organizar e editar fotos e vídeos.",
+        "KeyFeatures": [
+            "Visualizar imagens rapidamente",
+            "Edição básica de fotos",
+            "Cortar e girar",
+            "Criar álbuns",
+            "Assistir vídeos"
+        ],
+        "IconEmoji": "🖼️",
+        "IsPreInstalled": true
+    },
+    {
+        "Id": "app_explorer",
+        "WhatItDoes": "Gerencia arquivos e pastas",
+        "AppName": "Explorador de Arquivos",
+        "Category": "Sistema",
+        "HowToOpen": "Aperte Win + E",
+        "DetailedDescription": "Permite acessar, organizar e mover arquivos no computador.",
+        "KeyFeatures": [
+            "Criar e mover pastas",
+            "Copiar e colar arquivos",
+            "Pesquisar arquivos",
+            "Acessar pendrive e HD externo",
+            "Organizar documentos"
+        ],
+        "IconEmoji": "📁",
+        "IsPreInstalled": true
+    },
+    {
+        "Id": "app_settings",
+        "WhatItDoes": "Configura o Windows",
+        "AppName": "Configurações",
+        "Category": "Sistema",
+        "HowToOpen": "Aperte Win + I",
+        "DetailedDescription": "Painel principal para alterar configurações do computador.",
+        "KeyFeatures": [
+            "Alterar Wi-Fi",
+            "Configurar tela",
+            "Gerenciar apps",
+            "Atualizações do Windows",
+            "Personalização"
+        ],
+        "IconEmoji": "⚙️",
+        "IsPreInstalled": true
+    },
+    {
+        "Id": "app_edge",
+        "WhatItDoes": "Navegar na internet",
+        "AppName": "Microsoft Edge",
+        "Category": "Internet",
+        "HowToOpen": "Procure por 'Edge' no Menu Iniciar",
+        "DetailedDescription": "Navegador padrão do Windows para acessar sites e pesquisar.",
+        "KeyFeatures": [
+            "Navegar na web",
+            "Favoritos",
+            "Modo leitura",
+            "Bloqueio de pop-ups",
+            "Sincronização com conta Microsoft"
+        ],
+        "IconEmoji": "🌐",
+        "IsPreInstalled": true
+    },
+    {
+        "Id": "app_store",
+        "WhatItDoes": "Baixar aplicativos",
+        "AppName": "Microsoft Store",
+        "Category": "Sistema",
+        "HowToOpen": "Procure por 'Microsoft Store'",
+        "DetailedDescription": "Loja oficial de aplicativos do Windows.",
+        "KeyFeatures": [
+            "Baixar aplicativos",
+            "Atualizar programas",
+            "Instalar jogos",
+            "Apps seguros",
+            "Apps gratuitos"
+        ],
+        "IconEmoji": "🛍️",
+        "IsPreInstalled": true
+    },
+    {
+        "Id": "app_task_manager",
+        "WhatItDoes": "Ver programas em execução",
+        "AppName": "Gerenciador de Tarefas",
+        "Category": "Sistema",
+        "HowToOpen": "Ctrl + Shift + Esc",
+        "DetailedDescription": "Mostra o que está rodando no computador e permite fechar programas travados.",
+        "KeyFeatures": [
+            "Fechar programas travados",
+            "Ver uso de memória",
+            "Ver uso de CPU",
+            "Inicialização do Windows",
+            "Desempenho do sistema"
+        ],
+        "IconEmoji": "📊",
+        "IsPreInstalled": true
+    },
+    {
+        "Id": "app_wordpad",
+        "WhatItDoes": "Editor de texto simples com formatação",
+        "AppName": "WordPad",
+        "Category": "Produtividade",
+        "HowToOpen": "Procure por 'WordPad'",
+        "DetailedDescription": "Editor de texto intermediário entre Bloco de Notas e Word.",
+        "KeyFeatures": [
+            "Texto com formatação",
+            "Negrito e cores",
+            "Inserir imagens",
+            "Salvar em vários formatos",
+            "Ideal para textos simples"
+        ],
+        "IconEmoji": "📄",
+        "IsPreInstalled": true
+    },
+    {
+        "Id": "app_voice_recorder",
+        "WhatItDoes": "Gravar áudio",
+        "AppName": "Gravador de Voz",
+        "Category": "Multimídia",
+        "HowToOpen": "Procure por 'Gravador de Voz'",
+        "DetailedDescription": "Permite gravar áudios com o microfone do computador.",
+        "KeyFeatures": [
+            "Gravar voz",
+            "Salvar arquivos de áudio",
+            "Marcar trechos",
+            "Reproduzir gravações",
+            "Interface simples"
+        ],
+        "IconEmoji": "🎤",
+        "IsPreInstalled": true
+    },
+    {
+        "Id": "app_clock",
+        "WhatItDoes": "Relógio e alarmes",
+        "AppName": "Relógio",
+        "Category": "Produtividade",
+        "HowToOpen": "Procure por 'Relógio'",
+        "DetailedDescription": "Permite criar alarmes, cronômetros e temporizadores.",
+        "KeyFeatures": [
+            "Alarmes",
+            "Cronômetro",
+            "Temporizador",
+            "Relógio mundial",
+            "Modo foco"
+        ],
+        "IconEmoji": "⏰",
+        "IsPreInstalled": true
+    },
+    {
+        "Id": "app_maps",
+        "WhatItDoes": "Ver mapas e rotas",
+        "AppName": "Mapas",
+        "Category": "Utilidades",
+        "HowToOpen": "Procure por 'Mapas'",
+        "DetailedDescription": "Aplicativo de mapas do Windows para buscar locais e rotas.",
+        "KeyFeatures": [
+            "Buscar endereços",
+            "Ver rotas",
+            "Mapa offline",
+            "Pesquisar lugares",
+            "Visualização em satélite"
+        ],
+        "IconEmoji": "🗺️",
+        "IsPreInstalled": true
     }
+
+
 ]
