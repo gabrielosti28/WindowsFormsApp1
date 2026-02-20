@@ -32,116 +32,10 @@ namespace GuiaDoComputador
         private List<EventoTraduzido> _todosEventos = new List<EventoTraduzido>();
         private string _categoriaAtiva = "Todos";
 
-        // =====================================================================
-        // CONTROLES
-        // =====================================================================
-        private Panel panelTopo;
-        private Panel panelFiltros;
-        private FlowLayoutPanel panelCards;
-        private Panel panelDetalhe;
-        private Label lblDetalheNome;
-        private Label lblDetalheData;
-        private RichTextBox rtbDetalheDescricao;
-        private Label lblCount;
-        private Panel panelCarregando;
-        private Label lblCarregando;
-
         public FormEvents()
         {
-            InitializeComponent();
-            ConstruirInterface();
+           
             CarregarEventos();
-        }
-
-        private void ConstruirInterface()
-        {
-            this.Text = "Central de Eventos e Histórico";
-            this.Size = new Size(1050, 720);
-            this.MinimumSize = new Size(900, 600);
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.BackColor = Color.FromArgb(245, 246, 250);
-            this.Font = new Font("Segoe UI", 9.5f);
-
-            // Cabeçalho
-            panelTopo = new Panel { Dock = DockStyle.Top, Height = 70, BackColor = Color.FromArgb(142, 68, 173), Padding = new Padding(20, 0, 20, 0) };
-            var lblTit = new Label { Text = "📊  Central de Eventos e Histórico", Font = new Font("Segoe UI", 14f, FontStyle.Bold), ForeColor = Color.White, Dock = DockStyle.Left, Width = 450, TextAlign = ContentAlignment.MiddleLeft };
-            var lblSub = new Label { Text = "Veja o que aconteceu no seu computador, em português", Font = new Font("Segoe UI", 9f), ForeColor = Color.FromArgb(220, 200, 240), Dock = DockStyle.Right, Width = 380, TextAlign = ContentAlignment.MiddleRight };
-            panelTopo.Controls.Add(lblTit);
-            panelTopo.Controls.Add(lblSub);
-
-            // Painel de carregando
-            panelCarregando = new Panel { Dock = DockStyle.Fill, BackColor = Color.FromArgb(245, 246, 250), Visible = true };
-            lblCarregando = new Label { Text = "⏳  Lendo o histórico do sistema...\n\nIsso pode levar alguns segundos.", Font = new Font("Segoe UI", 13f), ForeColor = Color.DimGray, TextAlign = ContentAlignment.MiddleCenter, Dock = DockStyle.Fill };
-            panelCarregando.Controls.Add(lblCarregando);
-
-            // Filtros de categoria
-            panelFiltros = new Panel { Dock = DockStyle.Top, Height = 50, BackColor = Color.White, Padding = new Padding(10, 8, 10, 8) };
-            panelFiltros.Paint += (s, e) => e.Graphics.DrawLine(new Pen(Color.FromArgb(220, 222, 230)), 0, panelFiltros.Height - 1, panelFiltros.Width, panelFiltros.Height - 1);
-
-            var categorias = new[] { "Todos", "Erros Críticos", "Avisos", "Logins", "Instalações", "Desligamentos" };
-            int x = 10;
-            foreach (var cat in categorias)
-            {
-                var btn = new Button
-                {
-                    Text = cat,
-                    Tag = cat,
-                    Font = new Font("Segoe UI", 9f),
-                    FlatStyle = FlatStyle.Flat,
-                    BackColor = cat == "Todos" ? Color.FromArgb(142, 68, 173) : Color.FromArgb(240, 240, 248),
-                    ForeColor = cat == "Todos" ? Color.White : Color.FromArgb(80, 80, 110),
-                    Location = new Point(x, 8),
-                    AutoSize = true,
-                    Padding = new Padding(8, 2, 8, 2),
-                    Cursor = Cursors.Hand
-                };
-                btn.FlatAppearance.BorderColor = Color.FromArgb(200, 180, 220);
-                btn.Click += FiltroBtn_Click;
-                panelFiltros.Controls.Add(btn);
-                x += btn.Width + 8;
-            }
-
-            lblCount = new Label { Text = "", Font = new Font("Segoe UI", 8.5f, FontStyle.Italic), ForeColor = Color.Gray, Dock = DockStyle.Right, TextAlign = ContentAlignment.MiddleRight, Width = 200 };
-            panelFiltros.Controls.Add(lblCount);
-
-            // Painel detalhe (direita)
-            panelDetalhe = new Panel { Dock = DockStyle.Right, Width = 320, BackColor = Color.White, Padding = new Padding(15) };
-            panelDetalhe.Paint += (s, e) => e.Graphics.DrawLine(new Pen(Color.FromArgb(220, 220, 230)), 0, 0, 0, panelDetalhe.Height);
-
-            lblDetalheNome = new Label { Text = "Clique em um evento para ver detalhes", Font = new Font("Segoe UI", 11f, FontStyle.Bold), ForeColor = Color.FromArgb(44, 62, 80), Location = new Point(15, 15), Size = new Size(290, 50), AutoSize = false };
-            lblDetalheData = new Label { Text = "", Font = new Font("Segoe UI", 8.5f), ForeColor = Color.Gray, Location = new Point(15, 68), Size = new Size(290, 20), AutoSize = false };
-
-            var lblExplicacao = new Label { Text = "O que isso significa:", Font = new Font("Segoe UI", 8.5f, FontStyle.Bold), ForeColor = Color.FromArgb(100, 110, 130), Location = new Point(15, 98), AutoSize = true };
-
-            rtbDetalheDescricao = new RichTextBox
-            {
-                Location = new Point(15, 118),
-                Size = new Size(290, 450),
-                Font = new Font("Segoe UI", 9.5f),
-                ForeColor = Color.FromArgb(60, 70, 90),
-                ReadOnly = true,
-                BorderStyle = BorderStyle.None,
-                BackColor = Color.White,
-                Text = "Selecione um evento para ler uma explicação em linguagem simples sobre o que aconteceu e se você precisa se preocupar."
-            };
-
-            panelDetalhe.Controls.AddRange(new Control[] { lblDetalheNome, lblDetalheData, lblExplicacao, rtbDetalheDescricao });
-
-            // Área de cards (lista de eventos)
-            panelCards = new FlowLayoutPanel
-            {
-                Dock = DockStyle.Fill,
-                FlowDirection = FlowDirection.TopDown,
-                WrapContents = false,
-                AutoScroll = true,
-                Padding = new Padding(10)
-            };
-
-            this.Controls.Add(panelCarregando);
-            this.Controls.Add(panelDetalhe);
-            this.Controls.Add(panelCards);
-            this.Controls.Add(panelFiltros);
-            this.Controls.Add(panelTopo);
         }
 
         private async void CarregarEventos()
@@ -159,11 +53,8 @@ namespace GuiaDoComputador
         {
             var lista = new List<EventoTraduzido>();
 
-            // Erros e Avisos do Sistema
             lista.AddRange(LerLog("System", 150));
             lista.AddRange(LerLog("Application", 100));
-
-            // Login History (Security log)
             lista.AddRange(LerEventosLogin());
 
             lista = lista.OrderByDescending(e => e.DataHora).ToList();
@@ -225,8 +116,6 @@ namespace GuiaDoComputador
                 DetalhesTecnicos = $"Fonte: {entry.Source} | ID: {entry.InstanceId} | Log: {logNome}"
             };
 
-            // Tradução de eventos comuns
-            var id = (int)(entry.InstanceId & 0xFFFF);
             var fonte = entry.Source?.ToLower() ?? "";
 
             if (fonte.Contains("disk") || fonte.Contains("ntfs"))
@@ -271,7 +160,8 @@ namespace GuiaDoComputador
 
         private string TraduzirMensagemGenerica(string mensagem, string fonte)
         {
-            if (string.IsNullOrWhiteSpace(mensagem)) return $"O componente '{fonte}' registrou um evento no sistema. Para mais detalhes, consulte o Visualizador de Eventos do Windows.";
+            if (string.IsNullOrWhiteSpace(mensagem))
+                return $"O componente '{fonte}' registrou um evento no sistema. Para mais detalhes, consulte o Visualizador de Eventos do Windows.";
 
             var resumo = mensagem.Length > 200 ? mensagem.Substring(0, 200) + "..." : mensagem;
             return $"O Windows registrou uma ocorrência no componente '{fonte}'.\n\n" +
@@ -304,11 +194,11 @@ namespace GuiaDoComputador
             {
                 if (c is Button b)
                 {
-                    b.BackColor = Color.FromArgb(240, 240, 248);
-                    b.ForeColor = Color.FromArgb(80, 80, 110);
+                    b.BackColor = Color.FromArgb(240, 245, 255);
+                    b.ForeColor = Color.FromArgb(60, 70, 90);
                 }
             }
-            btn.BackColor = Color.FromArgb(142, 68, 173);
+            btn.BackColor = Color.FromArgb(79, 70, 229);
             btn.ForeColor = Color.White;
 
             _categoriaAtiva = categoria;
@@ -323,20 +213,22 @@ namespace GuiaDoComputador
                 ? _todosEventos
                 : _todosEventos.Where(e => e.Categoria == categoria).ToList();
 
-            lblCount.Text = $"{filtrados.Count} eventos";
+            lblCount.Text = $"{filtrados.Count} eventos encontrados";
 
             if (filtrados.Count == 0)
             {
+                var panelVazio = new Panel { Size = new Size(600, 200), BackColor = Color.Transparent };
                 var lblVazio = new Label
                 {
-                    Text = "✔  Nenhum evento encontrado nesta categoria.\n\nBoa notícia — seu sistema parece estar saudável!",
-                    Font = new Font("Segoe UI", 11f),
+                    Text = "✨  Nenhum evento encontrado nesta categoria\n\n" +
+                           "Boa notícia! Seu computador está funcionando perfeitamente.",
+                    Font = new Font("Segoe UI", 12f),
                     ForeColor = Color.FromArgb(39, 174, 96),
                     TextAlign = ContentAlignment.MiddleCenter,
-                    Size = new Size(550, 120),
-                    AutoSize = false
+                    Dock = DockStyle.Fill
                 };
-                panelCards.Controls.Add(lblVazio);
+                panelVazio.Controls.Add(lblVazio);
+                panelCards.Controls.Add(panelVazio);
                 return;
             }
 
@@ -348,41 +240,69 @@ namespace GuiaDoComputador
 
         private Panel CriarCardEvento(EventoTraduzido ev)
         {
-            var corBorda = ev.Categoria == "Erros Críticos" ? Color.FromArgb(231, 76, 60) :
-                           ev.Categoria == "Avisos" ? Color.FromArgb(243, 156, 18) :
-                           ev.Categoria == "Logins" ? Color.FromArgb(52, 152, 219) :
-                           ev.Categoria == "Instalações" ? Color.FromArgb(39, 174, 96) :
-                           Color.FromArgb(155, 89, 182);
-
             var card = new Panel
             {
-                Size = new Size(680, 60),
+                Size = new Size(645, 70),
                 BackColor = Color.White,
-                Margin = new Padding(0, 0, 0, 6),
+                Margin = new Padding(0, 0, 0, 10),
                 Cursor = Cursors.Hand,
                 Tag = ev
             };
-            card.Paint += (s, e) =>
+
+            var corCategoria = ev.Categoria == "Erros Críticos" ? Color.FromArgb(239, 68, 68) :
+                               ev.Categoria == "Avisos" ? Color.FromArgb(245, 158, 11) :
+                               ev.Categoria == "Logins" ? Color.FromArgb(59, 130, 246) :
+                               ev.Categoria == "Instalações" ? Color.FromArgb(16, 185, 129) :
+                               ev.Categoria == "Desligamentos" ? Color.FromArgb(139, 92, 246) :
+                               Color.FromArgb(107, 114, 128);
+
+            var lblIco = new Label
             {
-                e.Graphics.FillRectangle(new SolidBrush(corBorda), 0, 0, 4, card.Height);
-                e.Graphics.DrawRectangle(new Pen(Color.FromArgb(225, 228, 235)), 0, 0, card.Width - 1, card.Height - 1);
+                Text = ev.Icone,
+                Font = new Font("Segoe UI", 16f),
+                Location = new Point(15, 10),
+                Size = new Size(40, 40),
+                TextAlign = ContentAlignment.MiddleCenter
             };
 
-            var lblIco = new Label { Text = ev.Icone, Font = new Font("Segoe UI", 14f), Location = new Point(12, 10), Size = new Size(35, 35), TextAlign = ContentAlignment.MiddleCenter };
-            var lblTit = new Label { Text = ev.Titulo, Font = new Font("Segoe UI", 9.5f, FontStyle.Bold), ForeColor = Color.FromArgb(44, 62, 80), Location = new Point(55, 8), Size = new Size(500, 20), AutoEllipsis = true };
-            var lblDat = new Label { Text = ev.DataHora.ToString("dd/MM/yyyy  HH:mm") + "  |  " + ev.Categoria, Font = new Font("Segoe UI", 8f), ForeColor = Color.Gray, Location = new Point(55, 30), Size = new Size(500, 18) };
-
-            card.Controls.AddRange(new Control[] { lblIco, lblTit, lblDat });
-
-            Action<bool> hover = (h) =>
+            var lblTit = new Label
             {
-                card.BackColor = h ? Color.FromArgb(250, 248, 255) : Color.White;
-                foreach (Control c in card.Controls) c.BackColor = card.BackColor;
+                Text = ev.Titulo,
+                Font = new Font("Segoe UI", 10f, FontStyle.Bold),
+                ForeColor = Color.FromArgb(17, 24, 39),
+                Location = new Point(65, 12),
+                Size = new Size(380, 20),
+                AutoEllipsis = true
             };
 
-            foreach (Control c in card.Controls) { c.MouseEnter += (s, e) => hover(true); c.MouseLeave += (s, e) => hover(false); c.Click += (s, e) => MostrarDetalhe(ev); }
-            card.MouseEnter += (s, e) => hover(true);
-            card.MouseLeave += (s, e) => hover(false);
+            var lblDat = new Label
+            {
+                Text = ev.DataHora.ToString("dd/MM/yyyy • HH:mm") + "  |  " + ev.Categoria,
+                Font = new Font("Segoe UI", 8.5f),
+                ForeColor = Color.FromArgb(107, 114, 128),
+                Location = new Point(65, 35),
+                Size = new Size(380, 18)
+            };
+
+            var panelCor = new Panel
+            {
+                Location = new Point(0, 0),
+                Size = new Size(4, 70),
+                BackColor = corCategoria
+            };
+
+            card.Controls.AddRange(new Control[] { panelCor, lblIco, lblTit, lblDat });
+
+            card.MouseEnter += (s, e) =>
+            {
+                card.BackColor = Color.FromArgb(249, 250, 255);
+                card.Refresh();
+            };
+            card.MouseLeave += (s, e) =>
+            {
+                card.BackColor = Color.White;
+                card.Refresh();
+            };
             card.Click += (s, e) => MostrarDetalhe(ev);
 
             return card;
@@ -391,11 +311,19 @@ namespace GuiaDoComputador
         private void MostrarDetalhe(EventoTraduzido ev)
         {
             lblDetalheNome.Text = ev.Icone + "  " + ev.Titulo;
-            lblDetalheData.Text = ev.DataHora.ToString("dddd, dd/MM/yyyy  HH:mm:ss");
-            rtbDetalheDescricao.Text = ev.Descricao;
+            lblDetalheData.Text = ev.DataHora.ToString("dddd, dd 'de' MMMM 'de' yyyy • HH:mm:ss");
+
+            var descricaoCompleta = ev.Descricao;
 
             if (!string.IsNullOrEmpty(ev.DetalhesTecnicos))
-                rtbDetalheDescricao.Text += $"\n\n────────────────\n📋 Detalhes técnicos:\n{ev.DetalhesTecnicos}";
+            {
+                descricaoCompleta += $"\n\n🔍 **Para os curiosos:**\n{ev.DetalhesTecnicos}";
+            }
+
+            descricaoCompleta += "\n\n💡 **Dica:** A maioria dos eventos do sistema é normal e não requer ação. " +
+                                 "Fique atento apenas se o mesmo erro aparecer muitas vezes.";
+
+            rtbDetalheDescricao.Text = descricaoCompleta;
         }
 
         private void InitializeComponent()

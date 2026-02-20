@@ -7,349 +7,86 @@ using System.Windows.Forms;
 
 namespace GuiaDoComputador
 {
-    public class FormMaintenance : Form
+    public partial class FormMaintenance : Form
     {
-        // Cores
-        private readonly Color CorFundo = Color.FromArgb(245, 247, 250);
-        private readonly Color CorBranco = Color.White;
-        private readonly Color CorAzul = Color.FromArgb(41, 128, 185);
-        private readonly Color CorVerde = Color.FromArgb(39, 174, 96);
-        private readonly Color CorVermelho = Color.FromArgb(192, 57, 43);
-        private readonly Color CorAmarelo = Color.FromArgb(243, 156, 18);
-        private readonly Color CorLaranja = Color.FromArgb(230, 126, 34);
-        private readonly Color CorTexto = Color.FromArgb(44, 62, 80);
-
-        private TabControl tabMain;
-        private Label lblStatus;
-        private ProgressBar pbProgresso;
+        private ProgramaInicializacao progSelecionado = null;
 
         public FormMaintenance()
         {
-            InitializeForm();
+            ConfigurarEventos();
         }
 
-        private void InitializeForm()
+        private void ConfigurarEventos()
         {
-            this.Text = "🔧 Manutenção do Computador";
-            this.Size = new Size(1000, 700);
-            this.MinimumSize = new Size(800, 600);
-            this.StartPosition = FormStartPosition.CenterParent;
-            this.BackColor = CorFundo;
-            this.Font = new Font("Segoe UI", 9f);
-
-            // Topo
-            var pnlTopo = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 70,
-                BackColor = Color.FromArgb(39, 174, 96)
-            };
-            pnlTopo.Controls.Add(new Label
-            {
-                Text = "🔧 Manutenção do Computador",
-                Font = new Font("Segoe UI", 14f, FontStyle.Bold),
-                ForeColor = Color.White,
-                Location = new Point(15, 8),
-                AutoSize = true
-            });
-            pnlTopo.Controls.Add(new Label
-            {
-                Text = "Faça um check-up, limpe arquivos desnecessários e deixe o computador mais rápido",
-                Font = new Font("Segoe UI", 9f),
-                ForeColor = Color.FromArgb(200, 240, 210),
-                Location = new Point(17, 42),
-                AutoSize = true
-            });
-
-            // Barra de status/progresso
-            var pnlRodape = new Panel
-            {
-                Dock = DockStyle.Bottom,
-                Height = 36,
-                BackColor = Color.FromArgb(236, 240, 241),
-                Padding = new Padding(10, 4, 10, 4)
-            };
-            lblStatus = new Label
-            {
-                Dock = DockStyle.Left,
-                Width = 500,
-                Font = new Font("Segoe UI", 9f, FontStyle.Bold),
-                ForeColor = CorAzul,
-                TextAlign = ContentAlignment.MiddleLeft,
-                Text = "Pronto."
-            };
-            pbProgresso = new ProgressBar
-            {
-                Dock = DockStyle.Right,
-                Width = 250,
-                Style = ProgressBarStyle.Marquee,
-                Visible = false,
-                Height = 18
-            };
-            pnlRodape.Controls.Add(lblStatus);
-            pnlRodape.Controls.Add(pbProgresso);
-
-            // Abas
-            tabMain = new TabControl
-            {
-                Dock = DockStyle.Fill,
-                Font = new Font("Segoe UI", 9.5f),
-                Padding = new Point(12, 6)
-            };
-
-            tabMain.TabPages.Add(CriarAbaCheckup());
-            tabMain.TabPages.Add(CriarAbaLimpeza());
-            tabMain.TabPages.Add(CriarAbaInicializacao());
-            tabMain.TabPages.Add(CriarAbaDiscos());
-
-            this.Controls.Add(tabMain);
-            this.Controls.Add(pnlTopo);
-            this.Controls.Add(pnlRodape);
-        }
-
-        // ═══════════════════════════════════════════════════════════════
-        // ABA 1: CHECK-UP GERAL
-        // ═══════════════════════════════════════════════════════════════
-        private TabPage CriarAbaCheckup()
-        {
-            var tab = new TabPage("🏥 Check-up Geral") { BackColor = CorFundo, Padding = new Padding(10) };
-
-            var pnlScroll = new Panel { Dock = DockStyle.Fill, AutoScroll = true };
-
-            // Botão de executar
-            var btnCheckup = CriarBotaoGrande("🔍 Fazer Check-up do Computador Agora",
-                "Verificar tudo e receber um relatório completo com pontuação", CorAzul, 10, 10, 600);
+            // Evento do botão de check-up
             btnCheckup.Click += async (s, e) =>
             {
                 btnCheckup.Enabled = false;
-                MostrarProgresso("Analisando seu computador...");
-                pnlScroll.Controls.Clear();
-                pnlScroll.Controls.Add(btnCheckup);
+                MostrarProgresso("🔍 Analisando seu computador...");
+                pnlCheckupResultados.Controls.Clear();
+
                 await Task.Run(() =>
                 {
                     var resultado = MaintenanceService.ExecutarCheckup();
                     this.Invoke((Action)(() =>
                     {
-                        pnlScroll.Controls.Add(CriarPainelCheckup(resultado, 100));
+                        pnlCheckupResultados.Controls.Add(CriarPainelCheckup(resultado));
                         OcultarProgresso("✅ Check-up concluído!");
                         btnCheckup.Enabled = true;
                     }));
                 });
             };
 
-            pnlScroll.Controls.Add(btnCheckup);
-            tab.Controls.Add(pnlScroll);
-            return tab;
-        }
-
-        private Panel CriarPainelCheckup(ResultadoManutencao resultado, int y)
-        {
-            var pnl = new Panel { Location = new Point(10, y), Width = 900, AutoSize = true };
-            int py = 0;
-
-            // Pontuação
-            var pnlNota = new Panel
+            // Evento do botão analisar lixo
+            btnAnalisarLixo.Click += async (s, e) =>
             {
-                Location = new Point(0, py),
-                Size = new Size(880, 90),
-                BackColor = CorBranco
-            };
-            pnlNota.Paint += (s, e) => DesenhaBordaArredondada(e.Graphics, pnlNota.ClientRectangle, 8, CorAzul);
-
-            var lblPontos = new Label
-            {
-                Text = resultado.Pontuacao.ToString(),
-                Font = new Font("Segoe UI", 36f, FontStyle.Bold),
-                ForeColor = ObterCorPontuacao(resultado.Pontuacao),
-                Location = new Point(20, 10),
-                AutoSize = true
-            };
-            var lblDe100 = new Label
-            {
-                Text = "/100",
-                Font = new Font("Segoe UI", 14f),
-                ForeColor = Color.FromArgb(127, 140, 141),
-                Location = new Point(85, 30),
-                AutoSize = true
-            };
-            var lblClassif = new Label
-            {
-                Text = $"{resultado.Emoji} {resultado.Classificacao}",
-                Font = new Font("Segoe UI", 14f, FontStyle.Bold),
-                ForeColor = ObterCorPontuacao(resultado.Pontuacao),
-                Location = new Point(140, 20),
-                AutoSize = true
-            };
-            var lblResumo = new Label
-            {
-                Text = resultado.Resumo,
-                Font = new Font("Segoe UI", 9f),
-                ForeColor = CorTexto,
-                Location = new Point(140, 50),
-                AutoSize = true
-            };
-            pnlNota.Controls.AddRange(new Control[] { lblPontos, lblDe100, lblClassif, lblResumo });
-            py += 100;
-
-            // Barra de progresso visual
-            var pb = new ProgressBar
-            {
-                Location = new Point(0, py),
-                Width = 880,
-                Height = 20,
-                Minimum = 0,
-                Maximum = 100,
-                Value = resultado.Pontuacao,
-                Style = ProgressBarStyle.Continuous
-            };
-            py += 28;
-
-            // Problemas
-            if (resultado.ProblemasEncontrados.Any())
-            {
-                var lblProb = new Label
-                {
-                    Text = "📋 O que foi encontrado:",
-                    Font = new Font("Segoe UI", 10f, FontStyle.Bold),
-                    ForeColor = CorTexto,
-                    Location = new Point(0, py),
-                    AutoSize = true
-                };
-                py += 26;
-
-                foreach (var prob in resultado.ProblemasEncontrados)
-                {
-                    var lblItem = new Label
-                    {
-                        Text = prob,
-                        Font = new Font("Segoe UI", 9f),
-                        ForeColor = prob.Contains("✅") ? CorVerde : CorTexto,
-                        Location = new Point(10, py),
-                        Size = new Size(860, 22)
-                    };
-                    py += 24;
-                    pnl.Controls.Add(lblItem);
-                }
-                pnl.Controls.Add(lblProb);
-            }
-
-            // Recomendações
-            if (resultado.Recomendacoes.Any())
-            {
-                var lblRec = new Label
-                {
-                    Text = "💡 O que fazer:",
-                    Font = new Font("Segoe UI", 10f, FontStyle.Bold),
-                    ForeColor = CorTexto,
-                    Location = new Point(0, py),
-                    AutoSize = true
-                };
-                py += 26;
-
-                foreach (var rec in resultado.Recomendacoes)
-                {
-                    var pnlRec = new Panel
-                    {
-                        Location = new Point(0, py),
-                        Size = new Size(880, 32),
-                        BackColor = Color.FromArgb(232, 246, 255)
-                    };
-                    pnlRec.Controls.Add(new Label
-                    {
-                        Text = "→ " + rec,
-                        Font = new Font("Segoe UI", 9f),
-                        ForeColor = CorAzul,
-                        Dock = DockStyle.Fill,
-                        TextAlign = ContentAlignment.MiddleLeft,
-                        Padding = new Padding(10, 0, 0, 0)
-                    });
-                    py += 36;
-                    pnl.Controls.Add(pnlRec);
-                }
-                pnl.Controls.Add(lblRec);
-            }
-
-            pnl.Controls.AddRange(new Control[] { pnlNota, pb });
-            pnl.Height = py + 20;
-            return pnl;
-        }
-
-        // ═══════════════════════════════════════════════════════════════
-        // ABA 2: LIMPEZA
-        // ═══════════════════════════════════════════════════════════════
-        private TabPage CriarAbaLimpeza()
-        {
-            var tab = new TabPage("🧹 Limpar Arquivos") { BackColor = CorFundo, Padding = new Padding(10) };
-            var pnl = new Panel { Dock = DockStyle.Fill, AutoScroll = true };
-
-            var lblExplica = new Label
-            {
-                Text = "Com o tempo, o computador acumula arquivos desnecessários — como uma gaveta que vai enchendo de papéis velhos.\n" +
-                            "A limpeza abaixo é completamente segura: remove apenas arquivos que o Windows não precisa mais.",
-                Font = new Font("Segoe UI", 9.5f),
-                ForeColor = CorTexto,
-                Location = new Point(10, 10),
-                Size = new Size(880, 50)
-            };
-
-            var pnlAnalise = new Panel { Location = new Point(10, 68), Width = 880, Height = 280, BackColor = CorBranco };
-            var lblAnaliseTitulo = new Label
-            {
-                Text = "📊 Analisar quanto espaço pode ser liberado",
-                Font = new Font("Segoe UI", 10f, FontStyle.Bold),
-                ForeColor = CorTexto,
-                Location = new Point(10, 10),
-                AutoSize = true
-            };
-
-            var pnlResultados = new Panel { Location = new Point(0, 40), Width = 880, Height = 220, AutoScroll = true };
-
-            var btnAnalisar = CriarBotaoGrande("🔍 Analisar Arquivos Desnecessários",
-                "Verificar quanto espaço pode ser liberado (sem apagar nada ainda)", CorAzul, 10, 10, 400);
-
-            var btnLimpar = CriarBotaoGrande("🧹 Apagar Arquivos Desnecessários",
-                "Apagar todos os arquivos encontrados e liberar espaço", CorVerde, 430, 10, 400);
-            btnLimpar.Enabled = false;
-
-            btnAnalisar.Click += async (s, e) =>
-            {
-                btnAnalisar.Enabled = btnLimpar.Enabled = false;
-                MostrarProgresso("Analisando arquivos...");
-                pnlResultados.Controls.Clear();
+                btnAnalisarLixo.Enabled = btnLimparLixo.Enabled = false;
+                MostrarProgresso("🔍 Analisando arquivos desnecessários...");
+                pnlLixoResultados.Controls.Clear();
 
                 await Task.Run(() =>
                 {
                     var lixo = MaintenanceService.AnalisarLixo();
                     this.Invoke((Action)(() =>
                     {
-                        int ry = 10; long totalBytes = 0;
+                        long totalBytes = 0;
+                        int y = 10;
+
                         foreach (var item in lixo)
                         {
                             totalBytes += item.BytesLiberados;
-                            var pItem = new Panel { Location = new Point(10, ry), Size = new Size(840, 36), BackColor = Color.FromArgb(248, 250, 252) };
-                            pItem.Controls.Add(new Label { Text = $"{item.Emoji} {item.Nome}", Font = new Font("Segoe UI", 9f, FontStyle.Bold), ForeColor = CorTexto, Location = new Point(8, 8), AutoSize = true });
-                            pItem.Controls.Add(new Label { Text = item.TamanhoFormatado, Font = new Font("Segoe UI", 9f, FontStyle.Bold), ForeColor = item.BytesLiberados > 100_000_000 ? CorLaranja : CorAzul, Location = new Point(700, 8), AutoSize = true });
-                            pnlResultados.Controls.Add(pItem);
-                            ry += 40;
+                            var card = CriarCardItemLixo(item, y);
+                            pnlLixoResultados.Controls.Add(card);
+                            y += 45;
                         }
-                        var pTotal = new Panel { Location = new Point(10, ry), Size = new Size(840, 40), BackColor = Color.FromArgb(232, 246, 255) };
-                        pTotal.Controls.Add(new Label { Text = $"📦 Total que pode ser liberado: {MaintenanceService.FormatarBytes(totalBytes)}", Font = new Font("Segoe UI", 10f, FontStyle.Bold), ForeColor = CorAzul, Location = new Point(10, 10), AutoSize = true });
-                        pnlResultados.Controls.Add(pTotal);
 
-                        btnAnalisar.Enabled = true;
-                        btnLimpar.Enabled = totalBytes > 0;
+                        var cardTotal = CriarCardTotalLixo(totalBytes, y);
+                        pnlLixoResultados.Controls.Add(cardTotal);
+
+                        btnAnalisarLixo.Enabled = true;
+                        btnLimparLixo.Enabled = totalBytes > 0;
                         OcultarProgresso("✅ Análise concluída!");
                     }));
                 });
             };
 
-            btnLimpar.Click += async (s, e) =>
+            // Evento do botão limpar lixo
+            btnLimparLixo.Click += async (s, e) =>
             {
-                if (MessageBox.Show("Apagar todos os arquivos desnecessários encontrados?\n\nIsso é seguro — apenas arquivos temporários e o conteúdo da Lixeira serão apagados. Seus documentos, fotos e programas não são afetados.",
-                    "Confirmar Limpeza", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+                if (MessageBox.Show(
+                    "🧹 **Apagar arquivos desnecessários?**\n\n" +
+                    "Isso é **100% seguro**! Serão apagados apenas:\n" +
+                    "• Arquivos temporários da internet\n" +
+                    "• Cache do sistema\n" +
+                    "• Conteúdo da Lixeira\n\n" +
+                    "Seus documentos, fotos e programas **não** serão afetados.",
+                    "Confirmar limpeza",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question) != DialogResult.Yes) return;
 
-                btnAnalisar.Enabled = btnLimpar.Enabled = false;
-                MostrarProgresso("Limpando...");
+                btnAnalisarLixo.Enabled = btnLimparLixo.Enabled = false;
+                MostrarProgresso("🧹 Limpando arquivos...");
+                pnlLixoResultados.Controls.Clear();
 
                 await Task.Run(() =>
                 {
@@ -359,283 +96,432 @@ namespace GuiaDoComputador
                     long total = resultados.Sum(r => r.BytesLiberados);
                     this.Invoke((Action)(() =>
                     {
-                        pnlResultados.Controls.Clear();
-                        int ry = 10;
+                        int y = 10;
                         foreach (var r in resultados)
                         {
-                            var pItem = new Panel { Location = new Point(10, ry), Size = new Size(840, 36), BackColor = r.Sucesso ? Color.FromArgb(232, 250, 240) : Color.FromArgb(254, 235, 233) };
-                            pItem.Controls.Add(new Label { Text = $"{r.Emoji} {r.Nome}: {r.Mensagem.Split('\n')[0]}", Font = new Font("Segoe UI", 9f), ForeColor = CorTexto, Location = new Point(8, 8), Size = new Size(800, 22) });
-                            pnlResultados.Controls.Add(pItem);
-                            ry += 40;
+                            var card = CriarCardResultadoLimpeza(r, y);
+                            pnlLixoResultados.Controls.Add(card);
+                            y += 45;
                         }
-                        var pTotal = new Panel { Location = new Point(10, ry), Size = new Size(840, 40), BackColor = Color.FromArgb(232, 250, 240) };
-                        pTotal.Controls.Add(new Label { Text = $"🎉 Limpeza concluída! {MaintenanceService.FormatarBytes(total)} liberados no total!", Font = new Font("Segoe UI", 10f, FontStyle.Bold), ForeColor = CorVerde, Location = new Point(10, 10), AutoSize = true });
-                        pnlResultados.Controls.Add(pTotal);
-                        btnAnalisar.Enabled = true;
-                        btnLimpar.Enabled = false;
+
+                        var cardTotal = CriarCardTotalLimpeza(total, y);
+                        pnlLixoResultados.Controls.Add(cardTotal);
+
+                        btnAnalisarLixo.Enabled = true;
                         OcultarProgresso($"✅ {MaintenanceService.FormatarBytes(total)} liberados!");
                     }));
                 });
             };
 
-            pnlAnalise.Controls.AddRange(new Control[] { lblAnaliseTitulo, btnAnalisar, btnLimpar, pnlResultados });
-            pnl.Controls.AddRange(new Control[] { lblExplica, pnlAnalise });
-            tab.Controls.Add(pnl);
-            return tab;
-        }
+            // Evento do botão carregar programas de inicialização
+            btnCarregarInicializacao.Click += (s, e) => CarregarListaInicializacao();
 
-        // ═══════════════════════════════════════════════════════════════
-        // ABA 3: INICIALIZAÇÃO
-        // ═══════════════════════════════════════════════════════════════
-        private TabPage CriarAbaInicializacao()
-        {
-            var tab = new TabPage("🚀 Velocidade ao Ligar") { BackColor = CorFundo };
-            var pnl = new Panel { Dock = DockStyle.Fill };
-
-            var lblExplica = new Label
+            // Evento de seleção na lista de inicialização
+            lvInicializacao.SelectedIndexChanged += (s, e) =>
             {
-                Text = "📖 Esses são os programas que abrem automaticamente toda vez que você liga o computador.\n" +
-                            "Quanto mais programas, mais demora para o Windows estar pronto para usar. Desative os que não precisa.",
-                Font = new Font("Segoe UI", 9.5f),
-                ForeColor = CorTexto,
-                Location = new Point(10, 10),
-                Size = new Size(940, 50)
-            };
+                if (lvInicializacao.SelectedItems.Count == 0)
+                {
+                    btnDesativarInicializacao.Enabled = false;
+                    return;
+                }
 
-            var lvInicio = new ListView
-            {
-                Location = new Point(10, 68),
-                Size = new Size(720, 540),
-                View = View.Details,
-                FullRowSelect = true,
-                GridLines = true,
-                Font = new Font("Segoe UI", 9f),
-                BackColor = CorBranco
-            };
-            lvInicio.Columns.Add("Programa", 240);
-            lvInicio.Columns.Add("Situação", 90);
-            lvInicio.Columns.Add("Impacto", 170);
-            lvInicio.Columns.Add("Fabricante", 130);
-            lvInicio.Columns.Add("Origem", 80);
-
-            var pnlDetalhesInicio = new Panel
-            {
-                Location = new Point(745, 68),
-                Size = new Size(220, 300),
-                BackColor = CorBranco,
-                Padding = new Padding(10)
-            };
-
-            var lblDetTitle = new Label
-            {
-                Text = "Selecione um programa para ver detalhes",
-                Font = new Font("Segoe UI", 9f, FontStyle.Bold),
-                ForeColor = CorTexto,
-                Location = new Point(10, 10),
-                Size = new Size(200, 60),
-                AutoSize = false
-            };
-
-            var lblDetDesc = new Label
-            {
-                Font = new Font("Segoe UI", 8.5f),
-                ForeColor = CorTexto,
-                Location = new Point(10, 80),
-                Size = new Size(200, 80),
-                AutoSize = false
-            };
-
-            var lblDetRec = new Label
-            {
-                Font = new Font("Segoe UI", 8.5f, FontStyle.Bold),
-                ForeColor = CorVerde,
-                Location = new Point(10, 170),
-                Size = new Size(200, 80),
-                AutoSize = false
-            };
-
-            var btnDesativarInicio = new Button
-            {
-                Text = "🚫 Remover da Inicialização",
-                Location = new Point(10, 260),
-                Size = new Size(200, 36),
-                FlatStyle = FlatStyle.Flat,
-                BackColor = CorVermelho,
-                ForeColor = Color.White,
-                Font = new Font("Segoe UI", 9f),
-                Cursor = Cursors.Hand,
-                Enabled = false
-            };
-            btnDesativarInicio.FlatAppearance.BorderSize = 0;
-
-            pnlDetalhesInicio.Controls.AddRange(new Control[] { lblDetTitle, lblDetDesc, lblDetRec, btnDesativarInicio });
-
-            ProgramaInicializacao progSelecionado = null;
-
-            lvInicio.SelectedIndexChanged += (s, e) =>
-            {
-                if (lvInicio.SelectedItems.Count == 0) { btnDesativarInicio.Enabled = false; return; }
-                progSelecionado = lvInicio.SelectedItems[0].Tag as ProgramaInicializacao;
+                progSelecionado = lvInicializacao.SelectedItems[0].Tag as ProgramaInicializacao;
                 if (progSelecionado == null) return;
-                lblDetTitle.Text = progSelecionado.Nome;
-                lblDetDesc.Text = progSelecionado.Descricao;
-                lblDetRec.Text = progSelecionado.Recomendacao;
-                btnDesativarInicio.Enabled = true;
+
+                lblDetalheProgramaNome.Text = progSelecionado.Nome;
+                lblDetalheProgramaDesc.Text = progSelecionado.Descricao;
+                lblDetalheProgramaRec.Text = progSelecionado.Recomendacao;
+                btnDesativarInicializacao.Enabled = true;
             };
 
-            btnDesativarInicio.Click += (s, e) =>
+            // Evento do botão desativar programa
+            btnDesativarInicializacao.Click += (s, e) =>
             {
                 if (progSelecionado == null) return;
-                if (MessageBox.Show($"Remover '{progSelecionado.Nome}' da inicialização?\n\n{progSelecionado.Recomendacao}\n\nO programa continua funcionando normalmente — só não vai mais abrir sozinho quando o Windows ligar.",
-                    "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+
+                if (MessageBox.Show(
+                    $"❓ Desativar '{progSelecionado.Nome}' da inicialização?\n\n" +
+                    $"{progSelecionado.Recomendacao}\n\n" +
+                    "O programa continua instalado e funcionando — só não vai mais abrir sozinho quando o Windows ligar.",
+                    "Confirmar desativação",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question) != DialogResult.Yes) return;
 
                 var (ok, msg) = MaintenanceService.DesativarProgramaInicializacao(progSelecionado);
-                MessageBox.Show(msg, ok ? "✅ Pronto!" : "❌ Erro", MessageBoxButtons.OK,
+
+                MessageBox.Show(msg,
+                    ok ? "✅ Sucesso!" : "❌ Atenção",
+                    MessageBoxButtons.OK,
                     ok ? MessageBoxIcon.Information : MessageBoxIcon.Warning);
-                if (ok) CarregarListaInicializacao(lvInicio);
+
+                if (ok) CarregarListaInicializacao();
             };
 
-            // Botão carregar
-            var btnCarregar = CriarBotaoGrande("🔄 Carregar Programas da Inicialização", "", CorAzul, 10, 10, 350);
-            btnCarregar.Height = 36;
-            btnCarregar.Click += (s, e) => CarregarListaInicializacao(lvInicio);
+            // Evento do botão analisar discos
+            btnAnalisarDiscos.Click += (s, e) =>
+            {
+                MostrarProgresso("💾 Analisando discos...");
+                pnlDiscosResultados.Controls.Clear();
 
-            pnl.Controls.AddRange(new Control[] { lblExplica, btnCarregar, lvInicio, pnlDetalhesInicio });
-            tab.Controls.Add(pnl);
-            return tab;
+                var discos = MaintenanceService.AnalisarDiscos();
+                int y = 0;
+
+                foreach (var d in discos)
+                {
+                    var card = CriarCardDisco(d, y);
+                    pnlDiscosResultados.Controls.Add(card);
+                    y += 115;
+                }
+
+                OcultarProgresso($"✅ {discos.Count} disco(s) analisado(s).");
+            };
         }
 
-        private void CarregarListaInicializacao(ListView lv)
+        private void CarregarListaInicializacao()
         {
-            MostrarProgresso("Carregando programas de inicialização...");
-            lv.Items.Clear();
+            MostrarProgresso("🔄 Carregando programas de inicialização...");
+            lvInicializacao.Items.Clear();
+
             var progs = MaintenanceService.ObterProgramasInicializacao();
+
             foreach (var p in progs)
             {
                 var item = new ListViewItem(p.Nome);
-                item.SubItems.Add(p.Ativo ? "✅ Ativo" : "🔴 Inativo");
+                item.SubItems.Add(p.Ativo ? "✅ Ativo" : "⚪ Inativo");
                 item.SubItems.Add(p.ImpactoEmoji + " " + p.ImpactoNaInicializacao);
                 item.SubItems.Add(p.Fabricante);
                 item.SubItems.Add(p.Origem);
                 item.Tag = p;
-                item.BackColor = p.ImpactoEmoji == "🟢" ? Color.FromArgb(235, 252, 243) :
-                                 p.ImpactoEmoji == "🟡" ? Color.FromArgb(255, 253, 231) :
-                                 Color.FromArgb(248, 248, 248);
-                lv.Items.Add(item);
+
+                item.BackColor = p.ImpactoEmoji == "🟢" ? Color.FromArgb(240, 255, 240) :
+                                 p.ImpactoEmoji == "🟡" ? Color.FromArgb(255, 255, 225) :
+                                 Color.FromArgb(255, 240, 240);
+
+                lvInicializacao.Items.Add(item);
             }
-            OcultarProgresso($"✅ {progs.Count} programas na inicialização.");
+
+            OcultarProgresso($"✅ {progs.Count} programa(s) na inicialização.");
         }
 
-        // ═══════════════════════════════════════════════════════════════
-        // ABA 4: DISCOS
-        // ═══════════════════════════════════════════════════════════════
-        private TabPage CriarAbaDiscos()
+        private Panel CriarPainelCheckup(ResultadoManutencao resultado)
         {
-            var tab = new TabPage("💾 Meus Discos") { BackColor = CorFundo };
-            var pnl = new Panel { Dock = DockStyle.Fill, AutoScroll = true };
-
-            var btnAnalisarDiscos = CriarBotaoGrande("💾 Verificar Espaço nos Discos", "", CorAzul, 10, 10, 300);
-            btnAnalisarDiscos.Height = 36;
-
-            var pnlDiscos = new Panel { Location = new Point(10, 60), Width = 920, Height = 600, AutoScroll = true };
-
-            btnAnalisarDiscos.Click += (s, e) =>
+            var pnl = new Panel
             {
-                pnlDiscos.Controls.Clear();
-                var discos = MaintenanceService.AnalisarDiscos();
-                int dy = 0;
-                foreach (var d in discos)
-                {
-                    var card = CriarCardDisco(d, dy);
-                    pnlDiscos.Controls.Add(card);
-                    dy += 120;
-                }
-                OcultarProgresso($"✅ {discos.Count} disco(s) analisado(s).");
+                Width = 860,
+                Height = 400,
+                AutoScroll = true,
+                BackColor = Color.White
             };
 
-            pnl.Controls.AddRange(new Control[] { btnAnalisarDiscos, pnlDiscos });
-            tab.Controls.Add(pnl);
-            return tab;
+            int y = 20;
+
+            // Card de pontuação
+            var pnlPontuacao = CriarCardPontuacao(resultado, y);
+            pnl.Controls.Add(pnlPontuacao);
+            y += 100;
+
+            // Barra de progresso visual
+            var pbPontuacao = new ProgressBar
+            {
+                Location = new Point(20, y),
+                Width = 820,
+                Height = 20,
+                Minimum = 0,
+                Maximum = 100,
+                Value = resultado.Pontuacao,
+                Style = ProgressBarStyle.Continuous
+            };
+            pnl.Controls.Add(pbPontuacao);
+            y += 40;
+
+            // Problemas encontrados
+            if (resultado.ProblemasEncontrados.Any())
+            {
+                var lblProblemas = new Label
+                {
+                    Text = "📋 O que encontramos:",
+                    Font = new Font("Segoe UI", 11f, FontStyle.Bold),
+                    ForeColor = Color.FromArgb(30, 41, 59),
+                    Location = new Point(20, y),
+                    AutoSize = true
+                };
+                pnl.Controls.Add(lblProblemas);
+                y += 30;
+
+                foreach (var prob in resultado.ProblemasEncontrados)
+                {
+                    var lblItem = new Label
+                    {
+                        Text = "• " + prob,
+                        Font = new Font("Segoe UI", 9.5f),
+                        ForeColor = prob.Contains("✅") ? Color.FromArgb(22, 163, 74) : Color.FromArgb(71, 85, 105),
+                        Location = new Point(40, y),
+                        Size = new Size(800, 25)
+                    };
+                    pnl.Controls.Add(lblItem);
+                    y += 28;
+                }
+            }
+
+            // Recomendações
+            if (resultado.Recomendacoes.Any())
+            {
+                var lblRecomendacoes = new Label
+                {
+                    Text = "💡 Recomendações:",
+                    Font = new Font("Segoe UI", 11f, FontStyle.Bold),
+                    ForeColor = Color.FromArgb(30, 41, 59),
+                    Location = new Point(20, y),
+                    AutoSize = true
+                };
+                pnl.Controls.Add(lblRecomendacoes);
+                y += 30;
+
+                foreach (var rec in resultado.Recomendacoes)
+                {
+                    var pnlRec = new Panel
+                    {
+                        Location = new Point(20, y),
+                        Size = new Size(820, 35),
+                        BackColor = Color.FromArgb(239, 246, 255)
+                    };
+
+                    pnlRec.Controls.Add(new Label
+                    {
+                        Text = "→ " + rec,
+                        Font = new Font("Segoe UI", 9.5f),
+                        ForeColor = Color.FromArgb(37, 99, 235),
+                        Dock = DockStyle.Fill,
+                        TextAlign = ContentAlignment.MiddleLeft,
+                        Padding = new Padding(10, 0, 0, 0)
+                    });
+
+                    pnl.Controls.Add(pnlRec);
+                    y += 40;
+                }
+            }
+
+            pnl.Height = y + 30;
+            return pnl;
+        }
+
+        private Panel CriarCardPontuacao(ResultadoManutencao resultado, int y)
+        {
+            var pnl = new Panel
+            {
+                Location = new Point(20, y),
+                Size = new Size(820, 80),
+                BackColor = Color.FromArgb(249, 250, 255)
+            };
+
+            var corPontuacao = ObterCorPontuacao(resultado.Pontuacao);
+
+            var lblPontos = new Label
+            {
+                Text = resultado.Pontuacao.ToString(),
+                Font = new Font("Segoe UI", 36f, FontStyle.Bold),
+                ForeColor = corPontuacao,
+                Location = new Point(20, 10),
+                AutoSize = true
+            };
+
+            var lblDe100 = new Label
+            {
+                Text = "/100",
+                Font = new Font("Segoe UI", 14f),
+                ForeColor = Color.FromArgb(156, 163, 175),
+                Location = new Point(85, 28),
+                AutoSize = true
+            };
+
+            var lblClassificacao = new Label
+            {
+                Text = $"{resultado.Emoji}  {resultado.Classificacao}",
+                Font = new Font("Segoe UI", 16f, FontStyle.Bold),
+                ForeColor = corPontuacao,
+                Location = new Point(140, 18),
+                AutoSize = true
+            };
+
+            var lblResumo = new Label
+            {
+                Text = resultado.Resumo,
+                Font = new Font("Segoe UI", 9.5f),
+                ForeColor = Color.FromArgb(71, 85, 105),
+                Location = new Point(140, 48),
+                AutoSize = true
+            };
+
+            pnl.Controls.AddRange(new Control[] { lblPontos, lblDe100, lblClassificacao, lblResumo });
+            return pnl;
+        }
+
+        private Panel CriarCardItemLixo(ItemLixo item, int y)
+        {
+            var pnl = new Panel
+            {
+                Location = new Point(20, y),
+                Size = new Size(820, 40),
+                BackColor = Color.FromArgb(248, 250, 252)
+            };
+
+            var corTamanho = item.BytesLiberados > 100_000_000 ? Color.FromArgb(234, 88, 12) :
+                             item.BytesLiberados > 10_000_000 ? Color.FromArgb(37, 99, 235) :
+                             Color.FromArgb(75, 85, 99);
+
+            pnl.Controls.Add(new Label
+            {
+                Text = $"{item.Emoji}  {item.Nome}",
+                Font = new Font("Segoe UI", 9.5f, FontStyle.Bold),
+                ForeColor = Color.FromArgb(17, 24, 39),
+                Location = new Point(15, 10),
+                AutoSize = true
+            });
+
+            pnl.Controls.Add(new Label
+            {
+                Text = item.TamanhoFormatado,
+                Font = new Font("Segoe UI", 9.5f, FontStyle.Bold),
+                ForeColor = corTamanho,
+                Location = new Point(700, 10),
+                AutoSize = true
+            });
+
+            return pnl;
+        }
+
+        private Panel CriarCardTotalLixo(long totalBytes, int y)
+        {
+            var pnl = new Panel
+            {
+                Location = new Point(20, y),
+                Size = new Size(820, 45),
+                BackColor = Color.FromArgb(219, 234, 254)
+            };
+
+            pnl.Controls.Add(new Label
+            {
+                Text = $"📦  Total que pode ser liberado:  {MaintenanceService.FormatarBytes(totalBytes)}",
+                Font = new Font("Segoe UI", 11f, FontStyle.Bold),
+                ForeColor = Color.FromArgb(29, 78, 216),
+                Location = new Point(15, 10),
+                AutoSize = true
+            });
+
+            return pnl;
+        }
+
+        private Panel CriarCardResultadoLimpeza(ResultadoLimpeza r, int y)
+        {
+            var pnl = new Panel
+            {
+                Location = new Point(20, y),
+                Size = new Size(820, 40),
+                BackColor = r.Sucesso ? Color.FromArgb(240, 253, 244) : Color.FromArgb(254, 242, 242)
+            };
+
+            pnl.Controls.Add(new Label
+            {
+                Text = $"{r.Emoji}  {r.Nome}: {r.Mensagem.Split('\n')[0]}",
+                Font = new Font("Segoe UI", 9.5f),
+                ForeColor = Color.FromArgb(31, 41, 55),
+                Location = new Point(15, 10),
+                Size = new Size(790, 22)
+            });
+
+            return pnl;
+        }
+
+        private Panel CriarCardTotalLimpeza(long total, int y)
+        {
+            var pnl = new Panel
+            {
+                Location = new Point(20, y),
+                Size = new Size(820, 45),
+                BackColor = Color.FromArgb(220, 252, 231)
+            };
+
+            pnl.Controls.Add(new Label
+            {
+                Text = $"🎉  Limpeza concluída!  {MaintenanceService.FormatarBytes(total)} liberados!",
+                Font = new Font("Segoe UI", 11f, FontStyle.Bold),
+                ForeColor = Color.FromArgb(22, 163, 74),
+                Location = new Point(15, 10),
+                AutoSize = true
+            });
+
+            return pnl;
         }
 
         private Panel CriarCardDisco(InfoDisco d, int y)
         {
             var card = new Panel
             {
-                Location = new Point(0, y),
-                Size = new Size(900, 105),
-                BackColor = CorBranco,
+                Location = new Point(20, y),
+                Size = new Size(860, 105),
+                BackColor = Color.White,
                 Padding = new Padding(15)
             };
 
+            var corUso = ObterCorPorcentagem(d.PorcentagemUso);
+
+            // Cabeçalho
             card.Controls.Add(new Label
             {
-                Text = $"💾 {d.Letra} — {d.Nome} ({d.Tipo})",
-                Font = new Font("Segoe UI", 10f, FontStyle.Bold),
-                ForeColor = CorTexto,
-                Location = new Point(15, 10),
+                Text = $"💾  {d.Letra}  —  {d.Nome}",
+                Font = new Font("Segoe UI", 11f, FontStyle.Bold),
+                ForeColor = Color.FromArgb(17, 24, 39),
+                Location = new Point(15, 12),
                 AutoSize = true
             });
+
             card.Controls.Add(new Label
             {
-                Text = $"{d.SaudeEmoji} {d.SaudeStatus}",
+                Text = $"{d.SaudeEmoji}  {d.SaudeStatus}",
                 Font = new Font("Segoe UI", 9f, FontStyle.Bold),
-                ForeColor = ObterCorPorcentagem(d.PorcentagemUso),
-                Location = new Point(500, 10),
+                ForeColor = corUso,
+                Location = new Point(650, 14),
                 AutoSize = true
             });
 
             // Barra de uso
-            var pnlBarra = new Panel { Location = new Point(15, 38), Size = new Size(780, 18), BackColor = Color.FromArgb(220, 225, 230) };
-            int larguraUsada = (int)(780 * d.PorcentagemUso / 100);
+            var pnlBarra = new Panel
+            {
+                Location = new Point(15, 42),
+                Size = new Size(740, 20),
+                BackColor = Color.FromArgb(229, 231, 235)
+            };
+
+            int larguraUsada = (int)(740 * d.PorcentagemUso / 100);
             pnlBarra.Controls.Add(new Panel
             {
                 Location = new Point(0, 0),
-                Size = new Size(larguraUsada, 18),
-                BackColor = ObterCorPorcentagem(d.PorcentagemUso)
+                Size = new Size(larguraUsada, 20),
+                BackColor = corUso
             });
             card.Controls.Add(pnlBarra);
 
+            // Informações de espaço
             card.Controls.Add(new Label
             {
-                Text = $"Usado: {MaintenanceService.FormatarBytes(d.EspacoUsadoBytes)} de {MaintenanceService.FormatarBytes(d.EspacoTotalBytes)} ({d.PorcentagemUso:0}%)   |   Livre: {MaintenanceService.FormatarBytes(d.EspacoLivreBytes)}",
-                Font = new Font("Segoe UI", 8.5f),
-                ForeColor = CorTexto,
-                Location = new Point(15, 62),
+                Text = $"📊  Usado: {MaintenanceService.FormatarBytes(d.EspacoUsadoBytes)}  de  {MaintenanceService.FormatarBytes(d.EspacoTotalBytes)}  ({d.PorcentagemUso:0}%)",
+                Font = new Font("Segoe UI", 9f),
+                ForeColor = Color.FromArgb(75, 85, 99),
+                Location = new Point(15, 70),
                 AutoSize = true
             });
+
+            // Alerta
             card.Controls.Add(new Label
             {
                 Text = d.Alerta,
-                Font = new Font("Segoe UI", 8.5f, FontStyle.Bold),
-                ForeColor = ObterCorPorcentagem(d.PorcentagemUso),
-                Location = new Point(15, 82),
+                Font = new Font("Segoe UI", 9f, FontStyle.Bold),
+                ForeColor = corUso,
+                Location = new Point(15, 88),
                 AutoSize = true
             });
 
             return card;
-        }
-
-        // ═══════════════════════════════════════════════════════════════
-        // AUXILIARES
-        // ═══════════════════════════════════════════════════════════════
-
-        private Button CriarBotaoGrande(string texto, string subtexto, Color cor, int x, int y, int largura)
-        {
-            var btn = new Button
-            {
-                Location = new Point(x, y),
-                Size = new Size(largura, 50),
-                FlatStyle = FlatStyle.Flat,
-                BackColor = cor,
-                ForeColor = Color.White,
-                Font = new Font("Segoe UI", 10f, FontStyle.Bold),
-                Text = string.IsNullOrEmpty(subtexto) ? texto : texto + "\n" + subtexto,
-                Cursor = Cursors.Hand,
-                TextAlign = ContentAlignment.MiddleCenter
-            };
-            btn.FlatAppearance.BorderSize = 0;
-            return btn;
         }
 
         private void MostrarProgresso(string msg)
@@ -649,28 +535,23 @@ namespace GuiaDoComputador
         {
             pbProgresso.Visible = false;
             lblStatus.Text = msg;
-            lblStatus.ForeColor = CorVerde;
+            Application.DoEvents();
         }
 
-        private Color ObterCorPontuacao(int pontuacao) =>
-            pontuacao >= 85 ? CorVerde :
-            pontuacao >= 70 ? CorAzul :
-            pontuacao >= 50 ? CorAmarelo :
-            CorVermelho;
-
-        private Color ObterCorPorcentagem(double pct) =>
-            pct >= 95 ? CorVermelho :
-            pct >= 85 ? CorLaranja :
-            pct >= 70 ? CorAmarelo :
-            CorVerde;
-
-        private void DesenhaBordaArredondada(System.Drawing.Graphics g, Rectangle rect, int raio, Color cor)
+        private Color ObterCorPontuacao(int pontuacao)
         {
-            using (var pen = new System.Drawing.Pen(cor, 2))
-            {
-                // Apenas borda simples — evita dependências de GraphicsPath
-                g.DrawRectangle(pen, rect.X + 1, rect.Y + 1, rect.Width - 2, rect.Height - 2);
-            }
+            if (pontuacao >= 85) return Color.FromArgb(22, 163, 74);
+            if (pontuacao >= 70) return Color.FromArgb(37, 99, 235);
+            if (pontuacao >= 50) return Color.FromArgb(234, 88, 12);
+            return Color.FromArgb(220, 38, 38);
+        }
+
+        private Color ObterCorPorcentagem(double pct)
+        {
+            if (pct >= 95) return Color.FromArgb(220, 38, 38);
+            if (pct >= 85) return Color.FromArgb(234, 88, 12);
+            if (pct >= 70) return Color.FromArgb(234, 179, 8);
+            return Color.FromArgb(22, 163, 74);
         }
     }
 }
