@@ -1,15 +1,42 @@
-﻿namespace AppInterno
+﻿// ============================================================
+//  FormMenuPrincipal.Designer.cs  —  DESIGNER EDITÁVEL
+//  VOCÊ PODE ALTERAR TUDO AQUI COM O MOUSE NO VISUAL STUDIO
+// ============================================================
+
+using System.Windows.Forms;
+
+namespace AppInterno
 {
     partial class FormMenuPrincipal
     {
         private System.ComponentModel.IContainer components = null;
 
+        // Controles que você pode manipular visualmente
+        private Panel sidebar;
+        private Panel pnlLogo;
+        private Panel pnlSys;
+        private Button btnSair;
+        private Panel mainPanel;
+        private Panel headerPanel;
+        private Label lblTitulo;
+        private Label lblSubTitulo;
+        private Panel boxBusca;
+        private Label lblLupa;
+        private System.Windows.Forms.TextBox txtBusca;
+        public FlowLayoutPanel gridCards;
+        private Label lblOS;
+        private Label lblOSValor;
+        private Label lblUsuario;
+        private Label lblUsuarioValor;
+        private Label lblMaquina;
+        private Label lblMaquinaValor;
+        private Panel separatorVertical;
+        private Panel separatorHorizontal;
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
-            {
                 components.Dispose();
-            }
             base.Dispose(disposing);
         }
 
@@ -17,214 +44,295 @@
 
         private void InitializeComponent()
         {
-            this.panelHeader = new System.Windows.Forms.Panel();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.lblSubtitle = new System.Windows.Forms.Label();
-            this.panelButtons = new System.Windows.Forms.Panel();
-            this.btnPecasComputador = new System.Windows.Forms.Button();
-            this.btnDesempenho = new System.Windows.Forms.Button();
-            this.btnDrivers = new System.Windows.Forms.Button();
-            this.btnAtalhosWindows = new System.Windows.Forms.Button();
-            this.btnAppsNativos = new System.Windows.Forms.Button();
-            this.btnDicasTruques = new System.Windows.Forms.Button();
+            this.sidebar = new System.Windows.Forms.Panel();
+            this.pnlLogo = new System.Windows.Forms.Panel();
+            this.pnlSys = new System.Windows.Forms.Panel();
             this.btnSair = new System.Windows.Forms.Button();
-            this.panelHeader.SuspendLayout();
-            this.panelButtons.SuspendLayout();
+            this.separatorVertical = new System.Windows.Forms.Panel();
+            this.mainPanel = new System.Windows.Forms.Panel();
+            this.headerPanel = new System.Windows.Forms.Panel();
+            this.lblTitulo = new System.Windows.Forms.Label();
+            this.lblSubTitulo = new System.Windows.Forms.Label();
+            this.boxBusca = new System.Windows.Forms.Panel();
+            this.lblLupa = new System.Windows.Forms.Label();
+            this.txtBusca = new System.Windows.Forms.TextBox();
+            this.gridCards = new System.Windows.Forms.FlowLayoutPanel();
+            this.lblOS = new System.Windows.Forms.Label();
+            this.lblOSValor = new System.Windows.Forms.Label();
+            this.lblUsuario = new System.Windows.Forms.Label();
+            this.lblUsuarioValor = new System.Windows.Forms.Label();
+            this.lblMaquina = new System.Windows.Forms.Label();
+            this.lblMaquinaValor = new System.Windows.Forms.Label();
+            this.separatorHorizontal = new System.Windows.Forms.Panel();
+            this.sidebar.SuspendLayout();
+            this.mainPanel.SuspendLayout();
+            this.headerPanel.SuspendLayout();
+            this.boxBusca.SuspendLayout();
             this.SuspendLayout();
+
             // 
-            // panelHeader
+            // sidebar
             // 
-            this.panelHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.panelHeader.Controls.Add(this.lblTitle);
-            this.panelHeader.Controls.Add(this.lblSubtitle);
-            this.panelHeader.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelHeader.Location = new System.Drawing.Point(0, 0);
-            this.panelHeader.Name = "panelHeader";
-            this.panelHeader.Size = new System.Drawing.Size(1034, 104);
-            this.panelHeader.TabIndex = 0;
+            this.sidebar.BackColor = System.Drawing.Color.FromArgb(18, 21, 33);
+            this.sidebar.Controls.Add(this.pnlLogo);
+            this.sidebar.Controls.Add(this.pnlSys);
+            this.sidebar.Controls.Add(this.separatorHorizontal);
+            this.sidebar.Controls.Add(this.btnSair);
+            this.sidebar.Dock = System.Windows.Forms.DockStyle.Left;
+            this.sidebar.Location = new System.Drawing.Point(0, 0);
+            this.sidebar.Name = "sidebar";
+            this.sidebar.Size = new System.Drawing.Size(230, 720);
+            this.sidebar.TabIndex = 0;
             // 
-            // lblTitle
+            // pnlLogo
             // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.ForeColor = System.Drawing.Color.White;
-            this.lblTitle.Location = new System.Drawing.Point(26, 22);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(459, 51);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "💻 Guia do Computador";
+            this.pnlLogo.BackColor = System.Drawing.Color.Transparent;
+            this.pnlLogo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlLogo.Location = new System.Drawing.Point(0, 0);
+            this.pnlLogo.Name = "pnlLogo";
+            this.pnlLogo.Size = new System.Drawing.Size(230, 100);
+            this.pnlLogo.TabIndex = 0;
+            this.pnlLogo.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlLogo_Paint);
             // 
-            // lblSubtitle
+            // pnlSys
             // 
-            this.lblSubtitle.AutoSize = true;
-            this.lblSubtitle.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.lblSubtitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
-            this.lblSubtitle.Location = new System.Drawing.Point(31, 69);
-            this.lblSubtitle.Name = "lblSubtitle";
-            this.lblSubtitle.Size = new System.Drawing.Size(492, 21);
-            this.lblSubtitle.TabIndex = 1;
-            this.lblSubtitle.Text = "Aprenda a usar melhor seu computador - Escolha o que quer explorar";
+            this.pnlSys.BackColor = System.Drawing.Color.Transparent;
+            this.pnlSys.Controls.Add(this.lblOS);
+            this.pnlSys.Controls.Add(this.lblOSValor);
+            this.pnlSys.Controls.Add(this.lblUsuario);
+            this.pnlSys.Controls.Add(this.lblUsuarioValor);
+            this.pnlSys.Controls.Add(this.lblMaquina);
+            this.pnlSys.Controls.Add(this.lblMaquinaValor);
+            this.pnlSys.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlSys.Location = new System.Drawing.Point(0, 563);
+            this.pnlSys.Name = "pnlSys";
+            this.pnlSys.Size = new System.Drawing.Size(230, 110);
+            this.pnlSys.TabIndex = 1;
+            this.pnlSys.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlSys_Paint);
             // 
-            // panelButtons
+            // lblOS
             // 
-            this.panelButtons.Controls.Add(this.btnSair);
-            this.panelButtons.Controls.Add(this.btnPecasComputador);
-            this.panelButtons.Controls.Add(this.btnDesempenho);
-            this.panelButtons.Controls.Add(this.btnDrivers);
-            this.panelButtons.Controls.Add(this.btnAtalhosWindows);
-            this.panelButtons.Controls.Add(this.btnAppsNativos);
-            this.panelButtons.Controls.Add(this.btnDicasTruques);
-            this.panelButtons.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelButtons.Location = new System.Drawing.Point(0, 104);
-            this.panelButtons.Name = "panelButtons";
-            this.panelButtons.Padding = new System.Windows.Forms.Padding(26, 26, 26, 26);
-            this.panelButtons.Size = new System.Drawing.Size(1034, 553);
-            this.panelButtons.TabIndex = 1;
+            this.lblOS.AutoSize = true;
+            this.lblOS.Font = new System.Drawing.Font("Segoe UI", 7.5F);
+            this.lblOS.ForeColor = System.Drawing.Color.FromArgb(130, 140, 170);
+            this.lblOS.Location = new System.Drawing.Point(12, 30);
+            this.lblOS.Name = "lblOS";
+            this.lblOS.Size = new System.Drawing.Size(25, 12);
+            this.lblOS.TabIndex = 0;
+            this.lblOS.Text = "OS:";
             // 
-            // btnPecasComputador
+            // lblOSValor
             // 
-            this.btnPecasComputador.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(76)))), ((int)(((byte)(175)))), ((int)(((byte)(80)))));
-            this.btnPecasComputador.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnPecasComputador.FlatAppearance.BorderSize = 0;
-            this.btnPecasComputador.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPecasComputador.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            this.btnPecasComputador.ForeColor = System.Drawing.Color.White;
-            this.btnPecasComputador.Location = new System.Drawing.Point(29, 29);
-            this.btnPecasComputador.Name = "btnPecasComputador";
-            this.btnPecasComputador.Size = new System.Drawing.Size(384, 100);
-            this.btnPecasComputador.TabIndex = 0;
-            this.btnPecasComputador.Text = "🔧 Peças do Computador\r\nConheça o hardware do seu PC";
-            this.btnPecasComputador.UseVisualStyleBackColor = false;
-            this.btnPecasComputador.Click += new System.EventHandler(this.btnPecasComputador_Click);
+            this.lblOSValor.AutoSize = true;
+            this.lblOSValor.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Bold);
+            this.lblOSValor.ForeColor = System.Drawing.Color.FromArgb(220, 225, 240);
+            this.lblOSValor.Location = new System.Drawing.Point(78, 30);
+            this.lblOSValor.Name = "lblOSValor";
+            this.lblOSValor.Size = new System.Drawing.Size(34, 12);
+            this.lblOSValor.TabIndex = 1;
+            this.lblOSValor.Text = "Windows";
             // 
-            // btnDesempenho
+            // lblUsuario
             // 
-            this.btnDesempenho.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(152)))), ((int)(((byte)(0)))));
-            this.btnDesempenho.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnDesempenho.FlatAppearance.BorderSize = 0;
-            this.btnDesempenho.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDesempenho.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            this.btnDesempenho.ForeColor = System.Drawing.Color.White;
-            this.btnDesempenho.Location = new System.Drawing.Point(598, 17);
-            this.btnDesempenho.Name = "btnDesempenho";
-            this.btnDesempenho.Size = new System.Drawing.Size(382, 97);
-            this.btnDesempenho.TabIndex = 1;
-            this.btnDesempenho.Text = "📊 Desempenho do Sistema\r\nMemória, disco e processos";
-            this.btnDesempenho.UseVisualStyleBackColor = false;
-            this.btnDesempenho.Click += new System.EventHandler(this.btnDesempenho_Click);
+            this.lblUsuario.AutoSize = true;
+            this.lblUsuario.Font = new System.Drawing.Font("Segoe UI", 7.5F);
+            this.lblUsuario.ForeColor = System.Drawing.Color.FromArgb(130, 140, 170);
+            this.lblUsuario.Location = new System.Drawing.Point(12, 48);
+            this.lblUsuario.Name = "lblUsuario";
+            this.lblUsuario.Size = new System.Drawing.Size(46, 12);
+            this.lblUsuario.TabIndex = 2;
+            this.lblUsuario.Text = "Usuário:";
             // 
-            // btnDrivers
+            // lblUsuarioValor
             // 
-            this.btnDrivers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(233)))), ((int)(((byte)(30)))), ((int)(((byte)(99)))));
-            this.btnDrivers.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnDrivers.FlatAppearance.BorderSize = 0;
-            this.btnDrivers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDrivers.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            this.btnDrivers.ForeColor = System.Drawing.Color.White;
-            this.btnDrivers.Location = new System.Drawing.Point(29, 144);
-            this.btnDrivers.Name = "btnDrivers";
-            this.btnDrivers.Size = new System.Drawing.Size(384, 97);
-            this.btnDrivers.TabIndex = 2;
-            this.btnDrivers.Text = "🔌 Drivers do Sistema\r\nVerifique se estão atualizados";
-            this.btnDrivers.UseVisualStyleBackColor = false;
-            this.btnDrivers.Click += new System.EventHandler(this.btnDrivers_Click);
+            this.lblUsuarioValor.AutoSize = true;
+            this.lblUsuarioValor.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Bold);
+            this.lblUsuarioValor.ForeColor = System.Drawing.Color.FromArgb(220, 225, 240);
+            this.lblUsuarioValor.Location = new System.Drawing.Point(78, 48);
+            this.lblUsuarioValor.Name = "lblUsuarioValor";
+            this.lblUsuarioValor.Size = new System.Drawing.Size(43, 12);
+            this.lblUsuarioValor.TabIndex = 3;
+            this.lblUsuarioValor.Text = "Usuário";
             // 
-            // btnAtalhosWindows
+            // lblMaquina
             // 
-            this.btnAtalhosWindows.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(120)))), ((int)(((byte)(215)))));
-            this.btnAtalhosWindows.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAtalhosWindows.FlatAppearance.BorderSize = 0;
-            this.btnAtalhosWindows.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAtalhosWindows.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            this.btnAtalhosWindows.ForeColor = System.Drawing.Color.White;
-            this.btnAtalhosWindows.Location = new System.Drawing.Point(598, 135);
-            this.btnAtalhosWindows.Name = "btnAtalhosWindows";
-            this.btnAtalhosWindows.Size = new System.Drawing.Size(382, 89);
-            this.btnAtalhosWindows.TabIndex = 3;
-            this.btnAtalhosWindows.Text = "⌨️ Atalhos de Teclado\r\nWindows, Excel, Word e mais";
-            this.btnAtalhosWindows.UseVisualStyleBackColor = false;
-            this.btnAtalhosWindows.Click += new System.EventHandler(this.btnAtalhosWindows_Click);
+            this.lblMaquina.AutoSize = true;
+            this.lblMaquina.Font = new System.Drawing.Font("Segoe UI", 7.5F);
+            this.lblMaquina.ForeColor = System.Drawing.Color.FromArgb(130, 140, 170);
+            this.lblMaquina.Location = new System.Drawing.Point(12, 66);
+            this.lblMaquina.Name = "lblMaquina";
+            this.lblMaquina.Size = new System.Drawing.Size(51, 12);
+            this.lblMaquina.TabIndex = 4;
+            this.lblMaquina.Text = "Máquina:";
             // 
-            // btnAppsNativos
+            // lblMaquinaValor
             // 
-            this.btnAppsNativos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(103)))), ((int)(((byte)(58)))), ((int)(((byte)(183)))));
-            this.btnAppsNativos.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAppsNativos.FlatAppearance.BorderSize = 0;
-            this.btnAppsNativos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAppsNativos.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            this.btnAppsNativos.ForeColor = System.Drawing.Color.White;
-            this.btnAppsNativos.Location = new System.Drawing.Point(35, 258);
-            this.btnAppsNativos.Name = "btnAppsNativos";
-            this.btnAppsNativos.Size = new System.Drawing.Size(378, 86);
-            this.btnAppsNativos.TabIndex = 4;
-            this.btnAppsNativos.Text = "📱 Apps Nativos do Windows\r\nDescubra programas já instalados";
-            this.btnAppsNativos.UseVisualStyleBackColor = false;
-            this.btnAppsNativos.Click += new System.EventHandler(this.btnAppsNativos_Click);
+            this.lblMaquinaValor.AutoSize = true;
+            this.lblMaquinaValor.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Bold);
+            this.lblMaquinaValor.ForeColor = System.Drawing.Color.FromArgb(220, 225, 240);
+            this.lblMaquinaValor.Location = new System.Drawing.Point(78, 66);
+            this.lblMaquinaValor.Name = "lblMaquinaValor";
+            this.lblMaquinaValor.Size = new System.Drawing.Size(51, 12);
+            this.lblMaquinaValor.TabIndex = 5;
+            this.lblMaquinaValor.Text = "Máquina";
             // 
-            // btnDicasTruques
+            // separatorHorizontal
             // 
-            this.btnDicasTruques.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(39)))), ((int)(((byte)(176)))));
-            this.btnDicasTruques.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnDicasTruques.FlatAppearance.BorderSize = 0;
-            this.btnDicasTruques.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDicasTruques.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            this.btnDicasTruques.ForeColor = System.Drawing.Color.White;
-            this.btnDicasTruques.Location = new System.Drawing.Point(598, 258);
-            this.btnDicasTruques.Name = "btnDicasTruques";
-            this.btnDicasTruques.Size = new System.Drawing.Size(382, 86);
-            this.btnDicasTruques.TabIndex = 5;
-            this.btnDicasTruques.Text = "💡 Dicas e Truques\r\nAprenda truques úteis do Windows";
-            this.btnDicasTruques.UseVisualStyleBackColor = false;
-            this.btnDicasTruques.Click += new System.EventHandler(this.btnDicasTruques_Click);
+            this.separatorHorizontal.BackColor = System.Drawing.Color.FromArgb(40, 46, 68);
+            this.separatorHorizontal.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.separatorHorizontal.Location = new System.Drawing.Point(0, 562);
+            this.separatorHorizontal.Name = "separatorHorizontal";
+            this.separatorHorizontal.Size = new System.Drawing.Size(230, 1);
+            this.separatorHorizontal.TabIndex = 2;
             // 
             // btnSair
             // 
-            this.btnSair.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.btnSair.BackColor = System.Drawing.Color.Transparent;
             this.btnSair.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSair.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnSair.FlatAppearance.BorderSize = 0;
+            this.btnSair.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(40, 220, 60, 60);
             this.btnSair.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSair.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.btnSair.ForeColor = System.Drawing.Color.White;
-            this.btnSair.Location = new System.Drawing.Point(444, 159);
+            this.btnSair.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.btnSair.ForeColor = System.Drawing.Color.FromArgb(220, 70, 70);
+            this.btnSair.Location = new System.Drawing.Point(0, 563);
             this.btnSair.Name = "btnSair";
-            this.btnSair.Size = new System.Drawing.Size(137, 43);
-            this.btnSair.TabIndex = 6;
-            this.btnSair.Text = "❌ Sair";
+            this.btnSair.Padding = new System.Windows.Forms.Padding(18, 0, 0, 0);
+            this.btnSair.Size = new System.Drawing.Size(230, 46);
+            this.btnSair.TabIndex = 3;
+            this.btnSair.Text = "⏻   Sair do Programa";
+            this.btnSair.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSair.UseVisualStyleBackColor = false;
             this.btnSair.Click += new System.EventHandler(this.btnSair_Click);
+            // 
+            // separatorVertical
+            // 
+            this.separatorVertical.BackColor = System.Drawing.Color.FromArgb(40, 46, 68);
+            this.separatorVertical.Dock = System.Windows.Forms.DockStyle.Left;
+            this.separatorVertical.Location = new System.Drawing.Point(230, 0);
+            this.separatorVertical.Name = "separatorVertical";
+            this.separatorVertical.Size = new System.Drawing.Size(1, 720);
+            this.separatorVertical.TabIndex = 1;
+            // 
+            // mainPanel
+            // 
+            this.mainPanel.BackColor = System.Drawing.Color.Transparent;
+            this.mainPanel.Controls.Add(this.headerPanel);
+            this.mainPanel.Controls.Add(this.gridCards);
+            this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mainPanel.Location = new System.Drawing.Point(231, 0);
+            this.mainPanel.Name = "mainPanel";
+            this.mainPanel.Padding = new System.Windows.Forms.Padding(26, 18, 18, 10);
+            this.mainPanel.Size = new System.Drawing.Size(869, 720);
+            this.mainPanel.TabIndex = 2;
+            // 
+            // headerPanel
+            // 
+            this.headerPanel.BackColor = System.Drawing.Color.Transparent;
+            this.headerPanel.Controls.Add(this.lblTitulo);
+            this.headerPanel.Controls.Add(this.lblSubTitulo);
+            this.headerPanel.Controls.Add(this.boxBusca);
+            this.headerPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.headerPanel.Location = new System.Drawing.Point(26, 18);
+            this.headerPanel.Name = "headerPanel";
+            this.headerPanel.Size = new System.Drawing.Size(825, 96);
+            this.headerPanel.TabIndex = 0;
+            // 
+            // lblTitulo
+            // 
+            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
+            this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(220, 225, 240);
+            this.lblTitulo.Location = new System.Drawing.Point(0, 0);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(226, 32);
+            this.lblTitulo.TabIndex = 0;
+            this.lblTitulo.Text = "Selecione um Módulo";
+            // 
+            // lblSubTitulo
+            // 
+            this.lblSubTitulo.AutoSize = true;
+            this.lblSubTitulo.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.lblSubTitulo.ForeColor = System.Drawing.Color.FromArgb(130, 140, 170);
+            this.lblSubTitulo.Location = new System.Drawing.Point(2, 34);
+            this.lblSubTitulo.Name = "lblSubTitulo";
+            this.lblSubTitulo.Size = new System.Drawing.Size(180, 15);
+            this.lblSubTitulo.TabIndex = 1;
+            this.lblSubTitulo.Text = "Bem-vindo! Escolha um módulo.";
+            // 
+            // boxBusca
+            // 
+            this.boxBusca.BackColor = System.Drawing.Color.FromArgb(22, 26, 40);
+            this.boxBusca.Controls.Add(this.lblLupa);
+            this.boxBusca.Controls.Add(this.txtBusca);
+            this.boxBusca.Location = new System.Drawing.Point(0, 58);
+            this.boxBusca.Name = "boxBusca";
+            this.boxBusca.Size = new System.Drawing.Size(270, 33);
+            this.boxBusca.TabIndex = 2;
+            this.boxBusca.Paint += new System.Windows.Forms.PaintEventHandler(this.boxBusca_Paint);
+            // 
+            // lblLupa
+            // 
+            this.lblLupa.AutoSize = true;
+            this.lblLupa.Font = new System.Drawing.Font("Segoe UI Emoji", 9F);
+            this.lblLupa.ForeColor = System.Drawing.Color.FromArgb(130, 140, 170);
+            this.lblLupa.Location = new System.Drawing.Point(8, 7);
+            this.lblLupa.Name = "lblLupa";
+            this.lblLupa.Size = new System.Drawing.Size(23, 16);
+            this.lblLupa.TabIndex = 0;
+            this.lblLupa.Text = "🔍";
+            // 
+            // txtBusca
+            // 
+            this.txtBusca.BackColor = System.Drawing.Color.FromArgb(22, 26, 40);
+            this.txtBusca.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtBusca.Font = new System.Drawing.Font("Segoe UI", 9.5F);
+            this.txtBusca.ForeColor = System.Drawing.Color.FromArgb(220, 225, 240);
+            this.txtBusca.Location = new System.Drawing.Point(32, 8);
+            this.txtBusca.Name = "txtBusca";
+            this.txtBusca.Size = new System.Drawing.Size(230, 17);
+            this.txtBusca.TabIndex = 1;
+            this.txtBusca.TextChanged += new System.EventHandler(this.txtBusca_TextChanged);
+            // 
+            // gridCards
+            // 
+            this.gridCards.AutoScroll = true;
+            this.gridCards.BackColor = System.Drawing.Color.Transparent;
+            this.gridCards.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridCards.FlowDirection = System.Windows.Forms.FlowDirection.LeftToRight;
+            this.gridCards.Location = new System.Drawing.Point(26, 114);
+            this.gridCards.Name = "gridCards";
+            this.gridCards.Padding = new System.Windows.Forms.Padding(0, 6, 0, 0);
+            this.gridCards.Size = new System.Drawing.Size(825, 596);
+            this.gridCards.TabIndex = 1;
+            this.gridCards.WrapContents = true;
             // 
             // FormMenuPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(250)))));
-            this.ClientSize = new System.Drawing.Size(1034, 657);
-            this.Controls.Add(this.panelButtons);
-            this.Controls.Add(this.panelHeader);
+            this.BackColor = System.Drawing.Color.FromArgb(15, 17, 26);
+            this.ClientSize = new System.Drawing.Size(1100, 720);
+            this.Controls.Add(this.mainPanel);
+            this.Controls.Add(this.separatorVertical);
+            this.Controls.Add(this.sidebar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(1100, 720);
+            this.MinimumSize = new System.Drawing.Size(1100, 720);
             this.Name = "FormMenuPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Guia do Computador - Menu Principal";
-            this.panelHeader.ResumeLayout(false);
-            this.panelHeader.PerformLayout();
-            this.panelButtons.ResumeLayout(false);
+            this.Text = "Guia do Computador";
+            this.sidebar.ResumeLayout(false);
+            this.mainPanel.ResumeLayout(false);
+            this.headerPanel.ResumeLayout(false);
+            this.headerPanel.PerformLayout();
+            this.boxBusca.ResumeLayout(false);
+            this.boxBusca.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel panelHeader;
-        private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.Label lblSubtitle;
-        private System.Windows.Forms.Panel panelButtons;
-        private System.Windows.Forms.Button btnPecasComputador;
-        private System.Windows.Forms.Button btnDesempenho;
-        private System.Windows.Forms.Button btnDrivers;
-        private System.Windows.Forms.Button btnAtalhosWindows;
-        private System.Windows.Forms.Button btnAppsNativos;
-        private System.Windows.Forms.Button btnDicasTruques;
-        private System.Windows.Forms.Button btnSair;
     }
 }
