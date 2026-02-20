@@ -73,6 +73,12 @@
     <Compile Include="FormAppsNativos.Designer.cs">
       <DependentUpon>FormAppsNativos.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formcontrolpanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formcontrolpanel.Designer.cs">
+      <DependentUpon>Formcontrolpanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormDicasTruques.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,6 +109,12 @@
     <Compile Include="FormDrivers.Designer.cs">
       <DependentUpon>FormDrivers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formevents.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formevents.Designer.cs">
+      <DependentUpon>Formevents.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormHardware.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,11 +133,23 @@
     <Compile Include="FormMenuPrincipal.Designer.cs">
       <DependentUpon>FormMenuPrincipal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formprivacy.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formprivacy.Designer.cs">
+      <DependentUpon>Formprivacy.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormSelecaoAtalhos.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormSelecaoAtalhos.Designer.cs">
       <DependentUpon>FormSelecaoAtalhos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formsystemcommands.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formsystemcommands.Designer.cs">
+      <DependentUpon>Formsystemcommands.cs</DependentUpon>
     </Compile>
     <Compile Include="Formwindowsservices.cs">
       <SubType>Form</SubType>

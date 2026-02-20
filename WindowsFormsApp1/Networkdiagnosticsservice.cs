@@ -62,7 +62,7 @@ namespace GuiaDoComputador
 
                     var info = new InfoRede
                     {
-                        Nome = ni.Name,
+                        Nome   = ni.Name,
                         Status = ni.OperationalStatus == OperationalStatus.Up ? "Conectado" : "Desconectado"
                     };
                     info.StatusEmoji = info.Status == "Conectado" ? "🟢" : "🔴";
@@ -71,25 +71,25 @@ namespace GuiaDoComputador
                     switch (ni.NetworkInterfaceType)
                     {
                         case NetworkInterfaceType.Wireless80211:
-                            info.Tipo = "Wi-Fi";
+                            info.Tipo      = "Wi-Fi";
                             info.TipoEmoji = "📶";
                             info.NomeAmigavel = "Wi-Fi";
                             info.Explicacao = "Conexão sem fio. É o jeito mais comum de se conectar à internet em casa, usando ondas de rádio.";
                             break;
                         case NetworkInterfaceType.Ethernet:
-                            info.Tipo = "Cabo de Rede";
+                            info.Tipo      = "Cabo de Rede";
                             info.TipoEmoji = "🔌";
                             info.NomeAmigavel = "Rede por Cabo";
                             info.Explicacao = "Conexão com fio. Geralmente mais estável e rápida que o Wi-Fi.";
                             break;
                         case NetworkInterfaceType.Ppp:
-                            info.Tipo = "Discada/VPN";
+                            info.Tipo      = "Discada/VPN";
                             info.TipoEmoji = "📞";
                             info.NomeAmigavel = "Conexão VPN ou Discada";
                             info.Explicacao = "Conexão especial — pode ser uma VPN (rede segura de empresa) ou conexão discada.";
                             break;
                         default:
-                            info.Tipo = "Outro";
+                            info.Tipo      = "Outro";
                             info.TipoEmoji = "🔗";
                             info.NomeAmigavel = ni.Name;
                             info.Explicacao = "Adaptador de rede virtual ou especial.";
@@ -120,8 +120,8 @@ namespace GuiaDoComputador
                     {
                         if (ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
                         {
-                            info.EnderecoIP = ip.Address.ToString();
-                            info.MascaraRede = ip.IPv4Mask?.ToString() ?? "";
+                            info.EnderecoIP    = ip.Address.ToString();
+                            info.MascaraRede   = ip.IPv4Mask?.ToString() ?? "";
                             break;
                         }
                     }
@@ -153,8 +153,8 @@ namespace GuiaDoComputador
             {
                 lista.Add(new InfoRede
                 {
-                    Nome = "Erro",
-                    Explicacao = $"Não foi possível obter informações de rede: {ex.Message}",
+                    Nome      = "Erro",
+                    Explicacao= $"Não foi possível obter informações de rede: {ex.Message}",
                     StatusEmoji = "❌"
                 });
             }
@@ -180,13 +180,13 @@ namespace GuiaDoComputador
             }
             resultados.Add(new ResultadoDiagnostico
             {
-                Titulo = "Conexão de rede ativa",
-                Emoji = "🔌",
-                Passou = temAdaptador,
-                Resultado = temAdaptador ? "✅ Sim — encontrei uma conexão ativa" : "❌ Nenhuma conexão ativa encontrada",
-                Explicacao = "Verifica se há algum cabo de rede conectado ou Wi-Fi ativo.",
+                Titulo        = "Conexão de rede ativa",
+                Emoji         = "🔌",
+                Passou        = temAdaptador,
+                Resultado     = temAdaptador ? "✅ Sim — encontrei uma conexão ativa" : "❌ Nenhuma conexão ativa encontrada",
+                Explicacao    = "Verifica se há algum cabo de rede conectado ou Wi-Fi ativo.",
                 OQueSignifica = temAdaptador ? "Seu computador está fisicamente conectado à rede." : "Seu computador não reconhece nenhuma conexão.",
-                OQueFazer = temAdaptador ? "Nenhuma ação necessária." : "Verifique se o cabo está conectado ou se o Wi-Fi está ligado."
+                OQueFazer     = temAdaptador ? "Nenhuma ação necessária." : "Verifique se o cabo está conectado ou se o Wi-Fi está ligado."
             });
 
             // 2. Teste de gateway (roteador)
@@ -218,13 +218,13 @@ namespace GuiaDoComputador
             }
             resultados.Add(new ResultadoDiagnostico
             {
-                Titulo = "Comunicação com o Roteador (Wi-Fi)",
-                Emoji = "📡",
-                Passou = pingGateway,
-                Resultado = pingGateway ? $"✅ Roteador respondendo ({gatewayIp})" : "❌ Roteador não responde",
-                Explicacao = "Testa se o seu computador consegue 'falar' com o roteador (aparelho que distribui a internet).",
+                Titulo        = "Comunicação com o Roteador (Wi-Fi)",
+                Emoji         = "📡",
+                Passou        = pingGateway,
+                Resultado     = pingGateway ? $"✅ Roteador respondendo ({gatewayIp})" : "❌ Roteador não responde",
+                Explicacao    = "Testa se o seu computador consegue 'falar' com o roteador (aparelho que distribui a internet).",
                 OQueSignifica = pingGateway ? "Seu computador está se comunicando com o roteador corretamente." : "Seu computador não consegue alcançar o roteador.",
-                OQueFazer = pingGateway ? "Comunicação com roteador normal." : "Tente desligar e ligar o roteador. Verifique os cabos e a distância do Wi-Fi."
+                OQueFazer     = pingGateway ? "Comunicação com roteador normal." : "Tente desligar e ligar o roteador. Verifique os cabos e a distância do Wi-Fi."
             });
 
             // 3. Teste de DNS (resolver nomes de sites)
@@ -237,13 +237,13 @@ namespace GuiaDoComputador
             catch { }
             resultados.Add(new ResultadoDiagnostico
             {
-                Titulo = "Lista de endereços de sites (DNS)",
-                Emoji = "📖",
-                Passou = dnsOk,
-                Resultado = dnsOk ? "✅ Funcionando — conseguiu encontrar o endereço do Google" : "❌ Falhou — não conseguiu resolver endereços de sites",
-                Explicacao = "Testa se o sistema de busca de endereços (que converte 'google.com' no endereço real) está funcionando.",
+                Titulo        = "Lista de endereços de sites (DNS)",
+                Emoji         = "📖",
+                Passou        = dnsOk,
+                Resultado     = dnsOk ? "✅ Funcionando — conseguiu encontrar o endereço do Google" : "❌ Falhou — não conseguiu resolver endereços de sites",
+                Explicacao    = "Testa se o sistema de busca de endereços (que converte 'google.com' no endereço real) está funcionando.",
                 OQueSignifica = dnsOk ? "Você consegue acessar sites pelo nome normalmente." : "Sites podem abrir mostrando erros de DNS ou não abrir pelo nome.",
-                OQueFazer = dnsOk ? "DNS funcionando normalmente." : "Tente usar o DNS do Google (8.8.8.8) nas configurações de rede ou reiniciar o roteador."
+                OQueFazer     = dnsOk ? "DNS funcionando normalmente." : "Tente usar o DNS do Google (8.8.8.8) nas configurações de rede ou reiniciar o roteador."
             });
 
             // 4. Teste de internet (Google)
@@ -262,22 +262,22 @@ namespace GuiaDoComputador
             catch { }
             string qualidadeLatencia = latencia switch
             {
-                < 0 => "Sem resposta",
-                < 20 => "Excelente (muito rápida)",
-                < 50 => "Boa",
+                < 0   => "Sem resposta",
+                < 20  => "Excelente (muito rápida)",
+                < 50  => "Boa",
                 < 100 => "Razoável",
                 < 200 => "Lenta",
-                _ => "Muito lenta"
+                _     => "Muito lenta"
             };
             resultados.Add(new ResultadoDiagnostico
             {
-                Titulo = "Acesso à internet",
-                Emoji = "🌐",
-                Passou = internetOk,
-                Resultado = internetOk ? $"✅ Internet funcionando — resposta em {latencia}ms ({qualidadeLatencia})" : "❌ Sem acesso à internet",
-                Explicacao = "Testa se seu computador consegue alcançar servidores na internet.",
+                Titulo        = "Acesso à internet",
+                Emoji         = "🌐",
+                Passou        = internetOk,
+                Resultado     = internetOk ? $"✅ Internet funcionando — resposta em {latencia}ms ({qualidadeLatencia})" : "❌ Sem acesso à internet",
+                Explicacao    = "Testa se seu computador consegue alcançar servidores na internet.",
                 OQueSignifica = internetOk ? "Sua internet está funcionando." : "O computador está conectado à rede mas sem acesso à internet.",
-                OQueFazer = internetOk ? "Internet funcionando." : "Reinicie o roteador. Se persistir, entre em contato com sua operadora de internet."
+                OQueFazer     = internetOk ? "Internet funcionando." : "Reinicie o roteador. Se persistir, entre em contato com sua operadora de internet."
             });
 
             // 5. Velocidade de latência para o usuário
@@ -291,13 +291,13 @@ namespace GuiaDoComputador
 
                 resultados.Add(new ResultadoDiagnostico
                 {
-                    Titulo = "Qualidade da conexão",
-                    Emoji = "⚡",
-                    Passou = latencia < 100,
-                    Resultado = $"Velocidade de resposta: {latencia}ms — {qualidadeLatencia}",
-                    Explicacao = "A latência é o tempo que leva para enviar um pacote de dados e receber resposta — como o eco numa caverna.",
+                    Titulo        = "Qualidade da conexão",
+                    Emoji         = "⚡",
+                    Passou        = latencia < 100,
+                    Resultado     = $"Velocidade de resposta: {latencia}ms — {qualidadeLatencia}",
+                    Explicacao    = "A latência é o tempo que leva para enviar um pacote de dados e receber resposta — como o eco numa caverna.",
                     OQueSignifica = dica,
-                    OQueFazer = latencia >= 100 ? "Aproxime-se do roteador, reduza o número de dispositivos conectados ou verifique com sua operadora." : "Nenhuma ação necessária."
+                    OQueFazer     = latencia >= 100 ? "Aproxime-se do roteador, reduza o número de dispositivos conectados ou verifique com sua operadora." : "Nenhuma ação necessária."
                 });
             }
 
@@ -316,11 +316,11 @@ namespace GuiaDoComputador
                 {
                     StartInfo = new ProcessStartInfo
                     {
-                        FileName = "netsh",
-                        Arguments = "wlan show profiles",
+                        FileName               = "netsh",
+                        Arguments              = "wlan show profiles",
                         RedirectStandardOutput = true,
-                        UseShellExecute = false,
-                        CreateNoWindow = true
+                        UseShellExecute        = false,
+                        CreateNoWindow         = true
                     }
                 };
                 procPerfis.Start();
@@ -347,11 +347,11 @@ namespace GuiaDoComputador
                         {
                             StartInfo = new ProcessStartInfo
                             {
-                                FileName = "netsh",
-                                Arguments = $"wlan show profile name=\"{nomeRede}\" key=clear",
+                                FileName               = "netsh",
+                                Arguments              = $"wlan show profile name=\"{nomeRede}\" key=clear",
                                 RedirectStandardOutput = true,
-                                UseShellExecute = false,
-                                CreateNoWindow = true
+                                UseShellExecute        = false,
+                                CreateNoWindow         = true
                             }
                         };
                         procSenha.Start();
@@ -422,10 +422,10 @@ namespace GuiaDoComputador
                 var psi = new ProcessStartInfo("cmd.exe",
                     "/c ipconfig /release && ipconfig /flushdns && ipconfig /renew")
                 {
-                    UseShellExecute = false,
+                    UseShellExecute        = false,
                     RedirectStandardOutput = true,
-                    CreateNoWindow = true,
-                    Verb = "runas"
+                    CreateNoWindow         = true,
+                    Verb                   = "runas"
                 };
                 using (var proc = Process.Start(psi))
                 {
