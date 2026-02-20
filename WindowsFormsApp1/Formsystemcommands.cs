@@ -229,18 +229,20 @@ namespace GuiaDoComputador
                 AutoSize = true
             };
 
+            // CORREÇÃO CS1912: ForeColor estava duplicado no object initializer original.
+            // A segunda atribuição (Color.FromArgb(100, 120, 140)) foi removida do initializer
+            // e mantida apenas uma vez, com o valor correto para o estado inicial (texto de placeholder).
             rtbSaida = new RichTextBox
             {
                 Location = new Point(15, 348),
                 Size = new Size(310, 290),
                 Font = new Font("Consolas", 8.5f),
                 BackColor = Color.FromArgb(30, 35, 45),
-                ForeColor = Color.FromArgb(180, 220, 180),
+                ForeColor = Color.FromArgb(100, 120, 140),   // única atribuição de ForeColor
                 ReadOnly = true,
                 ScrollBars = RichTextBoxScrollBars.Vertical,
                 BorderStyle = BorderStyle.None,
-                Text = "A saída dos comandos aparecerá aqui...",
-                ForeColor = Color.FromArgb(100, 120, 140)
+                Text = "A saída dos comandos aparecerá aqui..."
             };
 
             panelDetalhe.Controls.AddRange(new Control[] {
