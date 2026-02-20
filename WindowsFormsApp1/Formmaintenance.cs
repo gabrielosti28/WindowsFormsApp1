@@ -13,6 +13,7 @@ namespace GuiaDoComputador
 
         public FormMaintenance()
         {
+            InitializeComponent();
             ConfigurarEventos();
         }
 
@@ -74,12 +75,12 @@ namespace GuiaDoComputador
             btnLimparLixo.Click += async (s, e) =>
             {
                 if (MessageBox.Show(
-                    "🧹 **Apagar arquivos desnecessários?**\n\n" +
-                    "Isso é **100% seguro**! Serão apagados apenas:\n" +
+                    "🧹 Apagar arquivos desnecessários?\n\n" +
+                    "Isso é 100% seguro! Serão apagados apenas:\n" +
                     "• Arquivos temporários da internet\n" +
                     "• Cache do sistema\n" +
                     "• Conteúdo da Lixeira\n\n" +
-                    "Seus documentos, fotos e programas **não** serão afetados.",
+                    "Seus documentos, fotos e programas não serão afetados.",
                     "Confirmar limpeza",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question) != DialogResult.Yes) return;
@@ -215,12 +216,10 @@ namespace GuiaDoComputador
 
             int y = 20;
 
-            // Card de pontuação
             var pnlPontuacao = CriarCardPontuacao(resultado, y);
             pnl.Controls.Add(pnlPontuacao);
             y += 100;
 
-            // Barra de progresso visual
             var pbPontuacao = new ProgressBar
             {
                 Location = new Point(20, y),
@@ -234,7 +233,6 @@ namespace GuiaDoComputador
             pnl.Controls.Add(pbPontuacao);
             y += 40;
 
-            // Problemas encontrados
             if (resultado.ProblemasEncontrados.Any())
             {
                 var lblProblemas = new Label
@@ -263,7 +261,6 @@ namespace GuiaDoComputador
                 }
             }
 
-            // Recomendações
             if (resultado.Recomendacoes.Any())
             {
                 var lblRecomendacoes = new Label
@@ -356,7 +353,8 @@ namespace GuiaDoComputador
             return pnl;
         }
 
-        private Panel CriarCardItemLixo(ItemLixo item, int y)
+        // *** CORRIGIDO: era ItemLixo, agora é ResultadoLimpeza ***
+        private Panel CriarCardItemLixo(ResultadoLimpeza item, int y)
         {
             var pnl = new Panel
             {
@@ -465,7 +463,6 @@ namespace GuiaDoComputador
 
             var corUso = ObterCorPorcentagem(d.PorcentagemUso);
 
-            // Cabeçalho
             card.Controls.Add(new Label
             {
                 Text = $"💾  {d.Letra}  —  {d.Nome}",
@@ -484,7 +481,6 @@ namespace GuiaDoComputador
                 AutoSize = true
             });
 
-            // Barra de uso
             var pnlBarra = new Panel
             {
                 Location = new Point(15, 42),
@@ -501,7 +497,6 @@ namespace GuiaDoComputador
             });
             card.Controls.Add(pnlBarra);
 
-            // Informações de espaço
             card.Controls.Add(new Label
             {
                 Text = $"📊  Usado: {MaintenanceService.FormatarBytes(d.EspacoUsadoBytes)}  de  {MaintenanceService.FormatarBytes(d.EspacoTotalBytes)}  ({d.PorcentagemUso:0}%)",
@@ -511,7 +506,6 @@ namespace GuiaDoComputador
                 AutoSize = true
             });
 
-            // Alerta
             card.Controls.Add(new Label
             {
                 Text = d.Alerta,

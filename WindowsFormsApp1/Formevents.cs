@@ -326,14 +326,6 @@ namespace GuiaDoComputador
             rtbDetalheDescricao.Text = descricaoCompleta;
         }
 
-        private void InitializeComponent()
-        {
-            this.SuspendLayout();
-            this.AutoScaleDimensions = new SizeF(7F, 15F);
-            this.AutoScaleMode = AutoScaleMode.Font;
-            this.ClientSize = new Size(1050, 720);
-            this.Name = "FormEvents";
-            this.ResumeLayout(false);
-        }
+        
     }
 }
